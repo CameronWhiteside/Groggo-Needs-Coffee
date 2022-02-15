@@ -1,1 +1,12 @@
 /* TODO Add site wide styles */
+:root{
+    --title-family: embryo-open,sans-serif;
+    --title-weight: 400;
+    --main-800: #695948;
+    --main-400: #7f6d5d;
+    --accent-800: #B79B78;
+    --accent-400: #e2d8c9;
+    --light-400: #f1ebe3;
+    --light-200: #f4f1ee;
+    --light-000: #FFFFFF;
+}

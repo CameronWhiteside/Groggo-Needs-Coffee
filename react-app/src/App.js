@@ -43,6 +43,18 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <h1>My Home Page</h1>
         </ProtectedRoute>
+        <ProtectedRoute path='/maps' exact={true} >
+          <h1>All Maps</h1>
+        </ProtectedRoute>
+        <ProtectedRoute path='/maps/new' exact={true} >
+          <h1>Create A Map</h1>
+        </ProtectedRoute>
+        <ProtectedRoute path='/maps/:mapId' exact={true} >
+            <h1>Maps By Id</h1>
+        </ProtectedRoute>
+        <Route path="*">
+            <h1>Not Found</h1>
+          </Route>
       </Switch>
     </BrowserRouter>
   );
