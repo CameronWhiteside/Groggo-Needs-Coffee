@@ -1,12 +1,122 @@
 /* TODO Add site wide styles */
 :root{
-    --title-family: embryo-open,sans-serif;
+    --title-font: embryo-open,sans-serif;
     --title-weight: 400;
+    --body-font: circe-slab-b,serif;
+    --body-weight: 500;
     --main-800: #695948;
     --main-400: #7f6d5d;
     --accent-800: #B79B78;
     --accent-400: #e2d8c9;
     --light-400: #f1ebe3;
     --light-200: #f4f1ee;
-    --light-000: #FFFFFF;
+    --white: #FFFFFF;
+
+    --body-normal: 16px;
+    --body-small: 11px;
+    --h1-size: 72px;
+    --h2-size: 48px;
+    --h3-size: 36px;
+    --h4-size: 32px;
+    --h5-size: 28px;
+
+
+
+}
+
+*, body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--body-font);
+    text-decoration: none;
+}
+
+body{
+    background-color: var(--light-400);
+    color: var(--main-800);
+    overflow: clip;
+}
+
+h1, h2{
+    font-family: var(--title-font);
+    font-weight: var(--title-weight);
+}
+
+h3, h4, h5, h6{
+    font-family: var(--body-font);
+    font-family: var(--title-weight);
+}
+
+
+h1 {
+    font-size: var(--h1-size);
+}
+
+h2 {
+    font-size: var(--h2-size);
+}
+
+h3 {
+    font-size: var(--h3-size);
+}
+
+h4 {
+    font-size: var(--h4-size);
+}
+
+h5 {
+    font-size: var(--h5-size);
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+    text-align: left;
+}
+
+
+/* background color changes */
+#light__background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--light-800);
+    z-index: -5;
+}
+
+
+#dark__background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent-800);
+    z-index: -5;
+}
+
+#dark__background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--main-800);
+    z-index: -5;
+}
+
+
+
+.error__404 {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 5px;
+    text-align: center;
+}
+
+.error__404 a {
+    color: var(--accent-color-4);
+    font-weight: var(--medium-weight);
+    background-image: linear-gradient(var(--accent-color-4), var(--accent-color-4));
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
 }

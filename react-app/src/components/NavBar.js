@@ -24,7 +24,7 @@ const NavBar = () => {
         </li>
         <li>
           <NavLink to='/users' exact={true} activeClassName='active'>
-            Users
+            Create A Map
           </NavLink>
         </li>
         <li>
