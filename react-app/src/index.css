@@ -1,4 +1,5 @@
-/* TODO Add site wide styles */
+@import url("./utils.css");
+
 :root{
     --title-font: embryo-open,sans-serif;
     --title-weight: 400;
@@ -14,9 +15,9 @@
 
     --body-normal: 24px;
     --body-small: 16px;
-    --h1-size: 72px;
-    --h2-size: 48px;
-    --h3-size: 36px;
+    --h1-size: 108px;
+    --h2-size: 96px;
+    --h3-size: 64px;
     --h4-size: 32px;
     --h5-size: 28px;
 
@@ -41,11 +42,14 @@ body{
 h1, h2{
     font-family: var(--title-font);
     font-weight: var(--title-weight);
+    text-transform: uppercase;
+    margin-bottom: -25px;
 }
 
 h3, h4, h5, h6{
     font-family: var(--body-font);
     font-family: var(--title-weight);
+    text-transform: lowercase;
 }
 
 
@@ -78,26 +82,27 @@ button {
 .link-container{
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     width: 100%;
 }
 
 /* .menu-button{
-    width: 100%;
+    width: fit-content;
     text-align: center;
-    background-color: var(--accent-800);
+    background-color: var(--main-800);
     color: var(--light-200);
     font-size: var(--body-normal);
     margin: 5px 0px;
-    padding: 5px 0px;
+    padding: 4px 20px;
     height: 40px;
     border-radius: 20px;
     text-transform: lowercase;
     transition: 0.2s all ease-in-out;
 } */
 
-.menu-button:hover{
-    color: var(--light-400);
-}
+/* .menu-button:hover{
+    background-color: var(--main-400);
+} */
 
 
 /* background color changes */

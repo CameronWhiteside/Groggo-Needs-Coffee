@@ -32,7 +32,6 @@ class Feature(db.Model):
     }
 
   def add_a_feature(
-    name,
     map_id,
     feature_type_id,
     start_latitude,
@@ -41,7 +40,6 @@ class Feature(db.Model):
     stop_longitude):
 
     new_feature = Feature(
-          name = name,
           map_id = map_id,
           feature_type_id = feature_type_id,
           start_latitude = start_latitude,
@@ -52,32 +50,51 @@ class Feature(db.Model):
 
     db.session.add(new_feature)
     db.session.commit()
+    return new_feature
 
   def get_map_features(map_id):
-      return Feature.query.filter(Feature.map_id == map_id).all()
+      map_features = Feature.query.filter(Feature.map_id == map_id).all()
+      return [feature.to_dict() for feature in map_features]
 
   def get_feature(id):
-      return Feature.query.get(id)
+      found_feature = Feature.query.get(id)
+      return found_feature.to_dict()
+
+  def update_feature(
+    id,
+    map_id,
+    feature_type_id,
+    start_latitude,
+    start_longitude,
+    stop_latitude,
+    stop_longitude
+  ):
+    updated_feature = Feature.get_feature(id)
+    updated_feature.map_id = map_id,
+    updated_feature.feature_type_id = feature_type_id
+    updated_feature.start_latitude = start_latitude
+    updated_feature.stop_latitude = stop_latitude
+    updated_feature.start_longitude = start_longitude
+    updated_feature.stop_longitude = stop_longitude
+    db.session.commit()
+    return updated_feature.to_dict()
+
 
   def update_feature_start(id, latitude, longitude):
       edited_feature = Feature.query.filter(Feature.id == id).first()
       edited_feature.start_latitude = latitude
       edited_feature.start_longitude = longitude
       db.session.commit()
+      return edited_feature.to_dict()
 
   def update_feature_stop(id, latitude, longitude):
       edited_feature = Feature.query.filter(Feature.id == id).first()
       edited_feature.stop_latitude = latitude
       edited_feature.stop_longitude = longitude
       db.session.commit()
+      return edited_feature.to_dict()
 
-  def delete_feauture(id):
+  def delete_feature(id):
       deleted_feature = Feature.query.filter(Feature.id == id).first()
       deleted_feature.delete()
-      db.session.commit()
-
-  def clear_map(map_id):
-      all_features = Feature.query.filter(Feature.map_id == map_id).all()
-      for feature in all_features:
-        feature.delete()
       db.session.commit()

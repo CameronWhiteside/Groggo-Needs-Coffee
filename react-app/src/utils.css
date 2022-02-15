@@ -1,0 +1,29 @@
+#main__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 100px 140px 168px;
+}
+
+#flex__container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-child{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-40{
+    width: 40%
+}
+
+.flex-60{
+    width: 60%
+}

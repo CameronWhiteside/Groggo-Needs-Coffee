@@ -8,6 +8,8 @@ from flask_login import LoginManager
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.map_routes import map_routes
+
 
 from .seeds import seed_commands
 
@@ -31,6 +33,8 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(map_routes, url_prefix='/api/maps')
+
 db.init_app(app)
 Migrate(app, db)
 
@@ -51,7 +55,6 @@ def https_redirect():
             code = 301
             return redirect(url, code=code)
 
-
 @app.after_request
 def inject_csrf_token(response):
     response.set_cookie(
@@ -62,7 +65,6 @@ def inject_csrf_token(response):
             'FLASK_ENV') == 'production' else None,
         httponly=True)
     return response
-
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')

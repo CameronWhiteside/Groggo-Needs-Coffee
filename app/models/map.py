@@ -1,5 +1,6 @@
 from .db import db
 from .user import User
+from .feature import Feature
 from sqlalchemy.sql import func
 
 class Map(db.Model):
@@ -21,6 +22,7 @@ class Map(db.Model):
       'name': self.name,
       'owner_id': self.owner_id,
       'owner_username': User.query.filter(User.id == self.owner_id).first().username,
+      'features': Feature.get_map_features(self.id),
       'created_at': self.created_at,
       'updated_at': self.updated_at
     }
@@ -34,17 +36,31 @@ class Map(db.Model):
       )
       db.session.add(new_map)
       db.session.commit()
+      return new_map
 
   def get_user_maps(user_id):
-      return Map.query.filter(Map.owner_id == user_id).all()
+      all_maps = Map.query.filter(Map.owner_id == user_id).all()
+      map_list = [map.to_dict() for map in all_maps]
+      return map_list
+
+  def get_map_by_id(id):
+      found_map = Map.query.get(id)
+      return found_map.to_dict()
 
   def update_map_name(id, name):
       edited_map = Map.query.filter(Map.id == id).first()
       edited_map.name = name
       edited_map.updated_at = func.now()
       db.session.commit()
+      return edited_map
 
   def delete_map(id):
       deleted_map = Map.query.filter(Map.id == id).first()
       deleted_map.delete()
+      db.session.commit()
+
+  def clear_map(map_id):
+      all_features = Feature.query.filter(Feature.map_id == map_id).all()
+      for feature in all_features:
+        feature.delete()
       db.session.commit()
