@@ -12,8 +12,8 @@
     --light-200: #f4f1ee;
     --white: #FFFFFF;
 
-    --body-normal: 16px;
-    --body-small: 11px;
+    --body-normal: 24px;
+    --body-small: 16px;
     --h1-size: 72px;
     --h2-size: 48px;
     --h3-size: 36px;
@@ -73,6 +73,30 @@ button {
     border: 0;
     background-color: transparent;
     text-align: left;
+}
+
+.link-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* .menu-button{
+    width: 100%;
+    text-align: center;
+    background-color: var(--accent-800);
+    color: var(--light-200);
+    font-size: var(--body-normal);
+    margin: 5px 0px;
+    padding: 5px 0px;
+    height: 40px;
+    border-radius: 20px;
+    text-transform: lowercase;
+    transition: 0.2s all ease-in-out;
+} */
+
+.menu-button:hover{
+    color: var(--light-400);
 }
 
 

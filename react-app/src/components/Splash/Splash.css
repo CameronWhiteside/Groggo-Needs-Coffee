@@ -1,0 +1,18 @@
+#flex__container--split {
+    height: 100%;
+    width: 95%;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 0px;
+}
+
+.flex__container--child {
+    width: 100%;
+    max-width: 520px;
+}
+
+.flex__container--padded {
+    padding: 60px;
+}

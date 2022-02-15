@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
+import NavBar from './components/Navigation/LoggedOutNav';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -27,6 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <div id='main__content'>
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />
@@ -55,7 +56,8 @@ function App() {
         <Route path="*">
             <h1>Not Found</h1>
           </Route>
-      </Switch>
+        </Switch>
+        </div>
     </BrowserRouter>
   );
 }
