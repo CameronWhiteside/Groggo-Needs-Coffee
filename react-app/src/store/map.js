@@ -27,16 +27,16 @@ const editMap = (map) => ({
 
 //thunks
 export const getMaps = (userId) => async dispatch => {
-    const res = await fetch(`/api/users/${userId}/maps/`);
-
+    const res = await fetch(`/api/users/${userId}/maps`);
     if (res.ok) {
+        console.log(`res is ok`)
         const maps = await res.json();
         dispatch(loadMaps(maps))
     }
 };
 
 export const removeMap = (mapId, userId) => async dispatch => {
-    const res = await fetch(`/api/maps/${mapId}/`, {
+    const res = await fetch(`/api/maps/${mapId}`, {
         method: "DELETE"
     });
 
@@ -48,7 +48,7 @@ export const removeMap = (mapId, userId) => async dispatch => {
 };
 
 export const createMap = (mapObject) => async dispatch => {
-    const res = await fetch(`/api/maps/`, {
+    const res = await fetch(`/api/maps`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(mapObject)
@@ -87,9 +87,12 @@ const mapReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_MAPS: {
             newState = { ...state }
-            for (let map in action.maps) {
+            let foundMaps = action.maps.maps
+            console.log(foundMaps)
+            foundMaps.forEach(map => {
                 newState[map.id] = map
-            }
+                }
+            )
             return newState;
         }
 

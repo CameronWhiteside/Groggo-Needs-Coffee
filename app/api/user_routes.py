@@ -20,7 +20,8 @@ def user(id):
 @user_routes.route('/<int:id>/maps')
 @login_required
 def user_maps(id):
-    return Map.get_user_maps(id)
+    return {'maps': Map.get_user_maps(id)}
+
 
 @user_routes.route('/<int:id>/maps', methods=['POST'])
 @login_required
@@ -28,4 +29,3 @@ def add_map(id):
     request_body = request.json
     new_map = Map.create_new_map(id, request_body['name'])
     return new_map
-

@@ -16,3 +16,28 @@
 .flex__container--padded {
     padding: 60px;
 }
+
+.button-area{
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+
+.big-button{
+    width: 100%;
+    text-align: center;
+    background-color: var(--accent-800);
+    color: var(--light-400);
+    font-size: var(--body-normal);
+    margin: 5px 0px;
+    padding: 4px 20px;
+    height: 40px;
+    border-radius: 20px;
+    text-transform: lowercase;
+    transition: 0.2s all ease-in-out;
+}
+
+.big-button:hover{
+    color: var(--white);
+}

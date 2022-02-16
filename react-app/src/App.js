@@ -3,11 +3,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/Navigation/LoggedOutNav';
+import NavBar from './components/Navigation/Navigation';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Splash from './components/Splash/Splash';
+import MapsBrowser from './components/MapsBrowser/MapsBrowser'
 import { authenticate } from './store/session';
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
           <Splash/>
         </ProtectedRoute>
         <ProtectedRoute path='/maps' exact={true} >
-          <h1>All Maps</h1>
+          <MapsBrowser/>
         </ProtectedRoute>
         <ProtectedRoute path='/maps/new' exact={true} >
           <h1>Create A Map</h1>

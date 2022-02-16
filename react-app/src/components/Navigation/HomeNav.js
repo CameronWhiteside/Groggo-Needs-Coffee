@@ -14,7 +14,7 @@ const HomeNav = () => {
           <NavLink to='/' className='menu-button' exact={true} activeClassName='active'>Home</NavLink>
           <NavLink to='/login' className='menu-button' exact={true} activeClassName='active'>Login</NavLink>
           <NavLink to='/sign-up' className='menu-button' exact={true} activeClassName='active'>Sign Up</NavLink>
-          <NavLink to='/learn'  className='menu-button' exact={true} activeClassName='active'>Create A Map</NavLink>
+          <NavLink to='/maps/new'  className='menu-button' exact={true} activeClassName='active'>Create A Map</NavLink>
           <NavLink to='/learn' className='menu-button' exact={true} activeClassName='active'>Learn Algorithms</NavLink>
           <NavLink to='/about' className='menu-button' exact={true} activeClassName='active'>About</NavLink>
           <LogoutButton />
