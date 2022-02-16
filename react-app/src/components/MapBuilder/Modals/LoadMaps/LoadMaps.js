@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect, NavLink } from 'react-router-dom';
-import { useSelector,} from 'react-redux';
+import { useSelector, } from 'react-redux';
+import Modal from '../Modal'
 import MapCard from './MapCard';
 import './LoadMaps.css'
 
-const LoadMaps = () => {
+const LoadMaps = ({
+    loadMapMode,
+    setLoadMapMode,
+}) => {
 
     const sessionUser = useSelector(state => state.session.user);
-    const [editMode, setEditMode] = useState(false)
-
     const [maps, setMaps] = useState([]);
 
     useEffect(() => {
@@ -20,20 +21,35 @@ const LoadMaps = () => {
             fetchMaps();
     }, []);
 
-    const toggleEditMode = () => setEditMode(!editMode)
+    const onConfirm = () => {console.log('loading')}
+    const onCancel = () => {setLoadMapMode(false)}
 
-    if (!sessionUser) return (
-        <Redirect to='/'/>
-    )
+            return(
+                <Modal
+                    mode={loadMapMode}
+                    setMode={setLoadMapMode}
+                    width={450}
+                >
+                    <h3 className='modal-title'>Hold Up.</h3>
+                    <div className='maps-list'>
+                        {maps.map(map => (
+                            <MapCard key={map.id} map={map}/>
+                            ))}
+                    </div>
+                    <h5 className='modal-warning'>This is not a drill. Once you delete this map, you can't change your mind. It'll be gone forever.
+                    </h5>
+                    <div className='action-container'>
+                    <button
+                        className='modal-button delete'
+                        onClick={onConfirm}
+                        >I Said What I Said.</button>
+                    <button
+                        className='modal-button delete'
+                        onClick={onCancel}
+                        >Oh, Nevermind.</button>
+                    </div>
+                </Modal>
+            )
+        }
 
-    return (
-            <div className='maps-list'>
-                {maps.map(map => (
-                    <MapCard key={map.id} map={map}/>
-                    ))}
-            </div>
-    )
-}
-
-
-export default LoadMaps
+    export default ConfirmDelete

@@ -11,23 +11,14 @@ import Lorem from '../Lorem/Lorem';
 import ControlPanel from './ControlPanel/ControlPanel';
 import Modal from './Modals/Modal'
 import ConfirmDelete from './Modals/ConfirmDelete/ConfirmDelete';
-const MapBuilder = () => {
+import ConfirmClear from './Modals/ConfirmClear/ConfirmClear';
 
-    const defaultOptions = {
-        loop: true,
-        autoplay: true,
-        animationData: editAnimation,
-        rendererSettings: {
-          preserveAspectRatio: 'xMidYMid slice'
-        }
-    };
+const MapBuilder = () => {
 
     const sessionUser = useSelector(state => state.session.user);
 
-    const newMap = {}
-
     const [currentMap, setCurrentMap] = useState();
-    const [currentName, setCurrentName] = useState();
+    const [currentName, setCurrentName] = useState('');
     const [editNameMode, setEditNameMode] = useState(currentMap)
     const [loadMapMode, setLoadMapMode] = useState(false)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
@@ -44,6 +35,11 @@ const MapBuilder = () => {
     const activateDelete = (e) => {
         e.preventDefault()
         setDeleteMapMode(true)
+    }
+
+    const activateClear = (e) => {
+        e.preventDefault()
+        setClearMapMode(true)
     }
 
     const udpateName = (e) => {
@@ -72,6 +68,11 @@ const MapBuilder = () => {
                 setDeleteMapMode={setDeleteMapMode}
                 currentMap={currentMap}
             />
+            <ConfirmClear
+                clearMapMode={clearMapMode}
+                setClearMapMode={setClearMapMode}
+                currentMap={currentMap}
+            />
             <div className='map-builder'>
                 <header className='header-area'>
                     <div className='title-area'>
@@ -84,7 +85,18 @@ const MapBuilder = () => {
                                     disabled={!editNameMode}
                                     onChange={(e) => (setCurrentName(e.target.value))}
                                     value={currentName}
+                                    size={currentName.length}
                                 />
+                                {/* <input
+                                    className='border-only'
+                                    type='text'
+                                    placeholder='Enter Map Name'
+                                    values={currentName}
+                                    size={currentName.length}
+                                    disabled
+                                /> */}
+
+
                             </form>}
                         </div>
                         <div className='edit-name'>
@@ -95,7 +107,7 @@ const MapBuilder = () => {
                     <div className='button-area'>
                         <div className='top-buttons'>
                             <button>Save Map</button>
-                            <button>Clear Map</button>
+                            <button onClick={activateClear}>Clear Map</button>
                         </div>
                         <div className='bottom-buttons'>
                             <button>Load Map</button>

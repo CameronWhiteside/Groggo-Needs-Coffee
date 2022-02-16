@@ -11,8 +11,8 @@
     width: 100%;
 }
 
-.modal-button{
-    width: 180px;
+.modal-button.clear{
+    width: 260px;
     text-align: center;
     background-color: var(--main-800);
     padding: 5px;

@@ -14,20 +14,20 @@ const ConfirmDelete = ({
         <Modal
             mode={deleteMapMode}
             setMode={setDeleteMapMode}
-            width={360}
+            width={450}
         >
-            <h3 className='modal-title'>You sure?</h3>
-            <h5 className='modal-warning'>This action cannot be undone, and this map will be deleted permanently.
+            <h3 className='modal-title'>Hold Up.</h3>
+            <h5 className='modal-warning'>This is not a drill. Once you delete this map, you can't change your mind. It'll be gone forever.
             </h5>
             <div className='action-container'>
             <button
-                className='modal-button'
+                className='modal-button delete'
                 onClick={onConfirm}
-                >I'm Sure</button>
+                >I Said What I Said.</button>
             <button
-                className='modal-button'
+                className='modal-button delete'
                 onClick={onCancel}
-                >Go Back</button>
+                >Oh, Nevermind.</button>
             </div>
         </Modal>
     )
