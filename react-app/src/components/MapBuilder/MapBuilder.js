@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
 import { useSelector,} from 'react-redux';
-import MapCard from './Modals/LoadMaps/MapCard'
+
 import './MapBuilder.css'
 import { fetchMaps, saveCurrentMap } from './utils/mapFetch';
+import GridArea from './Visualizer/GridArea/GridArea';
+import Lorem from '../Lorem/Lorem';
+import ControlPanel from './ControlPanel/ControlPanel';
 
 const MapBuilder = () => {
 
@@ -35,9 +38,11 @@ const MapBuilder = () => {
             <>
             <div id='medium__background' />
             <div className='map-builder'>
-                <header className='Title Area'>
-                    <div>Name Component</div>
-                    <div>Edit Name</div>
+                <header className='header-area'>
+                    <div className='title-area'>
+                        <div className=''>Name Component</div>
+                        <div>Edit Name</div>
+                    </div>
                     <div className='button-area'>
                         <div className='top-buttons'>
                             <button>Save Map</button>
@@ -50,21 +55,12 @@ const MapBuilder = () => {
                     </div>
                 </header>
                 <main className='build-area'>
-                    <div className='palette'>
-                        <div className='feature-types'>
-                            Feature Types
-                        </div>
-                        <div className='cursors'>
-                            Cursor Types
-                        </div>
-                    </div>
-                    <div>
-                        Big Grid
-                    </div>
+                        <ControlPanel/>
+                        <GridArea/>
                 </main>
                 <footer className='info-area'>
                     <div className='instructions'>
-                        Instructions
+                        <Lorem chars='500'/>
                     </div>
                     <button className='visualize-button'>
                         Find Coffee

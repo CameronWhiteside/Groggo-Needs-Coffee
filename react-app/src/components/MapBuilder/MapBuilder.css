@@ -1,0 +1,22 @@
+.header-area,
+.build-area,
+.info-area{
+    margin: 30px 0px;
+    display: flex;
+}
+
+.instructions{
+    width: 80%;
+    color: var(--light-400);
+    font-size: var(--h5-size);
+    padding-right: 30px;
+}
+
+.visualize-button{
+    width: 20%;
+    background-color: var(--main-800);
+    border-radius: 30px;
+    text-align: center;
+    font-size: var(--h4-size);
+    color: var(--accent-400);
+}
