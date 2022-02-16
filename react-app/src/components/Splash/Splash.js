@@ -21,7 +21,7 @@ const Splash = () => {
                             <h3>Needs coffee</h3>
                         </div>
                         <div className="button-area">
-                            <NavLink to={`/maps`}  className='big-button' exact={true} activeClassName='active'>My Maps</NavLink>
+                            <NavLink to='/create'  className='big-button' exact={true} activeClassName='active'>Create Maps</NavLink>
                             <NavLink to='/learn' className='big-button' exact={true} activeClassName='active'>Learn Algorithms</NavLink>
                             <NavLink to='/about' className='big-button' exact={true} activeClassName='active'>About</NavLink>
                         </div>

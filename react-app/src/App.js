@@ -8,7 +8,7 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
 import Splash from './components/Splash/Splash';
-import MapsBrowser from './components/MapsBrowser/MapsBrowser'
+import MapBuilder from './components/MapBuilder/MapBuilder'
 import { authenticate } from './store/session';
 
 function App() {
@@ -46,14 +46,8 @@ function App() {
         <ProtectedRoute path='/' exact={true} >
           <Splash/>
         </ProtectedRoute>
-        <ProtectedRoute path='/maps' exact={true} >
-          <MapsBrowser/>
-        </ProtectedRoute>
-        <ProtectedRoute path='/maps/new' exact={true} >
-          <h1>Create A Map</h1>
-        </ProtectedRoute>
-        <ProtectedRoute path='/maps/:mapId' exact={true} >
-            <h1>Maps By Id</h1>
+        <ProtectedRoute path='/create' exact={true} >
+          <MapBuilder/>
         </ProtectedRoute>
         <Route path="*">
             <h1>Not Found</h1>
