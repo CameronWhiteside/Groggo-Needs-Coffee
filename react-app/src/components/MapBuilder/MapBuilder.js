@@ -1,18 +1,34 @@
+import Lottie from 'react-lottie';
 import React, { useEffect, useState } from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
-import { useSelector,} from 'react-redux';
+import { useSelector, } from 'react-redux';
+import * as editAnimation from '../../assets/lotties/edit-button.json'
 
 import './MapBuilder.css'
 import { fetchMaps, saveCurrentMap } from './utils/mapFetch';
 import GridArea from './Visualizer/GridArea/GridArea';
 import Lorem from '../Lorem/Lorem';
 import ControlPanel from './ControlPanel/ControlPanel';
-
+import Modal from './Modals/Modal'
+import ConfirmDelete from './Modals/ConfirmDelete/ConfirmDelete';
 const MapBuilder = () => {
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: editAnimation,
+        rendererSettings: {
+          preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
 
     const sessionUser = useSelector(state => state.session.user);
 
-    const [editNameMode, setEditNameMode] = useState(false)
+    const newMap = {}
+
+    const [currentMap, setCurrentMap] = useState();
+    const [currentName, setCurrentName] = useState();
+    const [editNameMode, setEditNameMode] = useState(currentMap)
     const [loadMapMode, setLoadMapMode] = useState(false)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
@@ -20,10 +36,24 @@ const MapBuilder = () => {
     const [deleteFeatureMode, setDeleteFeatureMode] = useState(false)
 
     const [allMaps, setAllMaps] = useState([]);
-    const [currentMap, setCurrentMap] = useState([]);
     const [currentMapFeatures, setCurrentMapFeatures] = useState([]);
 
+    const [editAnimationStopped, setEditAnimationStopped] = useState(false)
+    const [editAnimationPaused, setEditAnimationPaused] = useState(false)
 
+    const activateDelete = (e) => {
+        e.preventDefault()
+        setDeleteMapMode(true)
+    }
+
+    const udpateName = (e) => {
+        console.log(`save the new name to ${currentName}`)
+        setEditNameMode(false)
+    }
+
+    if (currentMap) {
+        setCurrentName(currentMap.name)
+    }
 
     useEffect(() => {
             fetchMaps(sessionUser.id, setAllMaps)
@@ -37,11 +67,30 @@ const MapBuilder = () => {
     return (
             <>
             <div id='medium__background' />
+            <ConfirmDelete
+                deleteMapMode={deleteMapMode}
+                setDeleteMapMode={setDeleteMapMode}
+                currentMap={currentMap}
+            />
             <div className='map-builder'>
                 <header className='header-area'>
                     <div className='title-area'>
-                        <div className=''>Name Component</div>
-                        <div>Edit Name</div>
+                        <div className='map-name'>
+                            {<form id='update-name' onSumbit={udpateName}>
+                                <input
+                                    className='name-input'
+                                    type='text'
+                                    placeholder='Enter Map Name'
+                                    disabled={!editNameMode}
+                                    onChange={(e) => (setCurrentName(e.target.value))}
+                                    value={currentName}
+                                />
+                            </form>}
+                        </div>
+                        <div className='edit-name'>
+                            {editNameMode && <div className='submit-icon' onClick={udpateName}/>}
+                            {!editNameMode && <div className='edit-icon' onClick={() => { setEditNameMode(true) }}/>}
+                        </div>
                     </div>
                     <div className='button-area'>
                         <div className='top-buttons'>
@@ -50,7 +99,7 @@ const MapBuilder = () => {
                         </div>
                         <div className='bottom-buttons'>
                             <button>Load Map</button>
-                            <button>Delete Map</button>
+                            <button onClick={activateDelete}>Delete Map</button>
                         </div>
                     </div>
                 </header>

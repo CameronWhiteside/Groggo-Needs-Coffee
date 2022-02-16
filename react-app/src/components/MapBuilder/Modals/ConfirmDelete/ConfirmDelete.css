@@ -1,0 +1,36 @@
+.action-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.modal-title{
+    margin-top: 0px;
+    width: 100%;
+}
+
+.modal-button{
+    width: 125px;
+    text-align: center;
+    background-color: var(--main-800);
+    padding: 5px;
+    height: 40px;
+    border-radius: 20px;
+    margin-right: 20px;
+    color: var(--accent-400);
+    font-size: var(--h5-size);
+    transition: 0.2s all ease-in-out;
+}
+
+
+.modal-warning{
+    margin: 5px 0px 20px;
+    color: var(--main-400);
+}
+
+.modal-button:hover{
+    cursor: pointer;
+    background-color: var(--main-400);
+}

@@ -1,0 +1,43 @@
+.modal-overlay{
+    position: fixed;
+    background-color: rgba(182, 155, 120, 0.7);
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-body{
+    background-color: var(--accent-400);
+    border-radius: 30px;
+    padding: 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-button{
+    font-size: 20px;
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    border: 5px solid var(--main-800);
+    text-align: center;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background-color: var(--main-800);
+    color: var(--accent-400);
+    background-image: url('../../../assets/close-button.svg');
+    transition: 0.2s all ease-in-out;
+}
+
+.close-button:hover{
+    cursor: pointer;
+    background-color: var(--main-400);
+    border: 5px solid var(--main-400);
+}

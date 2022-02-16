@@ -5,6 +5,66 @@
     display: flex;
 }
 
+.header-area{
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: -30px;
+}
+
+.title-area{
+    position: relative;
+}
+
+.button-area,
+.button-area > div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-area{
+    margin-bottom: 15px;
+}
+
+.button-area button{
+    background-color: var(--main-800);
+    font-size: var(--h5-size);
+    color: var(--accent-400);
+    height: 40px;
+    width: 200px;
+    text-align: center;
+    border-radius: 30px;
+    margin: 5px;
+}
+
+.map-name{
+    font-size: var(--h2-size)
+}
+
+.edit-name{
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: -50px;
+    height: 30px;
+    width: 30px;
+}
+
+.edit-icon{
+    height: 100%;
+    width: 100%;
+    background-image: url('../../assets/edit-icon.svg');
+}
+
+.submit-icon{
+    height: 100%;
+    width: 100%;
+    background-image: url('../../assets/submit-icon.svg');
+}
+
+
+
+
 .instructions{
     width: 80%;
     color: var(--light-400);
@@ -14,8 +74,9 @@
 
 .visualize-button{
     width: 20%;
+    height: 80px;
     background-color: var(--main-800);
-    border-radius: 30px;
+    border-radius: 40px;
     text-align: center;
     font-size: var(--h4-size);
     color: var(--accent-400);

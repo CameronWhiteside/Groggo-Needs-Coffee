@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
 import { useSelector,} from 'react-redux';
 import MapCard from './MapCard';
-import './SavedMaps.css'
+import './LoadMaps.css'
 
-const SavedMaps = () => {
+const LoadMaps = () => {
 
     const sessionUser = useSelector(state => state.session.user);
     const [editMode, setEditMode] = useState(false)
@@ -36,4 +36,4 @@ const SavedMaps = () => {
 }
 
 
-export default SavedMaps
+export default LoadMaps
