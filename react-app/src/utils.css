@@ -19,6 +19,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    padding: 25px;
 }
 
 .flex-40{
@@ -27,6 +28,10 @@
 
 .flex-60{
     width: 60%
+}
+
+.flex-70{
+    width: 70%
 }
 
 .groggo-image{

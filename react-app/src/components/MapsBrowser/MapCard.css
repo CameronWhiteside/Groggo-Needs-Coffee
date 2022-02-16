@@ -1,0 +1,24 @@
+.map-card{
+    width: 100%;
+    margin: 25px 0px;
+}
+
+.map-card > a{
+    width: 100%
+}
+
+.map-left-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.map-info{
+    height: 70px;
+    padding: 15px 30px;
+    border-radius: 35px;
+    width: 100%;
+    background-color: var(--accent-400);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

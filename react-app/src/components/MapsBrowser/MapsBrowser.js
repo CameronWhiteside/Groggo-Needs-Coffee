@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, NavLink } from 'react-router-dom';
 import { useSelector,} from 'react-redux';
 import MapCard from './MapCard';
+import './MapsBrowser.css'
 
 const MapsBrowser = () => {
 
