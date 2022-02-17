@@ -1,8 +1,9 @@
 .node{
     height: 18px;
     width: 18px;
-    border: 1px solid var(--light-200);
+    border: 1px solid var(--accent-800);
     background-color: var(--accent-400);
+
 }
 
 .node:hover{

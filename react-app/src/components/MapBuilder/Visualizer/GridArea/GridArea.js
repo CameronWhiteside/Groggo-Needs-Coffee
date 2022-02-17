@@ -42,7 +42,7 @@ const GridArea = () => {
 
     return (
             <div className="grid-area">
-                {NodeGrid(35, 75, 'key')}
+                {NodeGrid(35, 70, 'key')}
             </div>
     )
 }

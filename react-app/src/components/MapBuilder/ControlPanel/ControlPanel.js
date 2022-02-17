@@ -1,12 +1,11 @@
 import { useState } from "react"
 import './ControlPanel.css'
 
-
-
-
 const ControlPanel = ({
-    clearMapMode,
-    setClearMapMode,
+    activateLoad,
+    activateClear,
+    activateDelete,
+    children,
     currentMap
 }) => {
 
@@ -24,18 +23,19 @@ const ControlPanel = ({
         )
     }
 
-    const activateClear = (e) => {
-        e.preventDefault()
-        setClearMapMode(true)
+    // const activateClear = (e) => {
+    //     e.preventDefault()
+    //     setClearMapMode(true)
+    // }
+
+
+    const LineDivider = () => {
+        return null
     }
-
-
-    const LineDivider = () => ({
-
-    })
 
     return (
         <div className="control-panel">
+            {children}
             <div className="feature-container">
                 <FeatureType
                     icon='H'
@@ -74,8 +74,11 @@ const ControlPanel = ({
                    <span>-</span>
                 </div>
             </div>
-            <div className="clear-features">
+            <div className="control-buttons">
+                <button onClick={()=>{console.log('save map')}}>Save Map</button>
                 <button onClick={activateClear}>Clear Features</button>
+                <button onClick={activateDelete}>Delete Map</button>
+                <button onClick={activateLoad}>Load Map</button>
             </div>
         </div>
     )

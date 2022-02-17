@@ -17,17 +17,16 @@ const ConfirmDelete = ({
             width={450}
         >
             <h3 className='modal-title'>Hey Now.</h3>
-            <h5 className='modal-warning'>This isn't the kind of relationship you can bring back with a handwritten card and some flowers. Once you delete this map, it's never coming back. Ever.
-            </h5>
+            <h5 className='modal-warning'>This isn't the kind of relationship you can bring back with a handwritten card and some flowers. Once you delete this map, it's blocking your number and never coming back.        </h5>
             <div className='action-container'>
             <button
                 className='modal-button delete'
                 onClick={onConfirm}
-                >Break Up. Bye Bye.</button>
+                >Proceed Recklessly</button>
             <button
                 className='modal-button delete'
                 onClick={onCancel}
-                >I Misspoke.</button>
+                >Sorry I Misspoke</button>
             </div>
         </Modal>
     )

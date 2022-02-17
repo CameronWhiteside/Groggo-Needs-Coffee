@@ -14,7 +14,7 @@ const ConfirmClear = ({
         <Modal
             mode={clearMapMode}
             setMode={setClearMapMode}
-            width={600}
+            width={470}
         >
             <h3 className='modal-title'>Watch It Bub.</h3>
             <h5 className='modal-warning'>Your map could already be home to dozens of endemic species. Going full Cargill will clear your map faster
@@ -24,11 +24,11 @@ const ConfirmClear = ({
             <button
                 className='modal-button clear'
                 onClick={onConfirm}
-                >Bulldoze The Whole Thing.</button>
+                >Bulldoze It All</button>
             <button
                 className='modal-button clear'
                 onClick={onCancel}
-                >Exit. And Save The Whales.</button>
+                >Save The Whales</button>
             </div>
         </Modal>
     )

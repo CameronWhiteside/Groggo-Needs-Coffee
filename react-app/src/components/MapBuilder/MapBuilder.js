@@ -16,10 +16,32 @@ import LoadMaps from './Modals/LoadMaps/LoadMaps';
 
 const MapBuilder = () => {
 
-    const sessionUser = useSelector(state => state.session.user);
+    const sadSynonyms = [
+        'Pathetic',
+        'Meager',
+        'Hopeless',
+        'Sorry',
+        'Feeble',
+        'Pitiful',
+        'Poor',
+        'Tragic',
+        'Dismal',
+        'Dire',
+        'Crappy',
+        'Shoddy',
+        'Miserable',
+        'Helpless'
+    ]
 
+    const getTitle = () => {
+        const index = Math.floor(Math.random() * 14)
+        const synonym = sadSynonyms[index]
+        return `A ${synonym}, Untitled Map`
+    }
+
+    const sessionUser = useSelector(state => state.session.user);
     const [currentMap, setCurrentMap] = useState();
-    const [currentName, setCurrentName] = useState('');
+    const [currentName, setCurrentName] = useState(getTitle());
     const [editNameMode, setEditNameMode] = useState(currentMap)
     const [loadMapMode, setLoadMapMode] = useState(false)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
@@ -38,6 +60,10 @@ const MapBuilder = () => {
         setDeleteMapMode(true)
     }
 
+       const activateClear = (e) => {
+        e.preventDefault()
+        setClearMapMode(true)
+    }
 
 
     const activateLoad = (e) => {
@@ -57,6 +83,19 @@ const MapBuilder = () => {
     useEffect(() => {
             fetchMaps(sessionUser.id, setAllMaps)
     }, []);
+
+    // let placeholder
+
+    // useEffect(() => {
+    //     if (editNameMode) {
+    //         placeholder = `Enter Name`
+    //     } else if (currentName) {
+    //         placeholder = currentName
+    //     } else {
+    //         placeholder = `Untitled Map`
+    //     }
+    //     console.log({placeholder})
+    // }, [editNameMode, currentName])
 
 
     if (!sessionUser) return (
@@ -81,63 +120,60 @@ const MapBuilder = () => {
                 setLoadMapMode={setLoadMapMode}
             />
             <div className='map-builder'>
-                <header className='header-area'>
-                    <div className='title-area'>
+                <main className='build-area'>
+                    <div className='build-left'>
+
+                        <ControlPanel
+                            activateLoad={activateLoad}
+                            activateClear={activateClear}
+                            activateDelete={activateDelete}
+                            currentMap={currentMap}
+                        >
+                                 <div className='title-area'>
                         <div className='map-name'>
                             {<form id='update-name' onSumbit={udpateName}>
-                                <input
+                                <textarea
                                     className='name-input'
                                     type='text'
-                                    placeholder='Enter Map Name'
+                                    autoFocus={true}
+                                    maxLength={24}
+                                    // placeholder={placeholder}
                                     disabled={!editNameMode}
                                     onChange={(e) => (setCurrentName(e.target.value))}
                                     value={currentName}
-                                    size={currentName.length}
                                 />
-                                {/* <input
-                                    className='border-only'
-                                    type='text'
-                                    placeholder='Enter Map Name'
-                                    values={currentName}
-                                    size={currentName.length}
-                                    disabled
-                                /> */}
-
-
-                            </form>}
+                             </form>}
                         </div>
                         <div className='edit-name'>
                             {editNameMode && <div className='submit-icon' onClick={udpateName}/>}
                             {!editNameMode && <div className='edit-icon' onClick={() => { setEditNameMode(true) }}/>}
                         </div>
                     </div>
-                    <div className='button-area'>
-                        <div className='top-buttons'>
-                            <button onClick={activateLoad}>Load Map</button>
-                            <button onClick={activateDelete}>Delete Map</button>
-                            {/* <button onClick={activateClear}>Clear Map</button> */}
-                        </div>
-                        <div className='bottom-buttons'>
-                            <button>Save Map</button>
-                            <button>Log Out</button>
+                        </ControlPanel>
+                        <button className='visualize-button'>
+                            Find Path
+                        </button>
+                    </div>
+                    <div className='build-right'>
+                        <GridArea />
+                        <div className='instructions'>
+                            <div className='info-block'>
+                                <Lorem chars='500' />
+                            </div>
+                            <div className='nav-buttons'>
+                                <div className='top-buttons'>
+                                <button>Log Out</button>
+                                    <button>Learn Algorithms</button>
+                                    </div>
+                                 <div className='bottom-buttons'>
+                                    <button>Back To Home</button>
+                                    <button>About</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </header>
-                <main className='build-area'>
-                        <ControlPanel
-                            clearMapMode={clearMapMode}
-                            setClearMapMode={setClearMapMode}
-                            currentMap={currentMap}
-                        />
-                        <GridArea/>
                 </main>
                 <footer className='info-area'>
-                    <div className='instructions'>
-                        <Lorem chars='500'/>
-                    </div>
-                    <button className='visualize-button'>
-                        Find Coffee
-                    </button>
                 </footer>
             </div>
             </>
