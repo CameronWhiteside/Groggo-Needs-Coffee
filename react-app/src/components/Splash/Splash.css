@@ -34,10 +34,21 @@
     padding: 4px 20px;
     height: 40px;
     border-radius: 20px;
-    text-transform: lowercase;
+    /* text-transform: lowercase; */
     transition: 0.2s all ease-in-out;
+}
+
+#title-groggo{
+    font-size: 150px;
+    color: var(--accent-800)
+}
+
+#title-needs-coffee{
+    font-size: 82px;
+    color: var(--accent-800)
 }
 
 .big-button:hover{
     color: var(--white);
+    background-color: var(--main-400);
 }

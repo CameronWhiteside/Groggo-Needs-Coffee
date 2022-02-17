@@ -11,13 +11,13 @@ const ControlPanel = ({
 
     const FeatureType = ({
         featureName,
-        icon,
+        iconUrl,
     }) => {
 
 
         return (
             <div className="feature-type">
-                <div className="feature-icon">{icon}</div>
+                <div className={`feature-icon ${featureName}`}></div>
                 <div className="feature-name">{featureName}</div>
             </div>
         )
@@ -37,48 +37,43 @@ const ControlPanel = ({
         <div className="control-panel">
             {children}
             <div className="feature-container">
+                <div className="feature-row top-row">
+                    <FeatureType
+                        featureName="Home"
+                    />
+                    <FeatureType
+                        icon='C'
+                        featureName="Shop"
+                    />
                 <FeatureType
-                    icon='H'
-                    featureName='Highway'
+                    featureName='Water'
+                    />
+                    </div>
+                <div className="feature-row top-row">
+                <FeatureType
+                featureName='Highway'
                 />
                 <FeatureType
-                    icon='S'
                     featureName='Street'
-                />
+                    />
                 <FeatureType
-                    icon='A'
-                    featureName='Alley'
+                featureName='Brush'
                 />
-                <FeatureType
-                    icon='B'
-                    featureName='Brush'
-                />
-                <FeatureType
-                    icon='R'
-                    featureName='River'
-                />
-                <FeatureType
-                    icon='G'
-                    featureName="Groggo's House"
-                />
-                <FeatureType
-                    icon='C'
-                    featureName="Coffee Shop"
-                />
+                </div>
             </div>
             <div className="cursor-container">
-                <div className="cursor">
-                    <span>+</span>
+                <div className="cursor build">
                 </div>
-                <div className="cursor">
-                   <span>-</span>
+                <div className="cursor move">
+                </div>
+                <div className="cursor destroy">
                 </div>
             </div>
             <div className="control-buttons">
                 <button onClick={()=>{console.log('save map')}}>Save Map</button>
                 <button onClick={activateClear}>Clear Features</button>
                 <button onClick={activateDelete}>Delete Map</button>
-                <button onClick={activateLoad}>Load Map</button>
+                {/* <button onClick={activateLoad}>Load Map</button> */}
             </div>
         </div>
     )

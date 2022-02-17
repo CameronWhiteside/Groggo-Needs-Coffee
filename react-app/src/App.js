@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
@@ -31,26 +31,26 @@ function App() {
       <NavBar />
       <div id='main__content'>
       <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
+        <Route path='/' exact={true} >
+          <Splash/>
+        </Route>
+        {/* <Route path='/login' exact={true}>
+          <Splash />
         </Route>
         <Route path='/sign-up' exact={true}>
           <SignUpForm />
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
+        </Route> */}
+        {/* <ProtectedRoute path='/users' exact={true} >
           <UsersList/>
         </ProtectedRoute>
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
-        </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <Splash/>
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         <ProtectedRoute path='/create' exact={true} >
           <MapBuilder/>
         </ProtectedRoute>
         <Route path="*">
-            <h1>Not Found</h1>
+            <Redirect to='/'/>
           </Route>
         </Switch>
         </div>

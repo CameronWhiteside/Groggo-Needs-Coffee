@@ -162,12 +162,12 @@ const MapBuilder = () => {
                             </div>
                             <div className='nav-buttons'>
                                 <div className='top-buttons'>
-                                <button>Log Out</button>
-                                    <button>Github</button>
+                                    <button onClick={activateLoad}>Load Map</button>
+                                    <button>About</button>
                                     </div>
                                  <div className='bottom-buttons'>
-                                    <button>Home</button>
-                                    <button>About</button>
+                                    <button>Github</button>
+                                    <button>Log Out</button>
                                 </div>
                             </div>
                         </div>
