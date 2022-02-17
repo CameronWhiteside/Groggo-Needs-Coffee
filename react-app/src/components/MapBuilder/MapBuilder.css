@@ -28,12 +28,15 @@
     margin-bottom: 15px;
 }
 
-.button-area button{
+.button-area button,
+.clear-features button
+{
     background-color: var(--main-800);
     font-size: var(--h5-size);
     color: var(--accent-400);
     height: 40px;
     width: 200px;
+    max-width: 100%;
     text-align: center;
     border-radius: 30px;
     margin: 5px;

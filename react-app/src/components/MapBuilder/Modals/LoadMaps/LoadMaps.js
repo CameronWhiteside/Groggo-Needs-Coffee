@@ -28,15 +28,24 @@ const LoadMaps = ({
                 <Modal
                     mode={loadMapMode}
                     setMode={setLoadMapMode}
-                    width={450}
+                    width={700}
                 >
-                    <h3 className='modal-title'>Hold Up.</h3>
-                    <div className='maps-list'>
-                        {maps.map(map => (
-                            <MapCard key={map.id} map={map}/>
+                    {maps.length > 0 &&
+
+                        <div className='maps-list'>
+                            {maps.map(map => (
+                                <MapCard key={map.id} map={map} />
                             ))}
-                    </div>
-                    <h5 className='modal-warning'>This is not a drill. Once you delete this map, you can't change your mind. It'll be gone forever.
+                        </div>
+                    }
+                        {(!maps || maps.length <= 0) &&
+                            <>
+                                <h3 className='modal-title load'>Ope.</h3>
+                                <h5 className='modal-warning'>You haven't made any maps yet, you lil' baby cartographer you. Go explore the world! And map it, too. And save those maps, so you can load them here.
+                                </h5>
+                            </>
+                        }
+                    {/* <h5 className='modal-warning'>This is not a drill. Once you delete this map, you can't change your mind. It'll be gone forever.
                     </h5>
                     <div className='action-container'>
                     <button
@@ -47,9 +56,9 @@ const LoadMaps = ({
                         className='modal-button delete'
                         onClick={onCancel}
                         >Oh, Nevermind.</button>
-                    </div>
+                    </div> */}
                 </Modal>
             )
         }
 
-    export default ConfirmDelete
+    export default LoadMaps

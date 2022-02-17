@@ -1,6 +1,21 @@
 .map-card{
-    width: 100%;
+    width: 95%;
     margin: 25px 0px;
+    background-color: var(--light-400);
+    border-radius: 35px;
+    padding: 15px 30px;
+    transition: 0.2s all ease-in-out;
+}
+
+.map-info h5{
+    color: var(--main-400);
+    font-size: 16px;
+}
+
+.map-card:hover,
+.map-card:hover h5{
+    background-color: var(--light-200);
+    color: var(--main-400);
 }
 
 .map-card > a{
@@ -13,12 +28,10 @@
 }
 
 .map-info{
-    height: 70px;
-    padding: 15px 30px;
-    border-radius: 35px;
+
     width: 100%;
-    background-color: var(--accent-400);
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }

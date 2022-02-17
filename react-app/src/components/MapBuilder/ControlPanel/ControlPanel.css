@@ -28,11 +28,13 @@
 .feature-name{
     color: var(--main-800);
     font-size: var(--h5-size);
+    width: 70%;
+    text-align: left;
 }
 
 .feature-icon{
     color: var(--main-400);
-    font-size: var(--h4-size);
+    font-size: var(--h5-size);
 }
 
 .cursor-container{

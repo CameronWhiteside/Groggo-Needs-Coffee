@@ -12,6 +12,7 @@ import ControlPanel from './ControlPanel/ControlPanel';
 import Modal from './Modals/Modal'
 import ConfirmDelete from './Modals/ConfirmDelete/ConfirmDelete';
 import ConfirmClear from './Modals/ConfirmClear/ConfirmClear';
+import LoadMaps from './Modals/LoadMaps/LoadMaps';
 
 const MapBuilder = () => {
 
@@ -37,9 +38,11 @@ const MapBuilder = () => {
         setDeleteMapMode(true)
     }
 
-    const activateClear = (e) => {
+
+
+    const activateLoad = (e) => {
         e.preventDefault()
-        setClearMapMode(true)
+        setLoadMapMode(true)
     }
 
     const udpateName = (e) => {
@@ -72,6 +75,10 @@ const MapBuilder = () => {
                 clearMapMode={clearMapMode}
                 setClearMapMode={setClearMapMode}
                 currentMap={currentMap}
+            />
+            <LoadMaps
+                loadMapMode={loadMapMode}
+                setLoadMapMode={setLoadMapMode}
             />
             <div className='map-builder'>
                 <header className='header-area'>
@@ -106,17 +113,22 @@ const MapBuilder = () => {
                     </div>
                     <div className='button-area'>
                         <div className='top-buttons'>
-                            <button>Save Map</button>
-                            <button onClick={activateClear}>Clear Map</button>
+                            <button onClick={activateLoad}>Load Map</button>
+                            <button onClick={activateDelete}>Delete Map</button>
+                            {/* <button onClick={activateClear}>Clear Map</button> */}
                         </div>
                         <div className='bottom-buttons'>
-                            <button>Load Map</button>
-                            <button onClick={activateDelete}>Delete Map</button>
+                            <button>Save Map</button>
+                            <button>Log Out</button>
                         </div>
                     </div>
                 </header>
                 <main className='build-area'>
-                        <ControlPanel/>
+                        <ControlPanel
+                            clearMapMode={clearMapMode}
+                            setClearMapMode={setClearMapMode}
+                            currentMap={currentMap}
+                        />
                         <GridArea/>
                 </main>
                 <footer className='info-area'>

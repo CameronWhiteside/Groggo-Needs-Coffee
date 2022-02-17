@@ -4,7 +4,11 @@ import './ControlPanel.css'
 
 
 
-const ControlPanel = () => {
+const ControlPanel = ({
+    clearMapMode,
+    setClearMapMode,
+    currentMap
+}) => {
 
     const FeatureType = ({
         featureName,
@@ -20,36 +24,46 @@ const ControlPanel = () => {
         )
     }
 
+    const activateClear = (e) => {
+        e.preventDefault()
+        setClearMapMode(true)
+    }
+
+
+    const LineDivider = () => ({
+
+    })
+
     return (
         <div className="control-panel">
             <div className="feature-container">
                 <FeatureType
                     icon='H'
-                    featureName='highway'
+                    featureName='Highway'
                 />
                 <FeatureType
                     icon='S'
-                    featureName='street'
+                    featureName='Street'
                 />
                 <FeatureType
                     icon='A'
-                    featureName='alley'
+                    featureName='Alley'
                 />
                 <FeatureType
                     icon='B'
-                    featureName='brush'
+                    featureName='Brush'
                 />
                 <FeatureType
                     icon='R'
-                    featureName='river'
+                    featureName='River'
                 />
                 <FeatureType
                     icon='G'
-                    featureName="groggo's house"
+                    featureName="Groggo's House"
                 />
                 <FeatureType
                     icon='C'
-                    featureName="coffee shop"
+                    featureName="Coffee Shop"
                 />
             </div>
             <div className="cursor-container">
@@ -59,6 +73,9 @@ const ControlPanel = () => {
                 <div className="cursor">
                    <span>-</span>
                 </div>
+            </div>
+            <div className="clear-features">
+                <button onClick={activateClear}>Clear Features</button>
             </div>
         </div>
     )

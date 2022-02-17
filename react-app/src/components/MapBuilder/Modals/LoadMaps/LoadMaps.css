@@ -1,3 +1,16 @@
 .maps-list{
-    width: 100%;
+    width: 625px;
+    max-height: 370px;
+    padding-top: -20px;
+    margin-top: 40px;
+    overflow-y: scroll;
+    position: relative;
 }
+
+
+.maps-list > * {
+    position: relative;
+    /* top: -40px; */
+}
+
+

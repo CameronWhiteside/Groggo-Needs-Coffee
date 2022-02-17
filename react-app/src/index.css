@@ -83,6 +83,27 @@ a{
     color: inherit
 }
 
+* {
+    scrollbar-width: 5px;
+    scrollbar-color: var(--main-400) transparent;
+    scroll-behavior: smooth;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 15px;
+    margin: 15px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--main-800);
+    border-radius: 30px;
+  }
+
 
 
 .link-container{
