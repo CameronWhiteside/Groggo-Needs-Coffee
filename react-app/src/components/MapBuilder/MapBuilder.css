@@ -149,7 +149,7 @@
     text-align: center;
     margin-top: 20px;
     font-size: var(--h4-size);
-    font-weight: 700;
+    /* font-weight: 700; */
     /* font-family: var(--title-font); */
     /* text-transform: uppercase; */
     color: var(--accent-400);

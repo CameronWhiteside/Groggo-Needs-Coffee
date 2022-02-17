@@ -163,10 +163,10 @@ const MapBuilder = () => {
                             <div className='nav-buttons'>
                                 <div className='top-buttons'>
                                 <button>Log Out</button>
-                                    <button>Learn Algorithms</button>
+                                    <button>Github</button>
                                     </div>
                                  <div className='bottom-buttons'>
-                                    <button>Back To Home</button>
+                                    <button>Home</button>
                                     <button>About</button>
                                 </div>
                             </div>
