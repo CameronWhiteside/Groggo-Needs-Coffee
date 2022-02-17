@@ -33,6 +33,7 @@ const LoadMaps = ({
                     {maps.length > 0 &&
 
                         <div className='maps-list'>
+                            <div className='fake-div'></div>
                             {maps.map(map => (
                                 <MapCard key={map.id} map={map} />
                             ))}

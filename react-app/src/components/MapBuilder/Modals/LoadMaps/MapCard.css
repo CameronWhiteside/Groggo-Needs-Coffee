@@ -1,21 +1,26 @@
 .map-card{
     width: 95%;
     margin: 25px 0px;
-    background-color: var(--light-400);
+    background-color: var(--main-800);
     border-radius: 35px;
     padding: 15px 30px;
     transition: 0.2s all ease-in-out;
 }
 
 .map-info h5{
-    color: var(--main-400);
+    color: var(--accent-400);
     font-size: 16px;
+    font-weight: 400;
 }
 
-.map-card:hover,
-.map-card:hover h5{
-    background-color: var(--light-200);
-    color: var(--main-400);
+.map-info h3{
+    color: var(--accent-400);
+}
+
+
+.map-card:hover {
+    background-color: var(--main-400);
+    color: var(--accent-400);
 }
 
 .map-card > a{
