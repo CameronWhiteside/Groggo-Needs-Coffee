@@ -34,6 +34,15 @@ h5.errors{
     justify-content: flex-end;
 }
 
+
+.action-container > form#signup{
+    width: 100%;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
 .close-button{
     font-size: 20px;
     height: 30px;

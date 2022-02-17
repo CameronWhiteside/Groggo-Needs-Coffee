@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getMaps } from '../../../../store/map';
 import Modal from '../Modal'
 import MapCard from './MapCard';
 import './LoadMaps.css'
@@ -7,22 +8,23 @@ import './LoadMaps.css'
 const LoadMaps = ({
     loadMapMode,
     setLoadMapMode,
+    // currentMaps
 }) => {
 
-    const sessionUser = useSelector(state => state.session.user);
-    const [maps, setMaps] = useState([]);
+    const currentMaps = useSelector(state => state.map);
+    const dispatch = useDispatch()
+    const sessionUser = useSelector(state => state.session.user)
+    // const [maps, setMaps] = useState([]);
 
     useEffect(() => {
-          async function fetchMaps() {
-            const response = await fetch(`/api/users/${sessionUser.id}/maps`);
-            const responseData = await response.json();
-            setMaps(responseData.maps);
-            }
-            fetchMaps();
+        dispatch(getMaps(sessionUser.id))
+        console.log(sessionUser.id)
+        console.log(currentMaps)
+
     }, []);
 
-    const onConfirm = () => {console.log('loading')}
-    const onCancel = () => {setLoadMapMode(false)}
+    // const onConfirm = () => {console.log('loading')}
+    // const onCancel = () => {setLoadMapMode(false)}
 
             return(
                 <Modal
@@ -30,16 +32,16 @@ const LoadMaps = ({
                     setMode={setLoadMapMode}
                     width={700}
                 >
-                    {maps.length > 0 &&
+                    {currentMaps &&
 
                         <div className='maps-list'>
                             <div className='fake-div'></div>
-                            {maps.map(map => (
+                            {Object.values(currentMaps).map(map => (
                                 <MapCard key={map.id} map={map} />
                             ))}
                         </div>
                     }
-                        {(!maps || maps.length <= 0) &&
+                        {(!currentMaps || currentMaps.length <= 0) &&
                             <>
                                 <h3 className='modal-title load'>Ope.</h3>
                                 <h5 className='modal-warning'>You haven't made any maps yet, you lil' baby cartographer you. Go explore the world! And map it, too. And save those maps, so you can load them here.

@@ -27,7 +27,7 @@
 .big-button{
     width: 100%;
     text-align: center;
-    background-color: var(--accent-800);
+    background-color: var(--main-800);
     color: var(--light-400);
     font-size: var(--body-normal);
     margin: 5px 0px;
@@ -40,7 +40,7 @@
 
 #title-groggo{
     font-size: 150px;
-    color: var(--accent-800)
+    color: var(--main-800)
 }
 
 #title-needs-coffee{

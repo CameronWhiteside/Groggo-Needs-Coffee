@@ -1,8 +1,8 @@
 import Lottie from 'react-lottie';
 import React, { useEffect, useState } from 'react';
-import { Redirect, NavLink } from 'react-router-dom';
-import { useSelector, } from 'react-redux';
-import * as editAnimation from '../../assets/lotties/edit-button.json'
+import { Redirect, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch} from 'react-redux';
+import { getMaps } from '../../store/map';
 
 import './MapBuilder.css'
 import { fetchMaps, saveCurrentMap } from './utils/mapFetch';
@@ -39,7 +39,11 @@ const MapBuilder = () => {
         return `A ${synonym}, Untitled Map`
     }
 
+    const history = useHistory();
+    const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
+    const currentMaps = useSelector(state => state.maps)
+
     const [currentMap, setCurrentMap] = useState();
     const [currentName, setCurrentName] = useState(getTitle());
     const [editNameMode, setEditNameMode] = useState(currentMap)
@@ -81,7 +85,7 @@ const MapBuilder = () => {
     }
 
     useEffect(() => {
-            fetchMaps(sessionUser.id, setAllMaps)
+        dispatch(getMaps(sessionUser.id))
     }, []);
 
     // let placeholder
@@ -118,6 +122,7 @@ const MapBuilder = () => {
             <LoadMaps
                 loadMapMode={loadMapMode}
                 setLoadMapMode={setLoadMapMode}
+                userMaps={currentMaps}
             />
             <div className='map-builder'>
                 <main className='build-area'>

@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
 import LoginModal from './Modals/LoginModal/LoginModal';
+import SignupModal from './Modals/SignupModal/SignupModal';
 import LogoutButton from '../auth/LogoutButton';
 import { login } from '../../store/session';
 import './Splash.css'
@@ -31,6 +32,10 @@ const Splash = () => {
             <LoginModal
                 loginMode={loginMode}
                 setLoginMode={setLoginMode}
+            />
+            <SignupModal
+                signupMode={signupMode}
+                setSignupMode={setSignupMode}
             />
         <div id="flex__container">
                 <div className="flex-child flex-50">

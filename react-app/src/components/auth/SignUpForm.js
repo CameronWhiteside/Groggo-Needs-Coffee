@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
-const SignUpForm = () => {
+const SignUpForm = ({setSignupMode}) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -11,6 +11,7 @@ const SignUpForm = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -18,6 +19,9 @@ const SignUpForm = () => {
       const data = await dispatch(signUp(username, email, password));
       if (data) {
         setErrors(data)
+      } else {
+        setSignupMode(false)
+        history.push('/create')
       }
     }
   };
@@ -43,50 +47,61 @@ const SignUpForm = () => {
   }
 
   return (
-    <form onSubmit={onSignUp}>
+    <form id='signup' onSubmit={onSignUp}>
       <div>
         {errors.map((error, ind) => (
-          <div key={ind}>{error}</div>
+          <h5 className='errors' key={ind}>{error}</h5>
         ))}
       </div>
-      <div>
-        <label>User Name</label>
+      <div className='modal-input-group'>
+        <label className='modal-label'>User Name</label>
         <input
+          className='modal-input'
           type='text'
           name='username'
+          placeholder='Username'
           onChange={updateUsername}
           value={username}
+          required={true}
         ></input>
       </div>
-      <div>
-        <label>Email</label>
+      <div className='modal-input-group'>
+        <label className='modal-label'>Email</label>
         <input
-          type='text'
+          className='modal-input'
+          type='email'
           name='email'
+          placeholder='Email'
           onChange={updateEmail}
           value={email}
+          required={true}
         ></input>
       </div>
-      <div>
-        <label>Password</label>
+      <div className='modal-input-group'>
+        <label className='modal-label' >Password</label>
         <input
+          className='modal-input'
           type='password'
           name='password'
+          placeholder='Password'
           onChange={updatePassword}
           value={password}
+          required={true}
         ></input>
       </div>
-      <div>
-        <label>Repeat Password</label>
+      <div className='modal-input-group'>
+        <label className='modal-label'>Repeat Password</label>
         <input
+          className='modal-input'
           type='password'
           name='repeat_password'
+          placeholder='Confirm Password'
           onChange={updateRepeatPassword}
           value={repeatPassword}
           required={true}
         ></input>
       </div>
-      <button type='submit'>Sign Up</button>
+      <button type='submit' className='modal-button modal-submit'>Sign Up</button>
     </form>
   );
 };
