@@ -13,14 +13,16 @@ const GridArea = () => {
         for (let i = 0; i < colCount; i++) {
             let colNumber = i
 
-            let isStart = (rowNumber === 2)
-            let isFinish = (colNumber === 5)
+            let isStart = (rowNumber === 2 && colNumber === 5)
+            let isFinish = (colNumber === 30 && rowNumber === 31)
+            let isWater = (colNumber % 2 === 0 && Math.floor(colNumber/3) % 2 === rowNumber % 4)
             col.push(<Node
 
                 row={rowNumber}
                 col={colNumber}
                 isStart={isStart}
                 isFinish={isFinish}
+                isWater={isWater}
 
                 key={`${i}-${rowNumber}`} />)
         }

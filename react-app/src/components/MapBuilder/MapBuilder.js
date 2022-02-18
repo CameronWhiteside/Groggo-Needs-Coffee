@@ -10,6 +10,7 @@ import ControlPanel from './ControlPanel/ControlPanel';
 import ConfirmDelete from './Modals/ConfirmDelete/ConfirmDelete';
 import ConfirmClear from './Modals/ConfirmClear/ConfirmClear';
 import LoadMaps from './Modals/LoadMaps/LoadMaps';
+import visualizeDijkstra from './Visualizer/graphAlgorithms/dijkstra';
 
 const MapBuilder = () => {
 
@@ -179,7 +180,10 @@ const MapBuilder = () => {
                         </div>
                     </div>
                         </ControlPanel>
-                        <button className='visualize-button'>
+                        <button
+                            className='visualize-button'
+                            onClick={visualizeDijkstra}
+                        >
                             Find Path
                         </button>
                     </div>

@@ -1,3 +1,10 @@
+import generateAdjacencyList from "../generateAdjanencyList/generateAdjancencyList";
+
+const visualizeDijkstra = () => {
+  let adjacencyList = generateAdjacencyList()
+  
+}
+
 // Performs Dijkstra's algorithm; returns *all* nodes in the order
 // in which they were visited. Also makes nodes point back to their
 // previous node, effectively allowing us to compute the shortest path
@@ -65,3 +72,5 @@ export const dijkstra = (grid, startNode, finishNode) => {
     return nodesInShortestPathOrder;
   }
 
+
+  export default visualizeDijkstra

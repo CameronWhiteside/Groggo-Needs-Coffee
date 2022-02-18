@@ -1,7 +1,7 @@
 .node{
     height: 18px;
     width: 18px;
-    border: 1px solid var(--accent-800);
+    /* border: 1px solid var(--accent-800); */
     background-color: var(--accent-400);
 
 }
@@ -10,11 +10,20 @@
     background-color: var(--main-400);
 }
 
-/*
-.node[is-start="true"]{
-    background-color: green;
+.node[is-water="true"]{
+    background-image: url('../../../../assets/feature-icons/water-icon.svg')
 }
+
+
+.node[is-start="true"]{
+    background-color: red;
+    background-image: url('../../../../assets/feature-icons/house-icon.svg');
+    background-size: cover;
+}
+
 
 .node[is-finish="true"]{
     background-color: red;
-} */
+    background-image: url('../../../../assets/feature-icons/shop-icon.svg');
+    background-size: cover;
+}
