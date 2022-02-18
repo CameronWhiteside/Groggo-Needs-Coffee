@@ -14,8 +14,8 @@ class Graph {
     addEdge(node1, node2, weight) {
         this.adjacencyList[node1.id].push({node:node2, weight: weight});
         this.adjacencyList[node2.id].push({node:node1, weight: weight});
-      }
     }
+}
 
 const generateAdjacencyList = () => {
 

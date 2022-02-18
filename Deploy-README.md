@@ -88,13 +88,13 @@ hurt to run it again.
    This will build the Dockerfile and push the image to your heroku container registry.
 
    ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
+   heroku container:push web -a groggo-needs-coffee
    ```
 
 9. Release your docker container to heroku
 
       ```bash
-      heroku container:release web -a {NAME_OF_HEROKU_APP}
+      heroku container:release web -a groggo-needs-coffee
       ```
 
 10. set up your database
