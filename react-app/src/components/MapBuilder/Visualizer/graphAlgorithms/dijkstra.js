@@ -1,3 +1,4 @@
+import { path } from "express/lib/application";
 import generateGraph from "../generateAdjanencyList/generateAdjancencyList";
 
 class PriorityQueue {
@@ -16,7 +17,6 @@ class PriorityQueue {
 
   enqueue(element) {
     if (this.isEmpty()) {
-      console.log(`she empty`)
       this.collection.push(element);
     } else {
       let added = false;
@@ -35,35 +35,35 @@ class PriorityQueue {
 
 }
 
-const visualizeDijkstra = () => {
+const findNodesAndPath = () => {
   let graph = generateGraph()
   let startNode = graph.startNode
   let finishNode = graph.finishNode
   let nodes = graph.nodes
   let backtrace = {}
   let pq = new PriorityQueue();
-  let visitedNodesInOrder = []
+  let visitOrder = []
   let adjacencyList = graph.adjacencyList
   // let unvisitedNodes = [...graph.nodes]
 
-  console.log( {
-    adjacencyList,
-    startNode,
-    finishNode
-  })
+  // console.log( {
+  //   adjacencyList,
+  //   startNode,
+  //   finishNode
+  // })
 
   let times = {}
   nodes.forEach(node => times[node.id] = Infinity)
   times[startNode.id] = 0;
   pq.enqueue([startNode, 0])
-  console.log(pq.collection[0])
+  // console.log(pq.collection[0])
   let currentNode
   while (!pq.isEmpty()) {
     let shortestStep = pq.dequeue();
     currentNode = shortestStep[0];
-    visitedNodesInOrder.push(currentNode)
+    visitOrder.push(currentNode)
     if (currentNode === finishNode) {
-      console.log(`found our finish`)
+      // console.log(`found our finish`)
       pq.collection = []
     } else {
       // eslint-disable-next-line no-loop-func
@@ -78,7 +78,7 @@ const visualizeDijkstra = () => {
     }
   }
 
-
+  let travelTime = times[finishNode.id]
   let path = [finishNode]
   let lastStep = finishNode
 
@@ -87,11 +87,30 @@ const visualizeDijkstra = () => {
     lastStep = backtrace[lastStep.id]
   }
 
-  console.log({ visitedNodesInOrder })
-  const totalTime = times[finishNode.id]
-  console.log({path})
-  console.log({totalTime})
-  console.log({backtrace})
+
+  return {
+    path,
+    visitOrder,
+    travelTime,
+  }
+
+}
+
+const visualizeDijkstra = () => {
+  let { visitOrder, path, travelTime } = findNodesAndPath()
+  for (let i = 0; i < visitOrder.length; i++) {
+    setTimeout(() => {
+      let visitedNode = document.getElementById(visitOrder[i].id)
+      visitedNode.classList.add('visited');
+    }, i)
+  }
+
+  for (let i = 0; i < path.length; i++) {
+    let pathNode = document.getElementById(path[i].id)
+    setTimeout(() => {
+      pathNode.classList.add('path');
+    }, 5*i + visitOrder.length)
+  }
 
 }
 

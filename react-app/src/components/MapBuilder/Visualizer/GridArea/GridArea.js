@@ -7,14 +7,12 @@ const GridArea = () => {
 
     const NodeCol = (colCount, rowNumber) => {
 
-
-
         const col = []
         for (let i = 0; i < colCount; i++) {
             let colNumber = i
 
             let isStart = (rowNumber === 20 && colNumber === 12)
-            let isFinish = (colNumber === 17 && rowNumber === 20)
+            let isFinish = (rowNumber === 17 && colNumber === 50)
             let isWater = ((colNumber > 25 && rowNumber < 3 )||
                 (rowNumber > 8 && rowNumber < 20 && colNumber > 2 && colNumber < 22) ||
                 (rowNumber > 25 && colNumber > 35)
@@ -28,7 +26,6 @@ const GridArea = () => {
                 isFinish={isFinish}
                 isWater={isWater}
                 isBrush={isBrush}
-
                 key={`${i}-${rowNumber}`} />)
         }
         return col
@@ -45,7 +42,12 @@ const GridArea = () => {
         }
         return (
             <div id='grid-area' >
-                {grid}
+                <div div='map-layer'>
+                    {grid}
+                </div>
+                {/* <div div='path-layer'>
+                    {grid}
+                </div> */}
             </div>
             )
 

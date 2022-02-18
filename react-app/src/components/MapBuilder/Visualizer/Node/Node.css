@@ -6,6 +6,8 @@
 
 }
 
+
+
 .node:hover{
     background-color: var(--main-400);
 }
@@ -31,3 +33,15 @@
     background-image: url('../../../../assets/feature-icons/shop-icon.svg');
     background-size: cover;
 }
+
+.visited{
+    background-color: var(--light-200);
+}
+
+.visited.path{
+    background-color: var(--main-400);
+}
+
+/* .visited.path{
+    background-color: blanchedalmond;
+} */
