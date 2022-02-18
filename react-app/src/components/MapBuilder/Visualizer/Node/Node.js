@@ -5,21 +5,25 @@ const Node = ({
     col,
     isStart = false,
     isFinish = false,
-    isVisited = false
+    isVisited = false,
+    isBrush = false,
+    isWater = false,
+    isHighwayEnd = false,
+    isStreetEnd = false,
 }) => {
-
-
-    const isStartAttribute = isStart.toString()
-    const isFinishAttribute = isFinish.toString()
-    const isVisitedAttribute = isVisited.toString()
 
     return (
         <div
             className="node"
             row={row}
             col={col}
-            is-start={isStartAttribute}
-            is-finish={isFinishAttribute}
+            is-start={isStart.toString()}
+            is-finish={isFinish.toString()}
+            is-visited={isVisited.toString()}
+            is-brush={isBrush.toString()}
+            is-water={isWater.toString()}
+            is-street-end={isStreetEnd.toString()}
+            is-highway-end={isHighwayEnd.toString()}
         >
             <div></div>
         </div>
