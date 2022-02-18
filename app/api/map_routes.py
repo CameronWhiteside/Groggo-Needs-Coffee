@@ -36,7 +36,7 @@ def update_map(id):
     if request_body['name']:
         updated_name = request_body['name']
         Map.update_map_name(id, updated_name)
-    return updated_map.to_dict()
+    return updated_map
 
 @map_routes.route('/<int:id>/', methods=['DELETE'])
 def delete_map(id):

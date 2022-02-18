@@ -56,8 +56,9 @@ class Map(db.Model):
 
   def delete_map(id):
       deleted_map = Map.query.filter(Map.id == id).first()
-      deleted_map.delete()
+      db.session.delete(deleted_map)
       db.session.commit()
+      return {'message': 'map deleted'}
 
   def clear_map(map_id):
       all_features = Feature.query.filter(Feature.map_id == map_id).all()

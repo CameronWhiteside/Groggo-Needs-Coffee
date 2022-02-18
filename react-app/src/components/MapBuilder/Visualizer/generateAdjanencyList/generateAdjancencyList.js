@@ -67,10 +67,7 @@ const generateAdjacencyList = () => {
 
     })
 
-    console.log(list.adjacencyList)
-
-
-    return 'burp'
+    return list
 
 }
 
