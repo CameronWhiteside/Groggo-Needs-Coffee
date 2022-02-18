@@ -50,6 +50,7 @@ const MapBuilder = () => {
     const [loadMapMode, setLoadMapMode] = useState(false)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
+    const [pathfindingMode, setPathfindingMode] = useState(false)
     const [buildFeatureMode, setBuildFeatuerMode] = useState(true)
     const [deleteFeatureMode, setDeleteFeatureMode] = useState(false)
     const [foundPathList, setFoundPathList] = useState([])
@@ -120,6 +121,13 @@ const MapBuilder = () => {
 
     }
 
+    const resetPath = () => {
+        console.log(`reseting`)
+        let nodeList = document.querySelectorAll('.line')
+        nodeList.forEach(node => node.remove(`visited`))
+        setPathfindingMode(false)
+    }
+
     useEffect(() => {
         dispatch(getMaps(sessionUser.id))
     }, []);
@@ -182,13 +190,26 @@ const MapBuilder = () => {
                         </div>
                     </div>
                         </ControlPanel>
-                        <button
-                            className='visualize-button'
-                            onClick={() => visualizeDijkstra(setFoundPathList)}
+                        {!pathfindingMode ?
+                            <button
+                                className='visualize-button'
+                                onClick={() => {
+                                    // setPathfindingMode(true)
+                                    visualizeDijkstra(setPathfindingMode)
+                                }}
                             // setFoundPathList={setFoundPathList}
-                        >
-                            Find Path
-                        </button>
+                            >
+                                Find Path
+                            </button>
+                            :
+                            <button
+                                className='visualize-button'
+                                onClick={resetPath}
+                            // setFoundPathList={setFoundPathList}
+                            >
+                                Reset
+                            </button>
+                        }
                     </div>
                     <div className='build-right'>
                         <GridArea />

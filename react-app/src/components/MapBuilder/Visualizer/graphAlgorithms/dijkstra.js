@@ -139,13 +139,29 @@ const addPathLine = (nodeA, nodeB) => {
 }
 
 
-const visualizeDijkstra = (setFoundPathList) => {
+const visualizeDijkstra = (setPathfindingMode) => {
   let { visitOrder, path, travelTime } = findNodesAndPath()
-  for (let i = 0; i < visitOrder.length; i++) {
+  let visitCount = visitOrder.length
+  let visitAnimationLength = 2000
+  let visitNodeLength = visitAnimationLength/visitCount
+  let pathCount = path.length
+  let pathAnimationLength = 1000
+  let drawPathLength = pathAnimationLength/(pathCount-1)
+
+  for (let i = 0; i < visitCount; i++) {
+    let visitedNode = document.getElementById(visitOrder[i].id)
     setTimeout(() => {
-      let visitedNode = document.getElementById(visitOrder[i].id)
       visitedNode.classList.add('visited');
-    }, i*1.5)
+    }, i * visitNodeLength)
+
+    // let visitedNode = document.getElementById(visitOrder[i].id)
+    setTimeout(() => {
+      visitedNode.classList.remove('visited');
+    }, pathAnimationLength + visitAnimationLength)
+
+    setTimeout(() => {
+      setPathfindingMode(true);
+    }, pathAnimationLength + visitAnimationLength)
   }
 
   for (let i = 1; i < path.length; i++) {
@@ -155,7 +171,14 @@ const visualizeDijkstra = (setFoundPathList) => {
       // setFoundPathList(path.slice(0, i + 1))
       addPathLine(pathNode, prevNode)
       // pathNode.classList.add('path');
-    }, i*15 + visitOrder.length*1.5)
+    }, drawPathLength * i + visitAnimationLength)
+
+    // for (let i = 0; i < visitOrder.length; i++) {
+    //   setTimeout(() => {
+    //     let visitedNode = document.getElementById(visitOrder[i].id)
+    //     visitedNode.classList.remove('visited');
+    //   }, visitOrder.length * 1.5 + pathNode.length * 15 + 2000)
+    // }
   }
 
 }
