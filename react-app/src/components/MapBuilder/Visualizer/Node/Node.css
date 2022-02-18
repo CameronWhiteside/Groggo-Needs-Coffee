@@ -41,7 +41,7 @@
 
 .visited {
     animation-name: visitedAnimation;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
     animation-timing-function: ease-out;
     animation-delay: 0;
     animation-direction: alternate;
@@ -53,10 +53,25 @@
   @keyframes visitedAnimation {
     0% {
       transform: scale(1);
+      background-color: var(--light-200);
+    }
+
+    5% {
+      transform: scale(1);
+      background-color: var(--light-400);
+    }
+
+      10% {
+      transform: scale(1);
+      background-color: var(--accent-400);
+    }
+
+      20% {
+      transform: scale(1);
       background-color: var(--accent-800);
     }
 
-      100% {
+      50% {
       transform: scale(1);
       background-color: var(--accent-400);
     }

@@ -1,6 +1,5 @@
-import { path } from "express/lib/application";
 import generateGraph from "../generateAdjanencyList/generateAdjancencyList";
-
+import NodeConnector from "../../NodeConnector/NodeConnector";
 class PriorityQueue {
   constructor() {
     this.collection = []
@@ -96,20 +95,67 @@ const findNodesAndPath = () => {
 
 }
 
-const visualizeDijkstra = () => {
+const addPathLine = (nodeA, nodeB) => {
+  let displayContainer = document.getElementById('path-container')
+  let lineSegment = document.createElement('div')
+  let thickness = 4;
+
+  const getOffset = (el) => {
+    var elContainer = el.getBoundingClientRect();
+    return {
+      left: elContainer.left + window.pageXOffset,
+      top: elContainer.top + window.pageYOffset,
+      width: elContainer.width || el.offsetWidth,
+      height: elContainer.height || el.offsetHeight
+    };
+  }
+
+  const offsetA = getOffset(nodeA);
+  const offsetB = getOffset(nodeB);
+  const xCoordA = offsetA.left + (offsetA.width / 2);
+  const yCoordA = offsetA.top - (offsetA.height / 2);
+  const xCoordB = offsetB.left + (offsetB.width / 2);
+  const yCoordB = offsetB.top - (offsetB.height / 2);
+  const length = Math.sqrt(((xCoordB - xCoordA) * (xCoordB - xCoordA)) + ((yCoordB - yCoordA) * (yCoordB - yCoordA))) + 2;
+  const centerXCoord = ((xCoordA + xCoordB) / 2) - (length / 2);
+  const centerYCoord = ((yCoordA + yCoordB) / 2) - (thickness / 2);
+  const angle = Math.atan2((yCoordA - yCoordB), (xCoordA - xCoordB)) * (180 / Math.PI);
+
+  lineSegment.classList.add('line')
+  lineSegment.classList.add('fading-effect')
+  lineSegment.style.padding = '0px'
+  lineSegment.style.margin= '0px'
+  lineSegment.style.height= `${thickness}px`
+  lineSegment.style.backgroundColor= `var(--main-800)`
+  lineSegment.style.lineHeight= `${4}px`
+  lineSegment.style.borderRadius= `2px`
+  lineSegment.style.position= `absolute`
+  lineSegment.style.left= `${centerXCoord}px`
+  lineSegment.style.top= `${centerYCoord + 18}px`
+  lineSegment.style.width= `${length}px`
+  lineSegment.style.transform= `rotate(${angle}deg)`
+
+  displayContainer.appendChild(lineSegment)
+}
+
+
+const visualizeDijkstra = (setFoundPathList) => {
   let { visitOrder, path, travelTime } = findNodesAndPath()
   for (let i = 0; i < visitOrder.length; i++) {
     setTimeout(() => {
       let visitedNode = document.getElementById(visitOrder[i].id)
       visitedNode.classList.add('visited');
-    }, i*2)
+    }, i*1.5)
   }
 
-  for (let i = 0; i < path.length; i++) {
+  for (let i = 1; i < path.length; i++) {
     let pathNode = document.getElementById(path[i].id)
+    let prevNode = document.getElementById(path[i-1].id)
     setTimeout(() => {
-      pathNode.classList.add('path');
-    }, 10*i + visitOrder.length * 2)
+      // setFoundPathList(path.slice(0, i + 1))
+      addPathLine(pathNode, prevNode)
+      // pathNode.classList.add('path');
+    }, i*15 + visitOrder.length*1.5)
   }
 
 }

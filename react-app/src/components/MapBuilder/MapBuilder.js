@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
 import { getMaps, udpateMap, removeMap, createMap } from '../../store/map';
+import NodeConnector from './NodeConnector/NodeConnector';
 
 import './MapBuilder.css'
 import GridArea from './Visualizer/GridArea/GridArea';
@@ -51,6 +52,7 @@ const MapBuilder = () => {
     const [clearMapMode, setClearMapMode] = useState(false)
     const [buildFeatureMode, setBuildFeatuerMode] = useState(true)
     const [deleteFeatureMode, setDeleteFeatureMode] = useState(false)
+    const [foundPathList, setFoundPathList] = useState([])
 
     const [currentMapFeatures, setCurrentMapFeatures] = useState([]);
 
@@ -182,7 +184,8 @@ const MapBuilder = () => {
                         </ControlPanel>
                         <button
                             className='visualize-button'
-                            onClick={visualizeDijkstra}
+                            onClick={() => visualizeDijkstra(setFoundPathList)}
+                            // setFoundPathList={setFoundPathList}
                         >
                             Find Path
                         </button>
@@ -206,7 +209,16 @@ const MapBuilder = () => {
                         </div>
                     </div>
                 </main>
-                <footer className='info-area'>
+                <footer id='path-container'>
+                     {/* { foundPathList.map((node, idx) => (
+                            idx > 0 &&
+                            <NodeConnector
+                                nodeA={document.getElementById(node.id)}
+                                nodeB={document.getElementById(foundPathList[idx - 1].id)}
+                                thickness={2}
+                            />
+                        ))
+                     } */}
                 </footer>
             </div>
             </>
