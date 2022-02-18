@@ -15,7 +15,11 @@ const GridArea = () => {
 
             let isStart = (rowNumber === 2 && colNumber === 5)
             let isFinish = (colNumber === 30 && rowNumber === 31)
-            let isWater = (colNumber % 2 === 0 && Math.floor(colNumber/3) % 2 === rowNumber % 4)
+            let isWater = (colNumber > 25 && rowNumber < 3 ||
+                rowNumber > 8 && rowNumber < 20 && colNumber > 2 && colNumber < 22 ||
+                rowNumber > 25 && colNumber > 35
+            )
+            let isBrush = (!isWater && (rowNumber * colNumber) % 9 === 2)
             col.push(<Node
 
                 row={rowNumber}
@@ -23,6 +27,7 @@ const GridArea = () => {
                 isStart={isStart}
                 isFinish={isFinish}
                 isWater={isWater}
+                isBrush={isBrush}
 
                 key={`${i}-${rowNumber}`} />)
         }

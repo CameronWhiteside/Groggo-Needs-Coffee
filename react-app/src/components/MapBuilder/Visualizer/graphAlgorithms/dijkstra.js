@@ -1,8 +1,25 @@
 import generateAdjacencyList from "../generateAdjanencyList/generateAdjancencyList";
 
+class PriorityQueue {
+  constructor() {
+    this.collection = []
+  }
+
+  enqueue(element) {
+  }
+}
+
 const visualizeDijkstra = () => {
   let adjacencyList = generateAdjacencyList()
-  
+  // const visitedNodesInOrder = []
+  // const start = adjacencyList.startNode
+  // const finish = adjacencyList.finishNode
+  // let unvisitedNodes = adjacencyList.nodes
+
+  // while (unvisitedNodes.length > 0) {
+  //   console.log(`niehgbors`)
+  // }
+
 }
 
 // Performs Dijkstra's algorithm; returns *all* nodes in the order
@@ -28,7 +45,7 @@ export const dijkstra = (grid, startNode, finishNode) => {
     }
   }
 
-  function sortNodesByDistance(unvisitedNodes) {
+  const sortNodesByDistance = (unvisitedNodes) => {
     unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
   }
 

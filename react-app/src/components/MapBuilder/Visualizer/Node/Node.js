@@ -15,6 +15,7 @@ const Node = ({
     return (
         <div
             className="node"
+            id={`${col}-${row}`}
             row={row}
             col={col}
             is-start={isStart.toString()}
