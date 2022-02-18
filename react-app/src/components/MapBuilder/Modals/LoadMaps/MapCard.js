@@ -1,21 +1,19 @@
-import { NavLink } from "react-router-dom"
-import { useState } from "react"
 import './MapCard.css'
 
-const MapCard = (map, allMaps, setAllMaps) => {
-    let currentMap = map.map
-    let id = currentMap.id
-    let default_name = currentMap.name
-    let createdAt = new Date(map.map.created_at).toLocaleDateString("en-US")
-    let updatedAt = new Date(map.map.updated_at).toLocaleDateString("en-US")
+const MapCard = ({ map, setCurrentMap, setCurrentName }) => {
 
-    const [name, setName] = useState(default_name)
+    const selectMap = () => {
+        setCurrentMap(map)
+        setCurrentName(map.name)
+    }
 
+    let createdAt = new Date(map.created_at).toLocaleDateString("en-US")
+    let updatedAt = new Date(map.updated_at).toLocaleDateString("en-US")
 
     return (
-        <div className="map-card">
+        <div className="map-card" onClick={selectMap}>
                 <div className="map-info">
-                    <h3>{name}</h3>
+                    <h3>{map.name}</h3>
                     <h5>Saved {updatedAt} - Created {createdAt}</h5>
                 </div>
         </div>

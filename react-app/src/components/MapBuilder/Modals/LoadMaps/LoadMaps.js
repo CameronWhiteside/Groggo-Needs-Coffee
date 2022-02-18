@@ -8,23 +8,19 @@ import './LoadMaps.css'
 const LoadMaps = ({
     loadMapMode,
     setLoadMapMode,
-    // currentMaps
+    setCurrentMap,
+    setCurrentName
+
 }) => {
 
-    const currentMaps = useSelector(state => state.map);
     const dispatch = useDispatch()
+    const currentMaps = useSelector(state => state.map);
     const sessionUser = useSelector(state => state.session.user)
-    // const [maps, setMaps] = useState([]);
 
     useEffect(() => {
         dispatch(getMaps(sessionUser.id))
-        console.log(sessionUser.id)
-        console.log(currentMaps)
-
     }, []);
 
-    // const onConfirm = () => {console.log('loading')}
-    // const onCancel = () => {setLoadMapMode(false)}
 
             return(
                 <Modal
@@ -35,9 +31,14 @@ const LoadMaps = ({
                     {currentMaps &&
 
                         <div className='maps-list'>
-                            <div className='fake-div'></div>
                             {Object.values(currentMaps).map(map => (
-                                <MapCard key={map.id} map={map} />
+                                <MapCard
+                                    setCurrentMap={setCurrentMap}
+                                    setCurrentName={setCurrentName}
+                                    key={map.id}
+                                    map={map}
+
+                                />
                             ))}
                         </div>
                     }

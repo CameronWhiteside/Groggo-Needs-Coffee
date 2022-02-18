@@ -1,4 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux";
+import { getMaps } from "../../../store/map";
+
 import './ControlPanel.css'
 
 const ControlPanel = ({
@@ -6,8 +9,17 @@ const ControlPanel = ({
     activateClear,
     activateDelete,
     children,
-    currentMap
+    // currentMap,
+    // setCurrentMap
+    saveMap,
+    saveText
 }) => {
+    // const dispatch = useDispatch();
+    // const sessionUser = useSelector(state => state.session.user);
+
+    // useEffect(() => {
+    //     dispatch(getMaps(sessionUser.id))
+    // }, []);
 
     const FeatureType = ({
         featureName,
@@ -70,7 +82,7 @@ const ControlPanel = ({
                 </div>
             </div>
             <div className="control-buttons">
-                <button onClick={()=>{console.log('save map')}}>Save Map</button>
+                <button onClick={saveMap}>{saveText}</button>
                 <button onClick={activateClear}>Clear Features</button>
                 <button onClick={activateDelete}>Delete Map</button>
                 {/* <button onClick={activateLoad}>Load Map</button> */}

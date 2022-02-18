@@ -1,13 +1,12 @@
 import Modal from '../Modal'
-import { Redirect } from 'react-router-dom'
 import './ConfirmDelete.css'
 
 const ConfirmDelete = ({
     deleteMapMode,
     setDeleteMapMode,
-    currentMap
+    deleteMap
 }) => {
-    const onConfirm = () => {console.log('deleting', currentMap)}
+    const onConfirm = () => {deleteMap()}
     const onCancel = () => {setDeleteMapMode(false)}
 
     return(

@@ -1,15 +1,12 @@
-import Lottie from 'react-lottie';
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
-import { getMaps } from '../../store/map';
+import { getMaps, udpateMap, removeMap, createMap } from '../../store/map';
 
 import './MapBuilder.css'
-import { fetchMaps, saveCurrentMap } from './utils/mapFetch';
 import GridArea from './Visualizer/GridArea/GridArea';
 import Lorem from '../Lorem/Lorem';
 import ControlPanel from './ControlPanel/ControlPanel';
-import Modal from './Modals/Modal'
 import ConfirmDelete from './Modals/ConfirmDelete/ConfirmDelete';
 import ConfirmClear from './Modals/ConfirmClear/ConfirmClear';
 import LoadMaps from './Modals/LoadMaps/LoadMaps';
@@ -42,18 +39,18 @@ const MapBuilder = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const currentMaps = useSelector(state => state.maps)
+    const currentMaps = useSelector(state => state.map)
 
     const [currentMap, setCurrentMap] = useState();
+    const [saveText, setSaveText] = useState('Save Map');
     const [currentName, setCurrentName] = useState(getTitle());
-    const [editNameMode, setEditNameMode] = useState(currentMap)
+    const [editNameMode, setEditNameMode] = useState(false)
     const [loadMapMode, setLoadMapMode] = useState(false)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
     const [buildFeatureMode, setBuildFeatuerMode] = useState(true)
     const [deleteFeatureMode, setDeleteFeatureMode] = useState(false)
 
-    const [allMaps, setAllMaps] = useState([]);
     const [currentMapFeatures, setCurrentMapFeatures] = useState([]);
 
     const [editAnimationStopped, setEditAnimationStopped] = useState(false)
@@ -69,37 +66,59 @@ const MapBuilder = () => {
         setClearMapMode(true)
     }
 
-
     const activateLoad = (e) => {
         e.preventDefault()
         setLoadMapMode(true)
     }
 
-    const udpateName = (e) => {
-        console.log(`save the new name to ${currentName}`)
-        setEditNameMode(false)
+    const udpateName = async (e) => {
+        if (currentMap) {
+            console.log(`old map`)
+            let prevMap = { ...currentMap }
+            prevMap.name = currentName
+            setCurrentMap(prevMap)
+            dispatch(udpateMap(prevMap))
+            setEditNameMode(false)
+        } else {
+            console.log(`new map`)
+            const newMap = await dispatch(createMap({
+                userId: sessionUser.id,
+                name: currentName
+            }))
+
+            setCurrentMap(newMap)
+            setEditNameMode(false)
+        }
     }
 
-    if (currentMap) {
-        setCurrentName(currentMap.name)
+    const deleteMap = (e) => {
+        dispatch(removeMap(currentMap.id))
+        history.push('/')
+    }
+
+    const saveMap = async () => {
+        if (!currentMap) {
+            const newMap = await dispatch(createMap({
+                userId: sessionUser.id,
+                name: currentName
+            }))
+
+            setCurrentMap(newMap)
+
+        } else {
+            console.log(`can't save that badboy yet soz`)
+        }
+        setTimeout(() => {
+            setSaveText('Save Map')
+        }, 1000)
+        setSaveText('Saving Successful!')
+
+
     }
 
     useEffect(() => {
         dispatch(getMaps(sessionUser.id))
     }, []);
-
-    // let placeholder
-
-    // useEffect(() => {
-    //     if (editNameMode) {
-    //         placeholder = `Enter Name`
-    //     } else if (currentName) {
-    //         placeholder = currentName
-    //     } else {
-    //         placeholder = `Untitled Map`
-    //     }
-    //     console.log({placeholder})
-    // }, [editNameMode, currentName])
 
 
     if (!sessionUser) return (
@@ -113,6 +132,7 @@ const MapBuilder = () => {
                 deleteMapMode={deleteMapMode}
                 setDeleteMapMode={setDeleteMapMode}
                 currentMap={currentMap}
+                deleteMap={deleteMap}
             />
             <ConfirmClear
                 clearMapMode={clearMapMode}
@@ -123,6 +143,8 @@ const MapBuilder = () => {
                 loadMapMode={loadMapMode}
                 setLoadMapMode={setLoadMapMode}
                 userMaps={currentMaps}
+                setCurrentMap={setCurrentMap}
+                setCurrentName={setCurrentName}
             />
             <div className='map-builder'>
                 <main className='build-area'>
@@ -133,16 +155,17 @@ const MapBuilder = () => {
                             activateClear={activateClear}
                             activateDelete={activateDelete}
                             currentMap={currentMap}
+                            saveMap={saveMap}
+                            saveText={saveText}
                         >
                                  <div className='title-area'>
                         <div className='map-name'>
-                            {<form id='update-name' onSumbit={udpateName}>
+                            {<form id='update-name'>
                                 <textarea
                                     className='name-input'
                                     type='text'
                                     autoFocus={true}
                                     maxLength={24}
-                                    // placeholder={placeholder}
                                     disabled={!editNameMode}
                                     onChange={(e) => (setCurrentName(e.target.value))}
                                     value={currentName}
@@ -168,11 +191,11 @@ const MapBuilder = () => {
                             <div className='nav-buttons'>
                                 <div className='top-buttons'>
                                     <button onClick={activateLoad}>Load Map</button>
-                                    <button>About</button>
+                                    <button>Create New Map</button>
                                     </div>
                                  <div className='bottom-buttons'>
                                     <button>Github</button>
-                                    <button>Log Out</button>
+                                    <button onClick={()=>history.push('/')}>Back To Home</button>
                                 </div>
                             </div>
                         </div>

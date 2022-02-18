@@ -27,28 +27,28 @@ const editMap = (map) => ({
 
 //thunks
 export const getMaps = (userId) => async dispatch => {
-    const res = await fetch(`/api/users/${userId}/maps`);
+    const res = await fetch(`/api/users/${userId}/maps/`);
     if (res.ok) {
-        console.log(`res is ok`)
         const maps = await res.json();
         dispatch(loadMaps(maps))
+        return maps
     }
 };
 
-export const removeMap = (mapId, userId) => async dispatch => {
-    const res = await fetch(`/api/maps/${mapId}`, {
+export const removeMap = (mapId) => async dispatch => {
+    const res = await fetch(`/api/maps/${mapId}/`, {
         method: "DELETE"
     });
 
     if (res.ok) {
         const map = await res.json();
-        dispatch(deleteMap(mapId, userId));
+        dispatch(deleteMap(mapId));
         return map;
     }
 };
 
 export const createMap = (mapObject) => async dispatch => {
-    const res = await fetch(`/api/maps`, {
+    const res = await fetch(`/api/users/${mapObject.userId}/maps/`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(mapObject)
@@ -64,7 +64,7 @@ export const createMap = (mapObject) => async dispatch => {
 export const udpateMap = (mapObject) => async dispatch => {
     let mapId = mapObject.id
 
-    const res = await fetch(`/api/maps/${mapId}`, {
+    const res = await fetch(`/api/maps/${mapId}/`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(mapObject)
@@ -88,7 +88,6 @@ const mapReducer = (state = initialState, action) => {
         case LOAD_MAPS: {
             newState = { ...state }
             let foundMaps = action.maps.maps
-            console.log(foundMaps)
             foundMaps.forEach(map => {
                 newState[map.id] = map
                 }
