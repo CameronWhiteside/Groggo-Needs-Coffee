@@ -73,14 +73,12 @@ const MapBuilder = () => {
 
     const udpateName = async (e) => {
         if (currentMap) {
-            console.log(`old map`)
             let prevMap = { ...currentMap }
             prevMap.name = currentName
             setCurrentMap(prevMap)
             dispatch(udpateMap(prevMap))
             setEditNameMode(false)
         } else {
-            console.log(`new map`)
             const newMap = await dispatch(createMap({
                 userId: sessionUser.id,
                 name: currentName
@@ -105,8 +103,11 @@ const MapBuilder = () => {
 
             setCurrentMap(newMap)
 
+            //TODO save all map features
+
         } else {
             console.log(`can't save that badboy yet soz`)
+            //TODO save all map features
         }
         setTimeout(() => {
             setSaveText('Save Map')
