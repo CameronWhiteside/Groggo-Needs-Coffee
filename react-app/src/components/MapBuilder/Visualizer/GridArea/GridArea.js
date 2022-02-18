@@ -36,7 +36,12 @@ const GridArea = () => {
                 </div>
             )
         }
-        return grid
+        return (
+            <div id='grid-area' >
+                {grid}
+            </div>
+            )
+
     }
 
 
