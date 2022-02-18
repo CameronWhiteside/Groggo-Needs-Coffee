@@ -34,13 +34,39 @@
     background-size: cover;
 }
 
-.visited{
+/* .visited{
     background-color: var(--light-200);
+} */
+
+
+.visited {
+    animation-name: visitedAnimation;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-direction: alternate;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+  }
+
+  @keyframes visitedAnimation {
+    0% {
+      transform: scale(1);
+      background-color: var(--accent-800);
+    }
+
+      100% {
+      transform: scale(1);
+      background-color: var(--accent-400);
+    }
+  }
+
+
+  .visited.path{
+    background-color: var(--main-400) !important;
 }
 
-.visited.path{
-    background-color: var(--main-400);
-}
 
 /* .visited.path{
     background-color: blanchedalmond;

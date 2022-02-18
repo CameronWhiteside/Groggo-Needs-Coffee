@@ -102,14 +102,14 @@ const visualizeDijkstra = () => {
     setTimeout(() => {
       let visitedNode = document.getElementById(visitOrder[i].id)
       visitedNode.classList.add('visited');
-    }, i)
+    }, i*2)
   }
 
   for (let i = 0; i < path.length; i++) {
     let pathNode = document.getElementById(path[i].id)
     setTimeout(() => {
       pathNode.classList.add('path');
-    }, 5*i + visitOrder.length)
+    }, 10*i + visitOrder.length * 2)
   }
 
 }
