@@ -61,7 +61,7 @@ export const createMap = (mapObject) => async dispatch => {
     }
 };
 
-export const udpateMap = (mapObject) => async dispatch => {
+export const updateMap = (mapObject) => async dispatch => {
     let mapId = mapObject.id
 
     const res = await fetch(`/api/maps/${mapId}/`, {
@@ -71,9 +71,9 @@ export const udpateMap = (mapObject) => async dispatch => {
     })
 
     if (res.ok) {
-        const udpatedMap = await res.json();
-        dispatch(editMap(udpatedMap));
-        return editMap;
+        const updatedMap = await res.json();
+        dispatch(editMap(updatedMap));
+        return updatedMap;
     }
 };
 

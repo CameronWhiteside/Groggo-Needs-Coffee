@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
-import { getMaps, udpateMap, removeMap, createMap } from '../../store/map';
+import { getMaps, updateMap, removeMap, createMap } from '../../store/map';
 import NodeConnector from './NodeConnector/NodeConnector';
 
 import './MapBuilder.css'
@@ -53,10 +53,7 @@ const MapBuilder = () => {
     const [pathfindingMode, setPathfindingMode] = useState(false)
     const [buildFeatureMode, setBuildFeatuerMode] = useState(true)
     const [deleteFeatureMode, setDeleteFeatureMode] = useState(false)
-    const [foundPathList, setFoundPathList] = useState([])
     const [featureList, setFeatureList] = useState([]);
-    const [editAnimationStopped, setEditAnimationStopped] = useState(false)
-    const [editAnimationPaused, setEditAnimationPaused] = useState(false)
 
     const [drawWaterMode, setDrawWaterMode] = useState(false)
 
@@ -75,17 +72,18 @@ const MapBuilder = () => {
         setLoadMapMode(true)
     }
 
-    const udpateName = async (e) => {
+    const updateName = async (e) => {
         if (currentMap) {
             let prevMap = { ...currentMap }
             prevMap.name = currentName
             setCurrentMap(prevMap)
-            dispatch(udpateMap(prevMap))
+            dispatch(updateMap(prevMap))
             setEditNameMode(false)
         } else {
             const newMap = await dispatch(createMap({
                 userId: sessionUser.id,
-                name: currentName
+                name: currentName,
+                featureList
             }))
 
             setCurrentMap(newMap)
@@ -112,8 +110,13 @@ const MapBuilder = () => {
             //TODO save all map features
 
         } else {
-            console.log(`can't save that badboy yet soz`)
-            console.log({featureList})
+            const updatedMap = await dispatch(updateMap({
+                id: currentMap.id,
+                name: currentName,
+                featureList
+            }))
+
+            setCurrentMap(updatedMap)
         }
         setTimeout(() => {
             setSaveText('Save Map')
@@ -187,7 +190,7 @@ const MapBuilder = () => {
                              </form>}
                         </div>
                         <div className='edit-name'>
-                            {editNameMode && <div className='submit-icon' onClick={udpateName}/>}
+                            {editNameMode && <div className='submit-icon' onClick={updateName}/>}
                             {!editNameMode && <div className='edit-icon' onClick={() => { setEditNameMode(true) }}/>}
                         </div>
                     </div>

@@ -27,7 +27,6 @@ def user_maps(id):
 @login_required
 def add_map(id):
     request_body = request.json
-    print('~~~~~~~~~~~~~', request_body)
     new_map = Map.create_new_map(
         user_id = id,
         name = request_body['name'],
