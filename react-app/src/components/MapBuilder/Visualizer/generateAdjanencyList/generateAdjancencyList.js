@@ -40,7 +40,7 @@ const generateAdjacencyList = () => {
             let startingRow = newNode.row
             while ((testIndex >= 0) && (nodeToTest.row >= startingRow - 1)) {
                 let nodeToTest = list.nodes[testIndex]
-                if (!nodeToTest.water) {
+                if (!nodeToTest.isWater) {
                     let rowDist = Math.abs(newNode.row - nodeToTest.row)
                     let colDist = Math.abs(newNode.col - nodeToTest.col)
                     if ((rowDist <= 1 && colDist <= 1)) {

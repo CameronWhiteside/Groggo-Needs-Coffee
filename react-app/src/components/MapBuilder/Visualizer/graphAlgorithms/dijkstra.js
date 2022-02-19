@@ -43,26 +43,17 @@ const findNodesAndPath = () => {
   let pq = new PriorityQueue();
   let visitOrder = []
   let adjacencyList = graph.adjacencyList
-  // let unvisitedNodes = [...graph.nodes]
-
-  // console.log( {
-  //   adjacencyList,
-  //   startNode,
-  //   finishNode
-  // })
 
   let times = {}
   nodes.forEach(node => times[node.id] = Infinity)
   times[startNode.id] = 0;
   pq.enqueue([startNode, 0])
-  // console.log(pq.collection[0])
   let currentNode
   while (!pq.isEmpty()) {
     let shortestStep = pq.dequeue();
     currentNode = shortestStep[0];
     visitOrder.push(currentNode)
     if (currentNode === finishNode) {
-      // console.log(`found our finish`)
       pq.collection = []
     } else {
       // eslint-disable-next-line no-loop-func
@@ -86,6 +77,7 @@ const findNodesAndPath = () => {
     lastStep = backtrace[lastStep.id]
   }
 
+  console.log({path})
 
   return {
     path,
@@ -126,7 +118,7 @@ const addPathLine = (nodeA, nodeB) => {
   lineSegment.style.padding = '0px'
   lineSegment.style.margin= '0px'
   lineSegment.style.height= `${thickness}px`
-  lineSegment.style.backgroundColor= `var(--main-800)`
+  lineSegment.style.backgroundColor= `var(--error)`
   lineSegment.style.lineHeight= `${4}px`
   lineSegment.style.borderRadius= `2px`
   lineSegment.style.position= `absolute`
@@ -134,7 +126,6 @@ const addPathLine = (nodeA, nodeB) => {
   lineSegment.style.top= `${centerYCoord + 18}px`
   lineSegment.style.width= `${length}px`
   lineSegment.style.transform= `rotate(${angle}deg)`
-
   displayContainer.appendChild(lineSegment)
 }
 
@@ -168,17 +159,9 @@ const visualizeDijkstra = (setPathfindingMode) => {
     let pathNode = document.getElementById(path[i].id)
     let prevNode = document.getElementById(path[i-1].id)
     setTimeout(() => {
-      // setFoundPathList(path.slice(0, i + 1))
       addPathLine(pathNode, prevNode)
-      // pathNode.classList.add('path');
     }, drawPathLength * i + visitAnimationLength)
 
-    // for (let i = 0; i < visitOrder.length; i++) {
-    //   setTimeout(() => {
-    //     let visitedNode = document.getElementById(visitOrder[i].id)
-    //     visitedNode.classList.remove('visited');
-    //   }, visitOrder.length * 1.5 + pathNode.length * 15 + 2000)
-    // }
   }
 
 }

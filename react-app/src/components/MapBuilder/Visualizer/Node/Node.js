@@ -10,6 +10,8 @@ const Node = ({
     isWater = false,
     isHighwayEnd = false,
     isStreetEnd = false,
+    nodeClick,
+    nodeMouseOver
 }) => {
 
     return (
@@ -25,6 +27,8 @@ const Node = ({
             is-water={isWater.toString()}
             is-street-end={isStreetEnd.toString()}
             is-highway-end={isHighwayEnd.toString()}
+            onClick={nodeClick}
+            onMouseOver={nodeMouseOver}
         >
             <div></div>
         </div>

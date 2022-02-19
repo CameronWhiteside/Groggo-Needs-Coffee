@@ -54,11 +54,11 @@ const MapBuilder = () => {
     const [buildFeatureMode, setBuildFeatuerMode] = useState(true)
     const [deleteFeatureMode, setDeleteFeatureMode] = useState(false)
     const [foundPathList, setFoundPathList] = useState([])
-
-    const [currentMapFeatures, setCurrentMapFeatures] = useState([]);
-
+    const [featureList, setFeatureList] = useState([]);
     const [editAnimationStopped, setEditAnimationStopped] = useState(false)
     const [editAnimationPaused, setEditAnimationPaused] = useState(false)
+
+    const [drawWaterMode, setDrawWaterMode] = useState(false)
 
     const activateDelete = (e) => {
         e.preventDefault()
@@ -212,7 +212,12 @@ const MapBuilder = () => {
                         }
                     </div>
                     <div className='build-right'>
-                        <GridArea />
+                        <GridArea
+                            drawWaterMode={drawWaterMode}
+                            setDrawWaterMode={setDrawWaterMode}
+                            setFeatureList={setFeatureList}
+                            featureList={featureList}
+                        />
                         <div className='instructions'>
                             <div className='info-block'>
                                 <Lorem chars='500' />
