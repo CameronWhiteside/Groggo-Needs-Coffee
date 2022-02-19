@@ -1,3 +1,13 @@
-.draw-layer{
+#draw-layer{
     background-color: rgba(255,0,255,0.1);
+    position: absolute;
+}
+
+#click-tracker{
+    height: 100%;
+    width: 100%;
+}
+
+.fake-water{
+    background-color: rgba(55,255,255,0.1);
 }

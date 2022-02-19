@@ -2,6 +2,7 @@
 import { useState } from "react"
 
 import Node from "../Node/Node"
+import DrawLayer from './DrawLayer/DrawLayer'
 import './GridArea.css'
 
 
@@ -141,25 +142,22 @@ const GridArea = ({
             )
         }
         return (
-            <div id='grid-area' >
                 <div div='map-layer'>
                     {grid}
                 </div>
-                <div div='draw-layer'>
-                </div>
-            </div>
+
             )
 
     }
 
 
     return (
-        <div className="grid-area">
-            <div className='draw-layer'
-                style={{}}
-            >
-                blurp
-            </div>
+        <div id="grid-area">
+            <DrawLayer
+                height={height}
+                width={width}
+                nodeSize={nodeSize}
+            />
                 {NodeGrid(height, width, nodeSize)}
             </div>
     )
