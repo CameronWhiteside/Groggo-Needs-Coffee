@@ -22,35 +22,9 @@ const GridArea = ({
     const height = 35
     const nodeSize = 18
 
-    let nodeClick = (e) => {
-        console.log(`click`)
 
-        // if (!drawWaterMode) {
-        //     setDrawWaterMode(true)
-        //     setDrawStartX(e.target.getAttribute('row'))
-        //     setDrawStartY(e.target.getAttribute('col'))
-        // } else {
-        //     const newFeature = {
-        //         start_latitude: drawStartX,
-        //         stop_latitude: drawFinishX,
-        //         start_longitude: drawStartY,
-        //         stop_longitude: drawFinishY,
-        //         feature_type_id: 7,
-        //     }
 
-        //     let newList = [...featureList]
-        //     newList.push(newFeature)
-        //     setFeatureList(newList)
-        //     setDrawWaterMode(false)
-        // }
-    }
 
-    let nodeMouseOver = (e) => {
-        if (drawWaterMode) {
-            setDrawFinishX(e.target.getAttribute('row'))
-            setDrawFinishY(e.target.getAttribute('col'))
-        }
-    }
 
     // const setToWater = (node, startX, startY) => {
     //     let endX = node.getAttribute('row')
@@ -89,18 +63,7 @@ const GridArea = ({
     //     }
     // }
 
-    let checkWater = (row, col) => {
-        if (
-            drawStartX <= row &&
-            drawStartY <= col &&
-            drawFinishX >= row &&
-            drawFinishY >= col
-        ) {
-            return true
-        } else {
-            return false
-        }
-    }
+
 
     const NodeCol = (colCount, rowNumber, nodeSize) => {
 
@@ -112,7 +75,7 @@ const GridArea = ({
             let isFinish = (rowNumber === 17 && colNumber === 50)
 
 
-            let isWater = checkWater(rowNumber, colNumber)
+            let isWater = false
             let isBrush = (!isWater && (rowNumber * colNumber) % 9 === 2)
             col.push(<Node
 
@@ -123,8 +86,6 @@ const GridArea = ({
                 isWater={isWater}
                 isBrush={isBrush}
                 nodeSize={nodeSize}
-                nodeClick={nodeClick}
-                nodeMouseOver={nodeMouseOver}
                 key={`${i}-${rowNumber}`} />)
         }
         return col

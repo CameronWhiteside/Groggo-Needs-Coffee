@@ -2,7 +2,7 @@
     /* height: 18px;
     width: 18px;
     */
-    border: 1px solid var(--accent-800);
+    /* border: 1px solid var(--accent-800); */
     background-color: var(--accent-400);
 
 }
@@ -23,14 +23,12 @@
 
 
 .node[is-start="true"]{
-    background-color: red;
     background-image: url('../../../../assets/feature-icons/house-icon.svg');
     background-size: cover;
 }
 
 
 .node[is-finish="true"]{
-    background-color: red;
     background-image: url('../../../../assets/feature-icons/shop-icon.svg');
     background-size: cover;
 }
