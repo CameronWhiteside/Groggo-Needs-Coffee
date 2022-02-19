@@ -27,5 +27,10 @@ def user_maps(id):
 @login_required
 def add_map(id):
     request_body = request.json
-    new_map = Map.create_new_map(id, request_body['name'])
+    print('~~~~~~~~~~~~~', request_body)
+    new_map = Map.create_new_map(
+        user_id = id,
+        name = request_body['name'],
+        feature_list=request_body['featureList']
+        )
     return new_map.to_dict()

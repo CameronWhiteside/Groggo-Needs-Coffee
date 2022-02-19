@@ -99,10 +99,12 @@ const MapBuilder = () => {
     }
 
     const saveMap = async () => {
+
         if (!currentMap) {
             const newMap = await dispatch(createMap({
                 userId: sessionUser.id,
-                name: currentName
+                name: currentName,
+                featureList
             }))
 
             setCurrentMap(newMap)
@@ -111,7 +113,7 @@ const MapBuilder = () => {
 
         } else {
             console.log(`can't save that badboy yet soz`)
-            //TODO save all map features
+            console.log({featureList})
         }
         setTimeout(() => {
             setSaveText('Save Map')

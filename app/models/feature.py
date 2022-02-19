@@ -19,7 +19,6 @@ class Feature(db.Model):
   def to_dict(self):
     return {
       'id': self.id,
-      'name': self.name,
       'start_latitude': self.start_latitude,
       'stop_latitude': self.stop_latitude,
       'start_longitude': self.start_longitude,
@@ -27,8 +26,6 @@ class Feature(db.Model):
       'length': ((self.stop_latitude - self.start_latitude) ** 2 + (self.stop_longitude - self.start_longitude) **2 ) ** 0.5,
       'feature_type_id': self.feature_type_id,
       'type_name': FeatureType.query.filter(FeatureType.id == self.feature_type_id).first().type_name,
-      'travel_speed':  FeatureType.query.filter(FeatureType.id == self.feature_type_id).first().travel_speed,
-      'travel_duration': ((self.stop_latitude - self.start_latitude) ** 2 + (self.stop_longitude - self.start_longitude) **2 ) ** 0.5/FeatureType.query.filter(FeatureType.id == self.feature_type_id).first().travel_speed
     }
 
   def add_a_feature(

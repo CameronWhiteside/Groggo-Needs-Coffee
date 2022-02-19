@@ -27,7 +27,7 @@ class Map(db.Model):
       'updated_at': self.updated_at
     }
 
-  def create_new_map(user_id, name):
+  def create_new_map(user_id, name, feature_list = []):
       new_map = Map(
           name = name,
           owner_id = user_id,
@@ -36,6 +36,19 @@ class Map(db.Model):
       )
       db.session.add(new_map)
       db.session.commit()
+      db.session.refresh(new_map)
+      map_id = new_map.id
+      for feature in feature_list:
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~feature', feature)
+        Feature.add_a_feature(
+            map_id = map_id,
+            feature_type_id = feature['typeId'],
+            start_latitude = feature['startLatitude'],
+            start_longitude = feature['startLongitude'],
+            stop_latitude = feature ['stopLatitude'],
+            stop_longitude = feature ['stopLongitude']
+        )
+      print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~new id is ', new_map.id)
       return new_map
 
   def get_user_maps(user_id):

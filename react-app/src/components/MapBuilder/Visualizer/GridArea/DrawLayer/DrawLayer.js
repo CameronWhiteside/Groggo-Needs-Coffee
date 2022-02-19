@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import './DrawLayer.css'
 
-const DrawLayer = ({ height, width, nodeSize }) => {
+const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => {
     let startX = 0
     let startY = 0
     let stopX = 0
@@ -10,27 +9,26 @@ const DrawLayer = ({ height, width, nodeSize }) => {
     let drawingActive = false
     let gridLayer = document.getElementById('grid-area')
 
-    const getOffsetTop = element => {
-        let offsetTop = 0;
-        while(element) {
-        offsetTop += element.offsetTop;
-        element = element.offsetParent;
-        }
-        return offsetTop;
-    }
-
-    const getOffsetLeft = element => {
-        let offsetLeft = 0;
-        while(element) {
-        offsetLeft += element.offsetLeft;
-        element = element.offsetParent;
-        }
-        return offsetLeft;
-    }
-
-
-
     const startDraw = (e) => {
+
+        const getOffsetTop = element => {
+            let offsetTop = 0;
+            while(element) {
+            offsetTop += element.offsetTop;
+            element = element.offsetParent;
+            }
+            return offsetTop;
+        }
+
+        const getOffsetLeft = element => {
+            let offsetLeft = 0;
+            while(element) {
+            offsetLeft += element.offsetLeft;
+            element = element.offsetParent;
+            }
+            return offsetLeft;
+        }
+
         boxY = getOffsetTop(gridLayer)
         boxX = getOffsetLeft(gridLayer)
         e.stopPropagation()
@@ -84,7 +82,7 @@ const DrawLayer = ({ height, width, nodeSize }) => {
                 featureTop = `${stopY * nodeSize}px`
             }
 
-            console.log(`redraw, ${stopX}, ${stopY}`)
+            // console.log(`redraw, ${stopX}, ${stopY}`)
             // if (!document.getElementById('drawn-feature')) {
                 e.target.innerHTML=''
                 let newFeature = document.createElement('div')
@@ -104,6 +102,7 @@ const DrawLayer = ({ height, width, nodeSize }) => {
 
 
     const addWaterToNodes = (x1, x2, y1, y2) => {
+
         let xMin, xMax, yMin, yMax
         if (x1 < x2) {
             xMin = x1
@@ -121,20 +120,33 @@ const DrawLayer = ({ height, width, nodeSize }) => {
             yMax = y1
         }
 
+        let newFeature = {
+            startLatitude: yMin,
+            startLongitude: xMin,
+            stopLatitude: yMax,
+            stopLongitude: xMax,
+            nodes: {}
+        }
+
         for (let x = xMin; x <= xMax; x++) {
             for (let y = yMin; y <= yMax; y++){
+                newFeature.nodes[`${x}-${y}`] = `${x}-${y}`
                 let waterNode = document.getElementById(`${x}-${y}`)
                     waterNode.setAttribute('is-brush', 'false')
                     waterNode.setAttribute('is-water', 'true')
                     }
-                }
+        }
+
+        return newFeature
     }
 
     const finishDraw = (e) => {
         e.stopPropagation()
         e.preventDefault()
         if (drawingActive) {
-            addWaterToNodes(startX, stopX, startY, stopY)
+            let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
+            newFeature['typeId'] = '7'
+            setFeatureList([...featureList, newFeature])
         }
         document.getElementById('click-tracker').innerHTML = ''
         drawingActive = false

@@ -13,57 +13,9 @@ const GridArea = ({
     featureList,
     setFeatureList }) => {
 
-    const [drawStartX, setDrawStartX] = useState()
-    const [drawStartY, setDrawStartY] = useState()
-    const [drawFinishX, setDrawFinishX] = useState()
-    const [drawFinishY, setDrawFinishY] = useState()
-
     const width = 70
     const height = 35
     const nodeSize = 18
-
-
-
-
-
-    // const setToWater = (node, startX, startY) => {
-    //     let endX = node.getAttribute('row')
-    //     let endY = node.getAttribute('col')
-    //            for (let x = startX; x <= endX; x++) {
-    //                         for (let y = startY; y <= endY; y++){
-    //                             let waterNode = document.getElementById(`${y}-${x}`)
-    //                             waterNode.setAttribute('is-brush', 'false')
-    //                             waterNode.setAttribute('is-water', 'true')
-    //                         }
-    //                     }
-    // }
-
-    // let node2Click = (e) => {
-
-    //     if (drawWaterMode) {
-    //         let startX = e.target.getAttribute('row')
-    //         let startY = e.target.getAttribute('col')
-    //         let endX = startX
-    //         let endY = startY
-    //         console.log(startX)
-    //         document.querySelectorAll('.node').forEach(node => {
-    //             node.addEventListener('mouseenter', () => {
-    //               setToWater(node, startX, startY)
-    //             })
-    //             node.addEventListener('onclick', () => {
-    //                 node.addEventListener('mouseenter', () => {
-    //                     setToWater(node, startX, startY)
-    //                   })
-    //             })
-    //             // node.setAttribute('is-water', 'false')
-    //         })
-
-    //         // e.target.setAttribute('is-water', 'true')
-    //         // console.log(e.target)
-    //     }
-    // }
-
-
 
     const NodeCol = (colCount, rowNumber, nodeSize) => {
 
@@ -118,6 +70,8 @@ const GridArea = ({
                 height={height}
                 width={width}
                 nodeSize={nodeSize}
+                featureList={featureList}
+                setFeatureList={setFeatureList}
             />
                 {NodeGrid(height, width, nodeSize)}
             </div>
