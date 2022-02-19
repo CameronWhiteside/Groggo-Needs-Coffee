@@ -91,17 +91,35 @@ const findNodesAndPath = () => {
 }
 
 const addPathLine = (nodeA, nodeB) => {
-  let displayContainer = document.getElementById('path-container')
+  let displayContainer = document.getElementById('path-trace-layer')
   let lineSegment = document.createElement('div')
   let thickness = 4;
 
+  const getOffsetTop = element => {
+    let offsetTop = 0;
+    while(element) {
+    offsetTop += element.offsetTop;
+    element = element.offsetParent;
+    }
+    return offsetTop;
+}
+
+const getOffsetLeft = element => {
+    let offsetLeft = 0;
+    while(element) {
+    offsetLeft += element.offsetLeft;
+    element = element.offsetParent;
+    }
+    return offsetLeft;
+}
+
   const getOffset = (el) => {
-    var elContainer = el.getBoundingClientRect();
+    // var elContainer = el.getBoundingClientRect();
     return {
-      left: elContainer.left + window.pageXOffset,
-      top: elContainer.top + window.pageYOffset,
-      width: elContainer.width || el.offsetWidth,
-      height: elContainer.height || el.offsetHeight
+      left: getOffsetLeft(el) - getOffsetLeft(displayContainer),
+      top: getOffsetTop(el) - getOffsetTop(displayContainer),
+      width: 18,
+      height: 18
     };
   }
 

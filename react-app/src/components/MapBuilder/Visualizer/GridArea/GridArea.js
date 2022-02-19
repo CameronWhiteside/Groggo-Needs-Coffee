@@ -3,6 +3,7 @@ import { useState } from "react"
 
 import Node from "../Node/Node"
 import DrawLayer from './DrawLayer/DrawLayer'
+import PathTraceLayer from "./PathTraceLayer/PathTraceLayer"
 import './GridArea.css'
 
 
@@ -72,6 +73,11 @@ const GridArea = ({
                 nodeSize={nodeSize}
                 featureList={featureList}
                 setFeatureList={setFeatureList}
+            />
+            <PathTraceLayer
+                height={height}
+                width={width}
+                nodeSize={nodeSize}
             />
                 {NodeGrid(height, width, nodeSize)}
             </div>
