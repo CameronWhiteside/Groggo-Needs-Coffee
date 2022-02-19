@@ -29,6 +29,7 @@ const Node = ({
             is-water={isWater.toString()}
             is-street-end={isStreetEnd.toString()}
             is-highway-end={isHighwayEnd.toString()}
+            feature-list='{features:[]}'
             onClick={nodeClick}
             onMouseOver={nodeMouseOver}
         >

@@ -72,12 +72,15 @@ const findNodesAndPath = () => {
   let path = [finishNode]
   let lastStep = finishNode
 
-  while (lastStep !== startNode) {
-    path.unshift(backtrace[lastStep.id])
-    lastStep = backtrace[lastStep.id]
+  if (currentNode === finishNode) {
+    while (lastStep !== startNode) {
+      path.unshift(backtrace[lastStep.id])
+      lastStep = backtrace[lastStep.id]
+    }
+  } else {
+    path = []
   }
 
-  console.log({path})
 
   return {
     path,
@@ -133,27 +136,29 @@ const addPathLine = (nodeA, nodeB) => {
 const visualizeDijkstra = (setPathfindingMode) => {
   let { visitOrder, path, travelTime } = findNodesAndPath()
   let visitCount = visitOrder.length
-  let visitAnimationLength = 2000
+  let visitAnimationLength = visitOrder.length
   let visitNodeLength = visitAnimationLength/visitCount
   let pathCount = path.length
   let pathAnimationLength = 1000
+  if (!path.length) pathAnimationLength = 0
   let drawPathLength = pathAnimationLength/(pathCount-1)
 
   for (let i = 0; i < visitCount; i++) {
     let visitedNode = document.getElementById(visitOrder[i].id)
+
     setTimeout(() => {
       visitedNode.classList.add('visited');
     }, i * visitNodeLength)
 
-    // let visitedNode = document.getElementById(visitOrder[i].id)
     setTimeout(() => {
       visitedNode.classList.remove('visited');
     }, pathAnimationLength + visitAnimationLength)
 
-    setTimeout(() => {
-      setPathfindingMode(true);
-    }, pathAnimationLength + visitAnimationLength)
   }
+
+  setTimeout(() => {
+    setPathfindingMode(true);
+  }, pathAnimationLength + visitAnimationLength)
 
   for (let i = 1; i < path.length; i++) {
     let pathNode = document.getElementById(path[i].id)
@@ -163,7 +168,6 @@ const visualizeDijkstra = (setPathfindingMode) => {
     }, drawPathLength * i + visitAnimationLength)
 
   }
-
 }
 
   export default visualizeDijkstra

@@ -6,7 +6,9 @@ const DrawLayer = ({ height, width, nodeSize }) => {
     let startY = 0
     let stopX = 0
     let stopY = 0
+    let featureWidth, featureHeight, featureTop, featureLeft, boxY, boxX
     let drawingActive = false
+    let gridLayer = document.getElementById('grid-area')
 
     const getOffsetTop = element => {
         let offsetTop = 0;
@@ -26,25 +28,25 @@ const DrawLayer = ({ height, width, nodeSize }) => {
         return offsetLeft;
     }
 
-    let gridLayer = document.getElementById('grid-area')
-    let boxY = getOffsetTop(gridLayer)
-    let boxX = getOffsetLeft(gridLayer)
 
 
     const startDraw = (e) => {
+        boxY = getOffsetTop(gridLayer)
+        boxX = getOffsetLeft(gridLayer)
+        e.stopPropagation()
+        e.preventDefault()
         drawingActive = true
         let clickY = e.pageY
         let clickX = e.pageX
-        startX = Math.floor((clickX - boxX) / nodeSize)
-        startY = Math.floor((clickY - boxY) / nodeSize)
-        console.log(startX, startY)
-        // console.log({boxX, boxY, clickX, clickY})
-        // console.log(e.pageY - thisLayer.offsetTop)
-        // console.log(e.pageX - thisLayer.offsetLeft)
-        // console.log(clickX-boxX)
+        let newStartX = Math.floor((clickX - boxX) / nodeSize)
+        if  (newStartX > 0) startX = newStartX
+        let newStartY = Math.floor(((clickY - boxY) / nodeSize))
+        if  (newStartY > 0) startY = newStartY
     }
 
     const moveDraw = (e) => {
+        e.stopPropagation()
+        e.preventDefault()
 
         let nextX
         let nextY
@@ -58,32 +60,103 @@ const DrawLayer = ({ height, width, nodeSize }) => {
         }
 
         if (drawingActive && (nextX !== stopX || nextY !== stopY)) {
-            stopX = nextX
-            stopY = nextY
+            if (nextX >= 0) {
+                stopX = nextX
+            }
+
+            if (nextY >= 0) {
+                stopY = nextY
+            }
+
+            if (startX < stopX) {
+                featureWidth = `${(stopX - startX + 1) * nodeSize}px`
+                featureLeft = `${startX * nodeSize}px`
+            } else {
+                featureWidth = `${(startX - stopX + 1) * nodeSize}px`
+                featureLeft = `${stopX * nodeSize}px`
+            }
+
+            if (startY < stopY) {
+                featureHeight = `${(stopY - startY + 1) * nodeSize}px`
+                featureTop = `${startY * nodeSize}px`
+            } else {
+                featureHeight = `${(startY - stopY + 1) * nodeSize}px`
+                featureTop = `${stopY * nodeSize}px`
+            }
+
             console.log(`redraw, ${stopX}, ${stopY}`)
+            // if (!document.getElementById('drawn-feature')) {
+                e.target.innerHTML=''
+                let newFeature = document.createElement('div')
+                newFeature.id = 'drawn-feature'
+                newFeature.style.position = 'absolute'
+                newFeature.style.width = featureWidth
+                newFeature.style.height = featureHeight
+                newFeature.style.left = featureLeft
+                newFeature.style.top = featureTop
+                newFeature.classList.add('fake-water')
+                let clickArea = document.getElementById('click-tracker')
+                clickArea.innerHTML= ''
+                clickArea.appendChild(newFeature)
+            // }
         }
     }
 
+
+    const addWaterToNodes = (x1, x2, y1, y2) => {
+        let xMin, xMax, yMin, yMax
+        if (x1 < x2) {
+            xMin = x1
+            xMax = x2
+        } else {
+            xMin = x2
+            xMax = x1
+        }
+
+        if (y1 < y2) {
+            yMin = y1
+            yMax = y2
+        } else {
+            yMin = y2
+            yMax = y1
+        }
+
+        for (let x = xMin; x <= xMax; x++) {
+            for (let y = yMin; y <= yMax; y++){
+                let waterNode = document.getElementById(`${x}-${y}`)
+                    waterNode.setAttribute('is-brush', 'false')
+                    waterNode.setAttribute('is-water', 'true')
+                    }
+                }
+    }
+
     const finishDraw = (e) => {
-        drawingActive=false
-        console.log(`done drawing`)
+        e.stopPropagation()
+        e.preventDefault()
+        if (drawingActive) {
+            addWaterToNodes(startX, stopX, startY, stopY)
+        }
+        document.getElementById('click-tracker').innerHTML = ''
+        drawingActive = false
     }
 
     return (
+        <>
         <div
             id="draw-layer"
             onMouseDown={startDraw}
             onMouseUp={finishDraw}
             onMouseMove={moveDraw}
+            onMouseLeave={finishDraw}
             style={{
                 height: `${height * nodeSize}px`,
                 width: `${width * nodeSize}px`,
             }}
             >
-            <div id='click-tracker'
-            >
-            </div>
         </div>
+            <div id='click-tracker'>
+            </div>
+        </>
     )
 
 }
