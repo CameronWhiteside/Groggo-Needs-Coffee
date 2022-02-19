@@ -17,26 +17,31 @@ const GridArea = ({
     const [drawFinishX, setDrawFinishX] = useState()
     const [drawFinishY, setDrawFinishY] = useState()
 
+    const width = 70
+    const height = 35
+    const nodeSize = 18
+
     let nodeClick = (e) => {
+        console.log(`click`)
 
-        if (!drawWaterMode) {
-            setDrawWaterMode(true)
-            setDrawStartX(e.target.getAttribute('row'))
-            setDrawStartY(e.target.getAttribute('col'))
-        } else {
-            const newFeature = {
-                start_latitude: drawStartX,
-                stop_latitude: drawFinishX,
-                start_longitude: drawStartY,
-                stop_longitude: drawFinishY,
-                feature_type_id: 7,
-            }
+        // if (!drawWaterMode) {
+        //     setDrawWaterMode(true)
+        //     setDrawStartX(e.target.getAttribute('row'))
+        //     setDrawStartY(e.target.getAttribute('col'))
+        // } else {
+        //     const newFeature = {
+        //         start_latitude: drawStartX,
+        //         stop_latitude: drawFinishX,
+        //         start_longitude: drawStartY,
+        //         stop_longitude: drawFinishY,
+        //         feature_type_id: 7,
+        //     }
 
-            let newList = [...featureList]
-            newList.push(newFeature)
-            setFeatureList(newList)
-            setDrawWaterMode(false)
-        }
+        //     let newList = [...featureList]
+        //     newList.push(newFeature)
+        //     setFeatureList(newList)
+        //     setDrawWaterMode(false)
+        // }
     }
 
     let nodeMouseOver = (e) => {
@@ -96,7 +101,7 @@ const GridArea = ({
         }
     }
 
-    const NodeCol = (colCount, rowNumber) => {
+    const NodeCol = (colCount, rowNumber, nodeSize) => {
 
         const col = []
         for (let i = 0; i < colCount; i++) {
@@ -116,6 +121,7 @@ const GridArea = ({
                 isFinish={isFinish}
                 isWater={isWater}
                 isBrush={isBrush}
+                nodeSize={nodeSize}
                 nodeClick={nodeClick}
                 nodeMouseOver={nodeMouseOver}
                 key={`${i}-${rowNumber}`} />)
@@ -123,55 +129,14 @@ const GridArea = ({
         return col
     }
 
-    const DrawCol = (colCount, rowNumber) => {
-
-        const col = []
-        for (let i = 0; i < colCount; i++) {
-            let colNumber = i
-
-            let isStart = (rowNumber === 20 && colNumber === 12)
-            let isFinish = (rowNumber === 17 && colNumber === 50)
 
 
-            let isWater = checkWater(rowNumber, colNumber)
-            col.push(<div
-
-                row={rowNumber}
-                col={colNumber}
-                isWater={isWater}
-                key={`${i}-${rowNumber}`} />)
-        }
-        return col
-    }
-
-
-    const NodeGrid = (rowCount, colCount, colCounterVariable) => {
+    const NodeGrid = (rowCount, colCount, nodeSize) => {
         const grid = []
         for (let i = 0; i < rowCount; i++) {
             grid.push(
                 <div className="grid-row" key={`row-${i}`}>
-                    {NodeCol(colCount, i)}
-                </div>
-            )
-        }
-        return (
-            <div id='grid-area' >
-                <div div='map-layer'>
-                    {grid}
-                </div>
-                <div div='draw-layer'>
-                </div>
-            </div>
-            )
-
-    }
-
-    const DrawGrid = (rowCount, colCount, colCounterVariable) => {
-        const grid = []
-        for (let i = 0; i < rowCount; i++) {
-            grid.push(
-                <div className="grid-row" key={`row-${i}`}>
-                    {NodeCol(colCount, i)}
+                    {NodeCol(colCount, i, nodeSize)}
                 </div>
             )
         }
@@ -189,8 +154,13 @@ const GridArea = ({
 
 
     return (
-            <div className="grid-area">
-                {NodeGrid(35, 70, 'key')}
+        <div className="grid-area">
+            <div className='draw-layer'
+                style={{}}
+            >
+                blurp
+            </div>
+                {NodeGrid(height, width, nodeSize)}
             </div>
     )
 }

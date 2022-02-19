@@ -10,6 +10,7 @@ const Node = ({
     isWater = false,
     isHighwayEnd = false,
     isStreetEnd = false,
+    nodeSize,
     nodeClick,
     nodeMouseOver
 }) => {
@@ -18,6 +19,7 @@ const Node = ({
         <div
             className="node"
             id={`${col}-${row}`}
+            style={{height: `${nodeSize}px`, width: `${nodeSize}px`}}
             row={row}
             col={col}
             is-start={isStart.toString()}
