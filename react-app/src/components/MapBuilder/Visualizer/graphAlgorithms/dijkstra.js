@@ -154,10 +154,10 @@ const getOffsetLeft = element => {
 const visualizeDijkstra = (setPathfindingMode) => {
   let { visitOrder, path, travelTime } = findNodesAndPath()
   let visitCount = visitOrder.length
-  let visitAnimationLength = visitOrder.length
+  let visitAnimationLength = 3000
   let visitNodeLength = visitAnimationLength/visitCount
   let pathCount = path.length
-  let pathAnimationLength = 1000
+  let pathAnimationLength = pathCount * 5
   if (!path.length) pathAnimationLength = 0
   let drawPathLength = pathAnimationLength/(pathCount-1)
 

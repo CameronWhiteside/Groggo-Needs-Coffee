@@ -4,7 +4,7 @@ const MapCard = ({ map, setCurrentMap, setCurrentName, featureList, setFeatureLi
 
     const selectMap = () => {
         setCurrentMap(map)
-        console.log({ setFeatureList })
+
         let mapFeatures = map.features
         let mapFeatureInfo = mapFeatures.map(feature => {
 

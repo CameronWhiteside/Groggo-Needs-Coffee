@@ -140,6 +140,39 @@ const MapBuilder = () => {
         dispatch(getMaps(sessionUser.id))
     }, []);
 
+    useEffect(() => {
+        console.log(`oh she runnin`)
+        if (currentMap) {
+            let mapFeatures = currentMap.features
+            let mapFeatureInfo = mapFeatures.map(feature => {
+
+                let nodes = {}
+
+                for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
+                    for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
+                        nodes[`${x}-${y}`] = `${x}-${y}`
+                    }
+                }
+
+                let featureObj = {
+                    name: feature.name,
+                    featureTypeId: feature.feature_type_id,
+                    typeName: feature.type_name,
+                    startLatitude: feature.start_latitude,
+                    startLongitude: feature.start_longitude,
+                    stopLatitude: feature.stop_latitude,
+                    stopLongitude: feature.stop_longitude,
+                    nodes
+                }
+
+                return featureObj
+
+            })
+            setFeatureList(mapFeatureInfo)
+        }
+    },[currentMap])
+
+
 
     if (!sessionUser) return (
         <Redirect to='/'/>
@@ -211,7 +244,6 @@ const MapBuilder = () => {
                                     // setPathfindingMode(true)
                                     visualizeDijkstra(setPathfindingMode)
                                 }}
-                            // setFoundPathList={setFoundPathList}
                             >
                                 Find Path
                             </button>
@@ -219,7 +251,6 @@ const MapBuilder = () => {
                             <button
                                 className='visualize-button'
                                 onClick={resetPath}
-                            // setFoundPathList={setFoundPathList}
                             >
                                 Reset
                             </button>
@@ -230,7 +261,6 @@ const MapBuilder = () => {
                             drawWaterMode={drawWaterMode}
                             setDrawWaterMode={setDrawWaterMode}
                             drawBrushMode={drawBrushMode}
-                            
                             setFeatureList={setFeatureList}
                             featureList={featureList}
                         />
