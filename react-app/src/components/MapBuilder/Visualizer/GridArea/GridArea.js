@@ -10,7 +10,7 @@ import './GridArea.css'
 
 const GridArea = ({
     drawWaterMode,
-    setDrawWaterMode,
+    drawBrushMode,
     featureList,
     setFeatureList }) => {
 
@@ -81,6 +81,8 @@ const GridArea = ({
                 nodeSize={nodeSize}
                 featureList={featureList}
                 setFeatureList={setFeatureList}
+                drawWaterMode={drawWaterMode}
+                drawBrushMode={drawBrushMode}
             />
             <PathTraceLayer
                 height={height}

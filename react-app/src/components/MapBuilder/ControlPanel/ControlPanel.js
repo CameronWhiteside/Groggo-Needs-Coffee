@@ -14,7 +14,9 @@ const ControlPanel = ({
     saveMap,
     saveText,
     drawWaterMode,
-    setDrawWaterMode
+    setDrawWaterMode,
+    drawBrushMode,
+    setDrawBrushMode
 }) => {
     // const dispatch = useDispatch();
     // const sessionUser = useSelector(state => state.session.user);
@@ -47,8 +49,21 @@ const ControlPanel = ({
     // }
 
     const toggleWater = () => {
-        console.log(`she togglin`)
-        setDrawWaterMode(!drawWaterMode)
+        if (drawWaterMode) {
+            setDrawWaterMode(false)
+        } else {
+            setDrawBrushMode(false)
+            setDrawWaterMode(true)
+        }
+    }
+
+    const toggleBrush = () => {
+        if (drawBrushMode) {
+            setDrawBrushMode(false)
+        } else {
+            setDrawWaterMode(false)
+            setDrawBrushMode(true)
+        }
     }
 
 
@@ -82,7 +97,9 @@ const ControlPanel = ({
                     featureName='Street'
                     />
                 <FeatureType
-                featureName='Brush'
+                        featureName='Brush'
+                        onClick={toggleBrush}
+                        activeMode={drawBrushMode}
                 />
                 </div>
             </div>

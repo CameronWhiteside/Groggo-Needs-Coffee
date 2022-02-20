@@ -56,6 +56,7 @@ const MapBuilder = () => {
     const [featureList, setFeatureList] = useState([]);
 
     const [drawWaterMode, setDrawWaterMode] = useState(false)
+    const [drawBrushMode, setDrawBrushMode] = useState(false)
 
     const activateDelete = (e) => {
         e.preventDefault()
@@ -180,6 +181,8 @@ const MapBuilder = () => {
                             saveText={saveText}
                             drawWaterMode={drawWaterMode}
                             setDrawWaterMode={setDrawWaterMode}
+                            drawBrushMode={drawBrushMode}
+                            setDrawBrushMode={setDrawBrushMode}
                         >
                                  <div className='title-area'>
                         <div className='map-name'>

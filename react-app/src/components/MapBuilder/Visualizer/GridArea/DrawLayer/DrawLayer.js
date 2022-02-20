@@ -1,6 +1,14 @@
 import './DrawLayer.css'
 
-const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => {
+const DrawLayer = (
+    { height,
+        width,
+        nodeSize,
+        featureList,
+        setFeatureList,
+        drawWaterMode,
+        drawBrushMode
+    }) => {
     let startX = 0
     let startY = 0
     let stopX = 0
@@ -29,8 +37,6 @@ const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => 
             return offsetLeft;
         }
 
-        console.log({featureList})
-
         boxY = getOffsetTop(gridLayer)
         boxX = getOffsetLeft(gridLayer)
         e.stopPropagation()
@@ -39,9 +45,15 @@ const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => 
         let clickY = e.pageY
         let clickX = e.pageX
         let newStartX = Math.floor((clickX - boxX) / nodeSize)
-        if  (newStartX > 0) startX = newStartX
+        if (newStartX >= 0) {
+            startX = newStartX
+            stopX = newStartX
+        }
         let newStartY = Math.floor(((clickY - boxY) / nodeSize))
-        if  (newStartY > 0) startY = newStartY
+        if (newStartY >= 0) {
+            startY = newStartY
+            stopY = newStartY
+        }
     }
 
     const moveDraw = (e) => {
@@ -86,7 +98,8 @@ const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => 
 
             // console.log(`redraw, ${stopX}, ${stopY}`)
             // if (!document.getElementById('drawn-feature')) {
-                e.target.innerHTML=''
+            if (drawWaterMode) {
+                e.target.innerHTML = ''
                 let newFeature = document.createElement('div')
                 newFeature.id = 'drawn-feature'
                 newFeature.style.position = 'absolute'
@@ -96,8 +109,9 @@ const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => 
                 newFeature.style.top = featureTop
                 newFeature.classList.add('fake-water')
                 let clickArea = document.getElementById('click-tracker')
-                clickArea.innerHTML= ''
+                clickArea.innerHTML = ''
                 clickArea.appendChild(newFeature)
+            }
             // }
         }
     }
@@ -147,9 +161,11 @@ const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => 
         e.stopPropagation()
         e.preventDefault()
         if (drawingActive) {
-            let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
-            newFeature['feature_type_id'] = '7'
-            setFeatureList([...featureList, newFeature])
+            if (drawWaterMode) {
+                let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
+                newFeature['featureTypeId'] = '7'
+                setFeatureList([...featureList, newFeature])
+            }
         }
         document.getElementById('click-tracker').innerHTML = ''
         drawingActive = false
