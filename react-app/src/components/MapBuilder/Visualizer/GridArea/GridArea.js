@@ -37,7 +37,6 @@ const GridArea = ({
             }
 
             col.push(<Node
-
                 row={rowNumber}
                 col={colNumber}
                 isStart={isStart}
@@ -45,28 +44,55 @@ const GridArea = ({
                 isWater={isWater}
                 isBrush={isBrush}
                 nodeSize={nodeSize}
-                key={`${i}-${rowNumber}`} />)
+                key={`${i}-${rowNumber}`}/>)
         }
         return col
     }
 
+    const MapLayer = ({ width, height, nodeSize, featureList }) => {
+        let grid = []
+        for (let row = 0; row < height; row++) {
+            let newRow = []
+            for (let col = 0; col < width; col++) {
 
-    const NodeGrid = (rowCount, colCount, nodeSize) => {
-        const grid = []
-        for (let i = 0; i < rowCount; i++) {
-            grid.push(
-                <div className="grid-row" key={`row-${i}`}>
-                    {NodeCol(colCount, i, nodeSize)}
-                </div>
-            )
+                let isStart, isFinish, isWater, isBrush = false
+
+                isStart = (row === 20 && col === 12)
+                isFinish = (row === 17 && col === 50)
+
+                for (let j = 0; j < featureList.length; j++) {
+                    let feature = featureList[j]
+                    if (feature.nodes[`${col}-${row}`]) {
+                        if (feature.featureTypeId === 7) isWater = true
+                        if (feature.featureTypeId === 6) isBrush = true
+                    }
+                }
+                    newRow.push(
+                        <Node
+                        row={row}
+                        col={col}
+                        isStart={isStart}
+                        isFinish={isFinish}
+                        isWater={isWater}
+                        isBrush={isBrush}
+                        nodeSize={nodeSize}
+                        key = {`${col}-${row}`}
+                        />
+                    )
+            }
+            grid.push(newRow)
         }
         return (
-                <div div='map-layer'>
-                    {grid}
-                </div>
-
-            )
-
+            <div className="map-grid" id='map-layer'>
+                {
+                    grid.map((row, rowNumber) => (
+                    <div className="grid-row" key={`row-${rowNumber}`}>
+                        {row}
+                    </div>
+                    ))
+                }
+            </div>
+        )
     }
 
     // useEffect(() => {
@@ -90,7 +116,13 @@ const GridArea = ({
                 width={width}
                 nodeSize={nodeSize}
             />
-                {NodeGrid(height, width, nodeSize)}
+            <MapLayer
+                height={height}
+                width={width}
+                nodeSize={nodeSize}
+                featureList={featureList}
+                />
+            {/* {NodeGrid(height, width, nodeSize)} */}
             </div>
     )
 }
