@@ -41,7 +41,7 @@ class Map(db.Model):
       for feature in feature_list:
         Feature.add_a_feature(
             map_id = map_id,
-            feature_type_id = feature['typeId'],
+            feature_type_id = feature['featureTypeId'],
             start_latitude = feature['startLatitude'],
             start_longitude = feature['startLongitude'],
             stop_latitude = feature ['stopLatitude'],
@@ -67,8 +67,8 @@ class Map(db.Model):
         db.session.delete(feature)
       for feature in feature_list:
         Feature.add_a_feature(
-            map_id = id,
-            feature_type_id = feature['typeId'],
+            id,
+            feature_type_id = feature['featureTypeId'],
             start_latitude = feature['startLatitude'],
             start_longitude = feature['startLongitude'],
             stop_latitude = feature ['stopLatitude'],

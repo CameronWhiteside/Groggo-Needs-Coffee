@@ -29,6 +29,8 @@ const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => 
             return offsetLeft;
         }
 
+        console.log({featureList})
+
         boxY = getOffsetTop(gridLayer)
         boxX = getOffsetLeft(gridLayer)
         e.stopPropagation()
@@ -125,6 +127,7 @@ const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => 
             startLongitude: xMin,
             stopLatitude: yMax,
             stopLongitude: xMax,
+            featureTypeId: 7,
             nodes: {}
         }
 
@@ -145,7 +148,7 @@ const DrawLayer = ({ height, width, nodeSize, featureList, setFeatureList }) => 
         e.preventDefault()
         if (drawingActive) {
             let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
-            newFeature['typeId'] = '7'
+            newFeature['feature_type_id'] = '7'
             setFeatureList([...featureList, newFeature])
         }
         document.getElementById('click-tracker').innerHTML = ''

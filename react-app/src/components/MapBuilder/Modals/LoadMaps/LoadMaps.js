@@ -9,7 +9,9 @@ const LoadMaps = ({
     loadMapMode,
     setLoadMapMode,
     setCurrentMap,
-    setCurrentName
+    setCurrentName,
+    featureList,
+    setFeatureList,
 
 }) => {
 
@@ -35,6 +37,8 @@ const LoadMaps = ({
                                 <MapCard
                                     setCurrentMap={setCurrentMap}
                                     setCurrentName={setCurrentName}
+                                    featureList={featureList}
+                                    setFeatureList={setFeatureList}
                                     key={map.id}
                                     map={map}
 
@@ -49,18 +53,6 @@ const LoadMaps = ({
                                 </h5>
                             </>
                         }
-                    {/* <h5 className='modal-warning'>This is not a drill. Once you delete this map, you can't change your mind. It'll be gone forever.
-                    </h5>
-                    <div className='action-container'>
-                    <button
-                        className='modal-button delete'
-                        onClick={onConfirm}
-                        >I Said What I Said.</button>
-                    <button
-                        className='modal-button delete'
-                        onClick={onCancel}
-                        >Oh, Nevermind.</button>
-                    </div> */}
                 </Modal>
             )
         }

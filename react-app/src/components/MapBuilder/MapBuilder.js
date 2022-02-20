@@ -69,6 +69,7 @@ const MapBuilder = () => {
 
     const activateLoad = (e) => {
         e.preventDefault()
+        dispatch(getMaps(sessionUser.id))
         setLoadMapMode(true)
     }
 
@@ -105,6 +106,7 @@ const MapBuilder = () => {
                 featureList
             }))
 
+            dispatch(getMaps(sessionUser.id))
             setCurrentMap(newMap)
 
             //TODO save all map features
@@ -116,18 +118,18 @@ const MapBuilder = () => {
                 featureList
             }))
 
+            dispatch(getMaps(sessionUser.id))
             setCurrentMap(updatedMap)
         }
         setTimeout(() => {
             setSaveText('Save Map')
-        }, 1000)
+        }, 600)
         setSaveText('Saving Successful!')
 
 
     }
 
     const resetPath = () => {
-        console.log(`reseting`)
         let nodeList = document.querySelectorAll('.line')
         nodeList.forEach(node => node.remove(`visited`))
         setPathfindingMode(false)
@@ -162,6 +164,8 @@ const MapBuilder = () => {
                 userMaps={currentMaps}
                 setCurrentMap={setCurrentMap}
                 setCurrentName={setCurrentName}
+                featureList={featureList}
+                setFeatureList={setFeatureList}
             />
             <div className='map-builder'>
                 <main className='build-area'>

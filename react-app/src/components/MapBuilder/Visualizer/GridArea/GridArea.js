@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import Node from "../Node/Node"
 import DrawLayer from './DrawLayer/DrawLayer'
@@ -24,12 +24,17 @@ const GridArea = ({
         for (let i = 0; i < colCount; i++) {
             let colNumber = i
 
-            let isStart = (rowNumber === 20 && colNumber === 12)
-            let isFinish = (rowNumber === 17 && colNumber === 50)
+            let isStart, isFinish, isWater, isBrush = false
+            isStart = (rowNumber === 20 && colNumber === 12)
+            isFinish = (rowNumber === 17 && colNumber === 50)
 
-
-            let isWater = false
-            let isBrush = (!isWater && (rowNumber * colNumber) % 9 === 2)
+            for (let j = 0; j < featureList.length; j++) {
+                let feature = featureList[j]
+                if (feature.nodes[`${colNumber}-${rowNumber}`]) {
+                    if ( feature.featureTypeId === 7) isWater = true
+                }
+            }
+            isBrush = (!isWater && (rowNumber * colNumber) % 9 === 2)
             col.push(<Node
 
                 row={rowNumber}
@@ -43,7 +48,6 @@ const GridArea = ({
         }
         return col
     }
-
 
 
     const NodeGrid = (rowCount, colCount, nodeSize) => {
@@ -63,6 +67,10 @@ const GridArea = ({
             )
 
     }
+
+    // useEffect(() => {
+
+    // },[featureList])
 
 
     return (
