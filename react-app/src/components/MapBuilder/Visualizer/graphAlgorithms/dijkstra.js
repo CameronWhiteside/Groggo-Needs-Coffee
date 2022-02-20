@@ -80,8 +80,9 @@ const findNodesAndPath = () => {
   } else {
     path = []
   }
-
-
+  if (path.length > 0) {
+    console.log(document.getElementById(path[path.length - 1].id))
+  }
   return {
     path,
     visitOrder,
@@ -178,9 +179,9 @@ const visualizeDijkstra = (setPathfindingMode) => {
     setPathfindingMode(true);
   }, pathAnimationLength + visitAnimationLength)
 
-  for (let i = 1; i < path.length; i++) {
+  for (let i = 0; i < path.length-1; i++) {
     let pathNode = document.getElementById(path[i].id)
-    let prevNode = document.getElementById(path[i-1].id)
+    let prevNode = document.getElementById(path[i+1].id)
     setTimeout(() => {
       addPathLine(pathNode, prevNode)
     }, drawPathLength * i + visitAnimationLength)

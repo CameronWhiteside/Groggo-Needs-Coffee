@@ -219,13 +219,14 @@ const DrawLayer = (
         if (drawingActive) {
             if (drawWaterMode) {
                 let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
-                newFeature['featureTypeId'] = '7'
+                newFeature['featureTypeId'] = 7
                 setFeatureList([...featureList, newFeature])
             }
 
             if (drawBrushMode) {
                 let newFeature = addBrushToNodes(startX, stopX, startY, stopY)
-                newFeature['featureTypeId'] = '6'
+                newFeature['featureTypeId'] = 6
+                console.log(`newFeature`)
                 setFeatureList([...featureList, newFeature])
             }
         }

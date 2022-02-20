@@ -18,36 +18,40 @@ const GridArea = ({
     const height = 35
     const nodeSize = 18
 
-    const NodeCol = (colCount, rowNumber, nodeSize) => {
+    // const NodeCol = (colCount, rowNumber, nodeSize) => {
 
-        const col = []
-        for (let i = 0; i < colCount; i++) {
-            let colNumber = i
+    //     const col = []
+    //     for (let i = 0; i < colCount; i++) {
+    //         let colNumber = i
 
-            let isStart, isFinish, isWater, isBrush = false
-            isStart = (rowNumber === 20 && colNumber === 12)
-            isFinish = (rowNumber === 17 && colNumber === 50)
+    //         let isStart, isFinish, isWater, isBrush = false
+    //         isStart = (rowNumber === 20 && colNumber === 12)
+    //         isFinish = (rowNumber === 17 && colNumber === 50)
 
-            for (let j = 0; j < featureList.length; j++) {
-                let feature = featureList[j]
-                if (feature.nodes[`${colNumber}-${rowNumber}`]) {
-                    if (feature.featureTypeId === 7) isWater = true
-                    if (feature.featureTypeId === 6) isBrush = true
-                }
-            }
+    //         for (let j = 0; j < featureList.length; j++) {
+    //             let feature = featureList[j]
+    //             if (feature.nodes[`${colNumber}-${rowNumber}`]) {
+    //                 if (feature.featureTypeId === 7) isWater = true
+    //                 if (feature.featureTypeId === 6) isBrush = true
+    //             }
+    //         }
 
-            col.push(<Node
-                row={rowNumber}
-                col={colNumber}
-                isStart={isStart}
-                isFinish={isFinish}
-                isWater={isWater}
-                isBrush={isBrush}
-                nodeSize={nodeSize}
-                key={`${i}-${rowNumber}`}/>)
-        }
-        return col
-    }
+    //         col.push(<Node
+    //             row={rowNumber}
+    //             col={colNumber}
+    //             isStart={isStart}
+    //             isFinish={isFinish}
+    //             isWater={isWater}
+    //             isBrush={isBrush}
+    //             nodeSize={nodeSize}
+    //             key={`${i}-${rowNumber}`}/>)
+    //     }
+    //     return col
+    // }
+
+       useEffect(() => {
+        console.log(featureList)
+    },[featureList])
 
     const MapLayer = ({ width, height, nodeSize, featureList }) => {
         let grid = []
@@ -64,7 +68,10 @@ const GridArea = ({
                     let feature = featureList[j]
                     if (feature.nodes[`${col}-${row}`]) {
                         if (feature.featureTypeId === 7) isWater = true
-                        if (feature.featureTypeId === 6) isBrush = true
+                        if (feature.featureTypeId === 6) {
+                            isWater = false
+                            isBrush = true
+                        }
                     }
                 }
                     newRow.push(
@@ -95,9 +102,7 @@ const GridArea = ({
         )
     }
 
-    // useEffect(() => {
 
-    // },[featureList])
 
 
     return (
@@ -116,12 +121,14 @@ const GridArea = ({
                 width={width}
                 nodeSize={nodeSize}
             />
-            <MapLayer
-                height={height}
-                width={width}
-                nodeSize={nodeSize}
-                featureList={featureList}
+            {featureList &&
+                <MapLayer
+                    height={height}
+                    width={width}
+                    nodeSize={nodeSize}
+                    featureList={featureList}
                 />
+            }
             {/* {NodeGrid(height, width, nodeSize)} */}
             </div>
     )
