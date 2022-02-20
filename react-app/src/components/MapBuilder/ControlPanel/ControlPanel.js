@@ -12,7 +12,9 @@ const ControlPanel = ({
     // currentMap,
     // setCurrentMap
     saveMap,
-    saveText
+    saveText,
+    drawWaterMode,
+    setDrawWaterMode
 }) => {
     // const dispatch = useDispatch();
     // const sessionUser = useSelector(state => state.session.user);
@@ -23,13 +25,17 @@ const ControlPanel = ({
 
     const FeatureType = ({
         featureName,
-        iconUrl,
+        onClick,
+        activeMode
     }) => {
 
 
         return (
-            <div className="feature-type">
-                <div className={`feature-icon ${featureName}`}></div>
+            <div onClick={onClick} className="feature-type">
+                <div className={`feature-icon ${featureName}`}>
+                    <div className={`active-feature-${activeMode}`}>
+                    </div>
+                </div>
                 <div className="feature-name">{featureName}</div>
             </div>
         )
@@ -39,6 +45,11 @@ const ControlPanel = ({
     //     e.preventDefault()
     //     setClearMapMode(true)
     // }
+
+    const toggleWater = () => {
+        console.log(`she togglin`)
+        setDrawWaterMode(!drawWaterMode)
+    }
 
 
     const LineDivider = () => {
@@ -57,8 +68,10 @@ const ControlPanel = ({
                         icon='C'
                         featureName="Shop"
                     />
-                <FeatureType
-                    featureName='Water'
+                    <FeatureType
+                        onClick={toggleWater}
+                        activeMode={drawWaterMode}
+                        featureName='Water'
                     />
                     </div>
                 <div className="feature-row top-row">

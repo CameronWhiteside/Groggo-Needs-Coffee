@@ -178,6 +178,8 @@ const MapBuilder = () => {
                             currentMap={currentMap}
                             saveMap={saveMap}
                             saveText={saveText}
+                            drawWaterMode={drawWaterMode}
+                            setDrawWaterMode={setDrawWaterMode}
                         >
                                  <div className='title-area'>
                         <div className='map-name'>
