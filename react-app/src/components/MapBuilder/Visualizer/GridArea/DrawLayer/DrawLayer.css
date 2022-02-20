@@ -13,8 +13,14 @@
     z-index: 5;
 }
 
+
 .fake-water{
     z-index: 4;
     position: absolute;
     background-color: var(--water);
+}
+.fake-brush{
+    z-index: 4;
+    position: absolute;
+    background-color: var(--brush);
 }

@@ -112,6 +112,22 @@ const DrawLayer = (
                 clickArea.innerHTML = ''
                 clickArea.appendChild(newFeature)
             }
+
+            if (drawBrushMode) {
+                console.log(`drawinbrush`)
+                e.target.innerHTML = ''
+                let newFeature = document.createElement('div')
+                newFeature.id = 'drawn-feature'
+                newFeature.style.position = 'absolute'
+                newFeature.style.width = featureWidth
+                newFeature.style.height = featureHeight
+                newFeature.style.left = featureLeft
+                newFeature.style.top = featureTop
+                newFeature.classList.add('fake-brush')
+                let clickArea = document.getElementById('click-tracker')
+                clickArea.innerHTML = ''
+                clickArea.appendChild(newFeature)
+            }
             // }
         }
     }
@@ -157,6 +173,46 @@ const DrawLayer = (
         return newFeature
     }
 
+    const addBrushToNodes = (x1, x2, y1, y2) => {
+
+        let xMin, xMax, yMin, yMax
+        if (x1 < x2) {
+            xMin = x1
+            xMax = x2
+        } else {
+            xMin = x2
+            xMax = x1
+        }
+
+        if (y1 < y2) {
+            yMin = y1
+            yMax = y2
+        } else {
+            yMin = y2
+            yMax = y1
+        }
+
+        let newFeature = {
+            startLatitude: yMin,
+            startLongitude: xMin,
+            stopLatitude: yMax,
+            stopLongitude: xMax,
+            featureTypeId: 6,
+            nodes: {}
+        }
+
+        for (let x = xMin; x <= xMax; x++) {
+            for (let y = yMin; y <= yMax; y++){
+                newFeature.nodes[`${x}-${y}`] = `${x}-${y}`
+                let waterNode = document.getElementById(`${x}-${y}`)
+                    waterNode.setAttribute('is-brush', 'true')
+                    waterNode.setAttribute('is-water', 'false')
+                    }
+        }
+
+        return newFeature
+    }
+
     const finishDraw = (e) => {
         e.stopPropagation()
         e.preventDefault()
@@ -164,6 +220,12 @@ const DrawLayer = (
             if (drawWaterMode) {
                 let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = '7'
+                setFeatureList([...featureList, newFeature])
+            }
+
+            if (drawBrushMode) {
+                let newFeature = addBrushToNodes(startX, stopX, startY, stopY)
+                newFeature['featureTypeId'] = '6'
                 setFeatureList([...featureList, newFeature])
             }
         }

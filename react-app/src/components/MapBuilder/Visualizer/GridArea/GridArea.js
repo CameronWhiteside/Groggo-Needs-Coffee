@@ -31,10 +31,11 @@ const GridArea = ({
             for (let j = 0; j < featureList.length; j++) {
                 let feature = featureList[j]
                 if (feature.nodes[`${colNumber}-${rowNumber}`]) {
-                    if ( feature.featureTypeId === 7) isWater = true
+                    if (feature.featureTypeId === 7) isWater = true
+                    if (feature.featureTypeId === 6) isBrush = true
                 }
             }
-            isBrush = (!isWater && (rowNumber * colNumber) % 9 === 2)
+
             col.push(<Node
 
                 row={rowNumber}

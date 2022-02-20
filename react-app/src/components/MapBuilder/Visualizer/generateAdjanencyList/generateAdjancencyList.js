@@ -46,8 +46,8 @@ const generateAdjacencyList = () => {
                     if ((rowDist <= 1 && colDist <= 1)) {
                         // console.log('y')
                         let dist = Math.sqrt(rowDist ** 2 + colDist ** 2)
-                        if (nodeToTest.isBrush) dist *= 2
-                        if (newNode.isBrush) dist *= 2
+                        if (nodeToTest.isBrush) dist *= 1.8
+                        if (newNode.isBrush) dist *= 1.8
                         list.addEdge(newNode, nodeToTest, dist)
                     }
                 }

@@ -229,6 +229,8 @@ const MapBuilder = () => {
                         <GridArea
                             drawWaterMode={drawWaterMode}
                             setDrawWaterMode={setDrawWaterMode}
+                            drawBrushMode={drawBrushMode}
+                            
                             setFeatureList={setFeatureList}
                             featureList={featureList}
                         />
