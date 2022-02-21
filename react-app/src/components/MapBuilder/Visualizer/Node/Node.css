@@ -18,7 +18,7 @@
 }
 
 .node[is-brush="true"]{
-    background-image: url('../../../../assets/feature-icons/brush-icon.svg')
+    background-color: var(--brush)
 }
 
 
@@ -44,15 +44,26 @@
 
 
 .visited {
-    animation-name: visitedAnimation;
-    animation-duration: 1s;
-    animation-timing-function: ease-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
-  }
+  animation-name: visitedAnimation;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.visited.node[is-brush="true"]{
+  animation-name: visitedBrush;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
 
   @keyframes visitedAnimation {
     0% {
@@ -78,6 +89,34 @@
       50% {
       transform: scale(1);
       background-color: var(--accent-400);
+    }
+  }
+
+
+  @keyframes visitedBrush {
+    0% {
+      transform: scale(1);
+      background-color: var(--brush-200);
+    }
+
+    5% {
+      transform: scale(1);
+      background-color: var(--brush-200);
+    }
+
+      10% {
+      transform: scale(1);
+      background-color: var(--brush);
+    }
+
+      20% {
+      transform: scale(1);
+      background-color: var(--brush-800);
+    }
+
+      50% {
+      transform: scale(1);
+      background-color: var(--brush);
     }
   }
 
