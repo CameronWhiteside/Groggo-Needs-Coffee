@@ -98,9 +98,8 @@ const GridArea = ({
                 featureList={featureList}
                 setFeatureList={setFeatureList}
                 activeControl={activeControl}
-                drawWaterMode={drawWaterMode}
-                drawBrushMode={drawBrushMode}
-                drawStreetMode={drawStreetMode}
+                currentMap={currentMap}
+
             />
             <PathTraceLayer
                 height={height}

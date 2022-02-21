@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
 import { getMaps, updateMap, removeMap, createMap } from '../../store/map';
+import { getFeatures, removeMapFeatures, removeFeature, createFeature, updateFeature } from '../../store/feature';
 
 import './MapBuilder.css'
 import getCityName from './utils/cityNames';
@@ -14,6 +15,7 @@ import LoadMaps from './Modals/LoadMaps/LoadMaps';
 import LoadOrCreate from './Modals/LoadOrCreate/LoadOrCreate';
 import visualizeDijkstra from './Visualizer/graphAlgorithms/dijkstra';
 
+
 const MapBuilder = () => {
 
     const getTitle = () => {
@@ -24,6 +26,7 @@ const MapBuilder = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const currentMaps = useSelector(state => state.map)
+    const currentStoreFeatures = useSelector(state => state.features)
 
     const [currentMap, setCurrentMap] = useState();
     const [saveText, setSaveText] = useState('Save Map');
@@ -111,6 +114,14 @@ const MapBuilder = () => {
         }
     }
 
+    const clearMap = () => {
+        if (currentMap && currentMap.id) {
+            dispatch(removeMapFeatures(currentMap.id))
+        }
+
+        setFeatureList([])
+    }
+
     const deleteMap = (e) => {
         dispatch(removeMap(currentMap.id))
         setCurrentMap('')
@@ -146,8 +157,6 @@ const MapBuilder = () => {
             setSaveText('Save Map')
         }, 600)
         setSaveText('Saving Successful!')
-
-
     }
 
     const resetPath = () => {
@@ -163,6 +172,10 @@ const MapBuilder = () => {
 
     useEffect(() => {
         updateFeatures(currentMap)
+        if (currentMap && currentMap.id) {
+            console.log(`getting`)
+            dispatch(getFeatures(currentMap.id))
+        }
     },[currentMap])
 
 
@@ -186,6 +199,7 @@ const MapBuilder = () => {
                 clearMapMode={clearMapMode}
                 setClearMapMode={setClearMapMode}
                 currentMap={currentMap}
+                clearMap={clearMap}
             />
             <LoadMaps
                 loadMapMode={loadMapMode}

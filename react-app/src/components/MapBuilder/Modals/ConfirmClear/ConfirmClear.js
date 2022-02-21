@@ -5,9 +5,10 @@ import './ConfirmClear.css'
 const ConfirmClear = ({
     clearMapMode,
     setClearMapMode,
-    currentMap
+    currentMap,
+    clearMap
 }) => {
-    const onConfirm = () => {console.log('deleting', currentMap)}
+    const onConfirm = () => {clearMap()}
     const onCancel = () => {setClearMapMode(false)}
 
     return(

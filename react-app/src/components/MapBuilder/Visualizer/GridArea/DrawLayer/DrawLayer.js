@@ -7,7 +7,8 @@ const DrawLayer = (
         nodeSize,
         featureList,
         setFeatureList,
-        activeControl
+        activeControl,
+        currentMap
     }) => {
     let startX = 0
     let startY = 0

@@ -44,7 +44,7 @@ export const getFeatures = (mapId) => async dispatch => {
 };
 
 export const removeMapFeatures = (mapId) => async dispatch => {
-    const res = await fetch(`/api/maps/${mapId}/features`, {
+    const res = await fetch(`/api/maps/${mapId}/features/`, {
         method: "DELETE"
     });
 

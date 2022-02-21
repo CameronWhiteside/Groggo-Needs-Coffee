@@ -12,7 +12,8 @@ def map_by_id(id):
 @map_routes.route('/<int:id>/features/')
 @login_required
 def map_features(id):
-    return Feature.get_map_features(id)
+    feature_list = Feature.get_map_features(id)
+    return {'features': feature_list}
 
 @map_routes.route('/<int:id>/features/', methods=['POST'])
 @login_required
