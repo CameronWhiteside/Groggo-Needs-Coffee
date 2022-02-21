@@ -162,6 +162,21 @@ const MapBuilder = () => {
         setWelcomeMode(true)
     }
 
+    const createNewMap = async (e) => {
+
+        let newName = getTitle()
+        const newMap = await dispatch(createMap({
+            userId: sessionUser.id,
+            name: newName,
+            featureList: []
+        }))
+
+        dispatch(getMaps(sessionUser.id))
+        setCurrentMap(newMap)
+        setCurrentName(newName)
+        setFeatureList([])
+    }
+
     const saveMap = async () => {
 
         // if (!currentMap) {
@@ -317,7 +332,7 @@ const MapBuilder = () => {
                             <div className='nav-buttons'>
                                 <div className='top-buttons'>
                                     <button onClick={activateLoad}>Load Map</button>
-                                    <button onClick={activateWelcome}>Create New Map</button>
+                                    <button onClick={createNewMap}>Create New Map</button>
                                     </div>
                                  <div className='bottom-buttons'>
                                     <button>Github</button>

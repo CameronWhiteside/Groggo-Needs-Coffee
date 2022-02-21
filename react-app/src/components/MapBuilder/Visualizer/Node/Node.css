@@ -22,10 +22,8 @@
 }
 
 
-.node[is-street="true"]{
-    background-color: var(--main-800);
-    border-radius: 50%;
-}
+/* .node[is-street="true"]{
+} */
 
 
 .node[is-start="true"]{
