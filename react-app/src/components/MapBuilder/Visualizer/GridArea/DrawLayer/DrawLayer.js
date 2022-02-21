@@ -241,7 +241,9 @@ const DrawLayer = (
         let streetNode1 = document.getElementById(`${x1}-${y1}`)
         let streetNode2 = document.getElementById(`${x2}-${y2}`)
         streetNode1.setAttribute('is-street', 'true')
+        streetNode1.setAttribute('street-pair', `${x2}-${y2}`)
         streetNode2.setAttribute('is-street', 'true')
+        streetNode1.setAttribute('street-pair', `${x1}-${y1}`)
         addPathLine(streetNode1, streetNode2, 'road-display-layer', 'fake-street', 18)
 
         return newFeature
