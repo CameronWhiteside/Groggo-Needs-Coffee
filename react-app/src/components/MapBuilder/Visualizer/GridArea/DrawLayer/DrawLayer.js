@@ -102,8 +102,6 @@ const DrawLayer = (
                 featureTop = stopY * nodeSize
             }
 
-            // console.log(`redraw, ${stopX}, ${stopY}`)
-            // if (!document.getElementById('drawn-feature')) {
             if (activeControl === 'water') {
                 e.target.innerHTML = ''
                 let newFeature = document.createElement('div')

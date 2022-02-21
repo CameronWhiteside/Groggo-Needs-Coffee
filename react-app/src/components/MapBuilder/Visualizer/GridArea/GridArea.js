@@ -9,9 +9,6 @@ import './GridArea.css'
 
 
 const GridArea = ({
-    drawWaterMode,
-    drawBrushMode,
-    drawStreetMode,
     activeControl,
     featureList,
     setFeatureList,

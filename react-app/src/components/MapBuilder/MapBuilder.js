@@ -106,22 +106,22 @@ const MapBuilder = () => {
 
     const updateName = async (e) => {
         resetPath()
-        if (currentMap) {
+        // if (currentMap) {
             let prevMap = { ...currentMap }
             prevMap.name = currentName
             setCurrentMap(prevMap)
             dispatch(updateMap(prevMap))
             setEditNameMode(false)
-        } else {
-            const newMap = await dispatch(createMap({
-                userId: sessionUser.id,
-                name: currentName,
-                featureList
-            }))
+        // } else {
+        //     const newMap = await dispatch(createMap({
+        //         userId: sessionUser.id,
+        //         name: currentName,
+        //         featureList
+        //     }))
 
-            setCurrentMap(newMap)
-            setEditNameMode(false)
-        }
+        //     setCurrentMap(newMap)
+        //     setEditNameMode(false)
+        // }
     }
 
     const clearMap = () => {
@@ -142,18 +142,18 @@ const MapBuilder = () => {
 
     const saveMap = async () => {
 
-        if (!currentMap) {
-            const newMap = await dispatch(createMap({
-                userId: sessionUser.id,
-                name: currentName,
-                featureList
-            }))
+        // if (!currentMap) {
+        //     const newMap = await dispatch(createMap({
+        //         userId: sessionUser.id,
+        //         name: currentName,
+        //         featureList
+        //     }))
 
-            dispatch(getMaps(sessionUser.id))
-            setCurrentMap(newMap)
+        //     dispatch(getMaps(sessionUser.id))
+        //     setCurrentMap(newMap)
 
 
-        } else {
+        // } else {
             const updatedMap = await dispatch(updateMap({
                 id: currentMap.id,
                 name: currentName,
@@ -162,7 +162,7 @@ const MapBuilder = () => {
 
             dispatch(getMaps(sessionUser.id))
             setCurrentMap(updatedMap)
-        }
+        // }
         setTimeout(() => {
             setSaveText('Save Map')
         }, 600)
@@ -220,6 +220,7 @@ const MapBuilder = () => {
                 welcomeMode={welcomeMode}
                 setWelcomeMode={setWelcomeMode}
                 setLoadMapMode={setLoadMapMode}
+                currentName={currentName}
                 setCurrentName={setCurrentName}
                 setFeatureList={setFeatureList}
                 setCurrentMap={setCurrentMap}

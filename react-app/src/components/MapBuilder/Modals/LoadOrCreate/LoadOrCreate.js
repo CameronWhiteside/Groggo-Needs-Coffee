@@ -1,28 +1,43 @@
 import Modal from '../Modal'
 import './LoadOrCreate.css'
+import { useSelector, useDispatch } from 'react-redux'
+import { createMap,getMaps } from '../../../../store/map'
 
 const LoadOrCreate = ({
     welcomeMode,
     setWelcomeMode,
     setLoadMapMode,
     setFeatureList,
+    currentName,
     setCurrentMap,
 }) => {
-    const onConfirm = () => {
+
+    const dispatch = useDispatch();
+    const sessionUser = useSelector(state => state.session.user);
+
+
+    const onLoadSelect = () => {
         setWelcomeMode(false)
         setLoadMapMode(true)
     }
-    const onCancel = () => {
+    const onCreate = async () => {
 
+        const newMap = await dispatch(createMap({
+            userId: sessionUser.id,
+            name: currentName,
+            featureList: []
+        }))
+
+        dispatch(getMaps(sessionUser.id))
+        setCurrentMap(newMap)
         setFeatureList([])
-        setCurrentMap('')
         setWelcomeMode(false)
     }
 
     return(
         <Modal
             mode={welcomeMode}
-            setMode={onCancel}
+            setMode={setWelcomeMode}
             width={450}
         >
             <h3 className='modal-title'>Pick One.</h3>
@@ -30,11 +45,11 @@ const LoadOrCreate = ({
             <div className='action-container'>
             <button
                 className='modal-button delete'
-                onClick={onConfirm}
+                onClick={onLoadSelect}
                 >Load</button>
             <button
                 className='modal-button delete'
-                onClick={onCancel}
+                onClick={onCreate}
                 >Create</button>
             </div>
         </Modal>
