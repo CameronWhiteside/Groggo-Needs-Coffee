@@ -4,6 +4,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { getMaps, updateMap, removeMap, createMap } from '../../store/map';
 
 import './MapBuilder.css'
+import getCityName from './utils/cityNames';
 import GridArea from './Visualizer/GridArea/GridArea';
 import Lorem from '../Lorem/Lorem';
 import ControlPanel from './ControlPanel/ControlPanel';
@@ -15,27 +16,8 @@ import visualizeDijkstra from './Visualizer/graphAlgorithms/dijkstra';
 
 const MapBuilder = () => {
 
-    const sadSynonyms = [
-        'Pathetic',
-        'Meager',
-        'Hopeless',
-        'Sorry',
-        'Feeble',
-        'Pitiful',
-        'Poor',
-        'Tragic',
-        'Dismal',
-        'Dire',
-        'Crappy',
-        'Shoddy',
-        'Miserable',
-        'Helpless'
-    ]
-
     const getTitle = () => {
-        const index = Math.floor(Math.random() * 14)
-        const synonym = sadSynonyms[index]
-        return `A ${synonym}, Untitled Map`
+        return getCityName()
     }
 
     const history = useHistory();
