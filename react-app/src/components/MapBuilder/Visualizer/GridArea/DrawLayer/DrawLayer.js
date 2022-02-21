@@ -257,12 +257,14 @@ const DrawLayer = (
                 let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 7
                 setFeatureList([...featureList, newFeature])
+                if(currentMap) dispatch(createFeature(newFeature))
             }
 
             if (activeControl === 'brush') {
                 let newFeature = addBrushToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 6
                 setFeatureList([...featureList, newFeature])
+                if(currentMap) dispatch(createFeature(newFeature))
             }
             if (activeControl === 'street') {
                 let newFeature = addStreetToNodes(startX, stopX, startY, stopY)

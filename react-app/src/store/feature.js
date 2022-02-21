@@ -32,7 +32,7 @@ const editFeature = (feature) => ({
     feature
 })
 
-//helper
+//convert to python-parsable request body helper
 const pythonify = (feature) => {
     let pyObj = {}
     pyObj['id'] = feature.id
@@ -42,7 +42,7 @@ const pythonify = (feature) => {
     pyObj['start_longitude'] = feature.startLongitude || parseInt('0')
     pyObj['stop_latitude'] = feature.stopLatitude || parseInt('0')
     pyObj['stop_longitude'] = feature.stopLongitude || parseInt('0')
-    console.log({pyObj})
+    // console.log({pyObj})
     return pyObj
 }
 

@@ -33,7 +33,7 @@ const MapBuilder = () => {
     const [currentName, setCurrentName] = useState(getTitle());
     const [editNameMode, setEditNameMode] = useState(false)
     const [loadMapMode, setLoadMapMode] = useState(false)
-    const [welcomeMode, setWelcomeMode] = useState(false)
+    const [welcomeMode, setWelcomeMode] = useState(true)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
     const [pathfindingMode, setPathfindingMode] = useState(false)
@@ -169,8 +169,6 @@ const MapBuilder = () => {
         setSaveText('Saving Successful!')
     }
 
-
-
     useEffect(() => {
         dispatch(getMaps(sessionUser.id))
     }, []);
@@ -179,7 +177,6 @@ const MapBuilder = () => {
     useEffect(() => {
         updateFeatures(currentMap)
         if (currentMap && currentMap.id) {
-            console.log(`getvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvting`)
             dispatch(getFeatures(currentMap.id))
         }
     },[currentMap])
