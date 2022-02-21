@@ -28,6 +28,9 @@ const generateAdjacencyList = () => {
             id: `${node.attributes.col.value}-${node.attributes.row.value}`,
             row: parseInt(node.attributes.row.value),
             col: parseInt(node.attributes.col.value),
+            featureType: node.attributes['feature-type'],
+            adjacentStreets: JSON.parse(node.attributes['adjacent-roads']),
+            adjacentHighway: JSON.parse(node.attributes['adjacent-highway']),
             isWater: (node.attributes['is-water'].value === 'true'),
             isBrush: (node.attributes['is-brush'].value === 'true')
         }

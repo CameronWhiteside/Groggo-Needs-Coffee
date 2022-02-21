@@ -174,6 +174,7 @@ const DrawLayer = (
                 let waterNode = document.getElementById(`${x}-${y}`)
                     waterNode.setAttribute('is-brush', 'false')
                     waterNode.setAttribute('is-water', 'true')
+                    waterNode.setAttribute('feature-type', 'water')
                     }
         }
 
@@ -216,6 +217,7 @@ const DrawLayer = (
                 let brushNode = document.getElementById(`${x}-${y}`)
                     brushNode.setAttribute('is-brush', 'true')
                     brushNode.setAttribute('is-water', 'false')
+                    brushNode.setAttribute('feature-type', 'brush')
                     }
         }
 
@@ -240,6 +242,8 @@ const DrawLayer = (
         newFeature.nodes[`${x2}-${y2}`] = `${x2}-${y2}`
         let streetNode1 = document.getElementById(`${x1}-${y1}`)
         let streetNode2 = document.getElementById(`${x2}-${y2}`)
+        let pairList1 = streetNode1.getAttribute('adjacent-streets')
+        let pairList2 = streetNode2.getAttribute('adjacent-streets')
         streetNode1.setAttribute('is-street', 'true')
         streetNode1.setAttribute('street-pair', `${x2}-${y2}`)
         streetNode2.setAttribute('is-street', 'true')

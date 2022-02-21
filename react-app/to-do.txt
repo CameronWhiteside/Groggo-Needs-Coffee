@@ -1,0 +1,14 @@
+refactor nodes to incldue a featureId?
+Refactor nodes to have a single node-type instead of boolean
+refactor nodes to include lists of connected street-pairs & highway-pairs
+
+Add highway placement
+
+
+Remove featureList from state variable and replace with store information
+Test save map behavior based on logical clicking
+Handle logical off click on Load Screen (maybe add create button)
+Remove save map button
+Rename to clear all features instead of clear features
+Create delete mode for setDeleteMode true and hovering over a featureId
+Prevent drawing on the same node

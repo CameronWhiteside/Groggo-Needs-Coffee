@@ -10,6 +10,9 @@ const Node = ({
     isWater = false,
     isHighwayEnd = false,
     isStreet = false,
+    featureType = `flat`,
+    adjacentStreets = [],
+    adjacentHighways = [],
     nodeSize,
     nodeClick,
     nodeMouseOver
@@ -29,7 +32,9 @@ const Node = ({
             is-water={isWater.toString()}
             is-street={isStreet.toString()}
             is-highway={isHighwayEnd.toString()}
-            feature-list='{features:[]}'
+            feature-type={featureType}
+            adjacent-streets={JSON.stringify(adjacentStreets)}
+            adjacent-highways={JSON.stringify(adjacentHighways)}
             onClick={nodeClick}
             onMouseOver={nodeMouseOver}
         >

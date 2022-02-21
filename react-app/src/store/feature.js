@@ -42,7 +42,6 @@ const pythonify = (feature) => {
     pyObj['start_longitude'] = feature.startLongitude || parseInt('0')
     pyObj['stop_latitude'] = feature.stopLatitude || parseInt('0')
     pyObj['stop_longitude'] = feature.stopLongitude || parseInt('0')
-    // console.log({pyObj})
     return pyObj
 }
 
@@ -121,9 +120,7 @@ const featureReducer = (state = initialState, action) => {
         case LOAD_FEATURES: {
             newState = {}
             let foundFeatures = action.features.features
-            console.log(`these found features`, foundFeatures)
             foundFeatures.forEach(feature => {
-                console.log(`this is the feature`, feature)
                 newState[feature.id] = feature
                 }
             )
