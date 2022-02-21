@@ -11,47 +11,25 @@ import './GridArea.css'
 const GridArea = ({
     drawWaterMode,
     drawBrushMode,
+    drawStreetMode,
+    activeControl,
     featureList,
-    setFeatureList }) => {
+    setFeatureList,
+    updateFeatures,
+    currentMap
+}) => {
 
     const width = 70
     const height = 35
     const nodeSize = 18
 
-    // const NodeCol = (colCount, rowNumber, nodeSize) => {
+    useEffect(() => {
+        updateFeatures(currentMap)
+    },[currentMap])
 
-    //     const col = []
-    //     for (let i = 0; i < colCount; i++) {
-    //         let colNumber = i
-
-    //         let isStart, isFinish, isWater, isBrush = false
-    //         isStart = (rowNumber === 20 && colNumber === 12)
-    //         isFinish = (rowNumber === 17 && colNumber === 50)
-
-    //         for (let j = 0; j < featureList.length; j++) {
-    //             let feature = featureList[j]
-    //             if (feature.nodes[`${colNumber}-${rowNumber}`]) {
-    //                 if (feature.featureTypeId === 7) isWater = true
-    //                 if (feature.featureTypeId === 6) isBrush = true
-    //             }
-    //         }
-
-    //         col.push(<Node
-    //             row={rowNumber}
-    //             col={colNumber}
-    //             isStart={isStart}
-    //             isFinish={isFinish}
-    //             isWater={isWater}
-    //             isBrush={isBrush}
-    //             nodeSize={nodeSize}
-    //             key={`${i}-${rowNumber}`}/>)
-    //     }
-    //     return col
-    // }
-
-       useEffect(() => {
-        console.log(featureList)
-    },[featureList])
+    // useEffect(() => {
+    //     console.log(featureList)
+    // },[featureList])
 
     const MapLayer = ({ width, height, nodeSize, featureList }) => {
         let grid = []
@@ -59,7 +37,7 @@ const GridArea = ({
             let newRow = []
             for (let col = 0; col < width; col++) {
 
-                let isStart, isFinish, isWater, isBrush = false
+                let isStart, isFinish, isWater, isBrush, isStreet = false
 
                 isStart = (row === 20 && col === 12)
                 isFinish = (row === 17 && col === 50)
@@ -67,10 +45,15 @@ const GridArea = ({
                 for (let j = 0; j < featureList.length; j++) {
                     let feature = featureList[j]
                     if (feature.nodes[`${col}-${row}`]) {
-                        if (feature.featureTypeId === 7) isWater = true
+                        if (feature.featureTypeId === 7) {
+                            isWater = true
+                        }
                         if (feature.featureTypeId === 6) {
                             isWater = false
                             isBrush = true
+                        }
+                        if (feature.featureTypeId === 5) {
+                            isStreet = true
                         }
                     }
                 }
@@ -80,6 +63,7 @@ const GridArea = ({
                         col={col}
                         isStart={isStart}
                         isFinish={isFinish}
+                        isStreet={isStreet}
                         isWater={isWater}
                         isBrush={isBrush}
                         nodeSize={nodeSize}
@@ -113,8 +97,10 @@ const GridArea = ({
                 nodeSize={nodeSize}
                 featureList={featureList}
                 setFeatureList={setFeatureList}
+                activeControl={activeControl}
                 drawWaterMode={drawWaterMode}
                 drawBrushMode={drawBrushMode}
+                drawStreetMode={drawStreetMode}
             />
             <PathTraceLayer
                 height={height}

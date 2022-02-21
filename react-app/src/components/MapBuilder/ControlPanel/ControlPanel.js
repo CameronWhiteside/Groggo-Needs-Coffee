@@ -13,10 +13,8 @@ const ControlPanel = ({
     // setCurrentMap
     saveMap,
     saveText,
-    drawWaterMode,
-    setDrawWaterMode,
-    drawBrushMode,
-    setDrawBrushMode
+    activeControl,
+    setActiveControl
 }) => {
     // const dispatch = useDispatch();
     // const sessionUser = useSelector(state => state.session.user);
@@ -28,14 +26,14 @@ const ControlPanel = ({
     const FeatureType = ({
         featureName,
         onClick,
-        activeMode
+        controlName
     }) => {
 
 
         return (
             <div onClick={onClick} className="feature-type">
                 <div className={`feature-icon ${featureName}`}>
-                    <div className={`active-feature-${activeMode}`}>
+                    <div className={`active-feature-${controlName === activeControl}`}>
                     </div>
                 </div>
                 <div className="feature-name">{featureName}</div>
@@ -49,27 +47,29 @@ const ControlPanel = ({
     // }
 
     const toggleWater = () => {
-        if (drawWaterMode) {
-            setDrawWaterMode(false)
+        if (activeControl === 'water') {
+            setActiveControl('')
         } else {
-            setDrawBrushMode(false)
-            setDrawWaterMode(true)
+            setActiveControl('water')
         }
     }
 
     const toggleBrush = () => {
-        if (drawBrushMode) {
-            setDrawBrushMode(false)
+        if (activeControl === 'brush') {
+            setActiveControl('')
         } else {
-            setDrawWaterMode(false)
-            setDrawBrushMode(true)
+            setActiveControl('brush')
         }
     }
 
-
-    const LineDivider = () => {
-        return null
+    const toggleStreet = () => {
+        if (activeControl === 'street') {
+            setActiveControl('')
+        } else {
+            setActiveControl('street')
+        }
     }
+
 
     return (
         <div className="control-panel">
@@ -85,7 +85,7 @@ const ControlPanel = ({
                     />
                     <FeatureType
                         onClick={toggleWater}
-                        activeMode={drawWaterMode}
+                        controlName='water'
                         featureName='Water'
                     />
                     </div>
@@ -94,12 +94,14 @@ const ControlPanel = ({
                 featureName='Highway'
                 />
                 <FeatureType
-                    featureName='Street'
+                        controlName='street'
+                        featureName='Street'
+                        onClick={toggleStreet}
                     />
                 <FeatureType
+                        controlName='brush'
                         featureName='Brush'
                         onClick={toggleBrush}
-                        activeMode={drawBrushMode}
                 />
                 </div>
             </div>

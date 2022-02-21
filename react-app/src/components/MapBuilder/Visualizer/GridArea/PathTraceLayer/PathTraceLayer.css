@@ -2,3 +2,8 @@
     position: absolute;
     z-index: 3;
 }
+
+#path-trace-layer .line{
+    background-color: var(--error);
+    border-radius: 2px
+}

@@ -24,3 +24,11 @@
     position: absolute;
     background-color: var(--brush);
 }
+
+.fake-street{
+    z-index: 4;
+    position: absolute;
+    background-image: url('../../../../../assets/feature-icons/street-icon.svg');
+    background-size: contain;
+    border-radius: 9px;
+}

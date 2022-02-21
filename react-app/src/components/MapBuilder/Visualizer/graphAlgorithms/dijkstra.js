@@ -1,5 +1,5 @@
 import generateGraph from "../generateAdjanencyList/generateAdjancencyList";
-import NodeConnector from "../../NodeConnector/NodeConnector";
+
 class PriorityQueue {
   constructor() {
     this.collection = []
@@ -80,9 +80,6 @@ const findNodesAndPath = () => {
   } else {
     path = []
   }
-  if (path.length > 0) {
-    console.log(document.getElementById(path[path.length - 1].id))
-  }
   return {
     path,
     visitOrder,
@@ -91,10 +88,9 @@ const findNodesAndPath = () => {
 
 }
 
-const addPathLine = (nodeA, nodeB) => {
-  let displayContainer = document.getElementById('path-trace-layer')
+export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', className='line', thickness='4') => {
+  let displayContainer = document.getElementById(parentId)
   let lineSegment = document.createElement('div')
-  let thickness = 4;
 
   const getOffsetTop = element => {
     let offsetTop = 0;
@@ -135,19 +131,20 @@ const getOffsetLeft = element => {
   const centerYCoord = ((yCoordA + yCoordB) / 2) - (thickness / 2);
   const angle = Math.atan2((yCoordA - yCoordB), (xCoordA - xCoordB)) * (180 / Math.PI);
 
-  lineSegment.classList.add('line')
+  lineSegment.classList.add(className)
   lineSegment.classList.add('fading-effect')
   lineSegment.style.padding = '0px'
   lineSegment.style.margin= '0px'
   lineSegment.style.height= `${thickness}px`
-  lineSegment.style.backgroundColor= `var(--error)`
-  lineSegment.style.lineHeight= `${4}px`
-  lineSegment.style.borderRadius= `2px`
   lineSegment.style.position= `absolute`
   lineSegment.style.left= `${centerXCoord}px`
   lineSegment.style.top= `${centerYCoord + 18}px`
   lineSegment.style.width= `${length}px`
   lineSegment.style.transform= `rotate(${angle}deg)`
+
+  // lineSegment.style.backgroundColor= `var(--error)`
+  // lineSegment.style.borderRadius = `2px`
+
   displayContainer.appendChild(lineSegment)
 }
 

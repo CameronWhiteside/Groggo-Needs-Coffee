@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
 import { getMaps, updateMap, removeMap, createMap } from '../../store/map';
-import NodeConnector from './NodeConnector/NodeConnector';
 
 import './MapBuilder.css'
 import GridArea from './Visualizer/GridArea/GridArea';
@@ -11,6 +10,7 @@ import ControlPanel from './ControlPanel/ControlPanel';
 import ConfirmDelete from './Modals/ConfirmDelete/ConfirmDelete';
 import ConfirmClear from './Modals/ConfirmClear/ConfirmClear';
 import LoadMaps from './Modals/LoadMaps/LoadMaps';
+import LoadOrCreate from './Modals/LoadOrCreate/LoadOrCreate';
 import visualizeDijkstra from './Visualizer/graphAlgorithms/dijkstra';
 
 const MapBuilder = () => {
@@ -48,15 +48,12 @@ const MapBuilder = () => {
     const [currentName, setCurrentName] = useState(getTitle());
     const [editNameMode, setEditNameMode] = useState(false)
     const [loadMapMode, setLoadMapMode] = useState(false)
+    const [welcomeMode, setWelcomeMode] = useState(false)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
     const [pathfindingMode, setPathfindingMode] = useState(false)
-    const [buildFeatureMode, setBuildFeatuerMode] = useState(true)
-    const [deleteFeatureMode, setDeleteFeatureMode] = useState(false)
     const [featureList, setFeatureList] = useState([]);
-
-    const [drawWaterMode, setDrawWaterMode] = useState(false)
-    const [drawBrushMode, setDrawBrushMode] = useState(false)
+    const [activeControl, setActiveControl] = useState('water')
 
     const activateDelete = (e) => {
         e.preventDefault()
@@ -72,6 +69,45 @@ const MapBuilder = () => {
         e.preventDefault()
         dispatch(getMaps(sessionUser.id))
         setLoadMapMode(true)
+    }
+
+    const activateWelcome = (e) => {
+        e.preventDefault()
+        dispatch(getMaps(sessionUser.id))
+        setWelcomeMode(true)
+    }
+
+    const updateFeatures = (currentMap) => {
+        if (currentMap) {
+            let mapFeatures = currentMap.features
+            let mapFeatureInfo = mapFeatures.map(feature => {
+
+                let nodes = {}
+
+                for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
+                    for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
+                        nodes[`${x}-${y}`] = `${x}-${y}`
+                    }
+                }
+
+                let featureObj = {
+                    name: feature.name,
+                    featureTypeId: feature.feature_type_id,
+                    typeName: feature.type_name,
+                    startLatitude: feature.start_latitude,
+                    startLongitude: feature.start_longitude,
+                    stopLatitude: feature.stop_latitude,
+                    stopLongitude: feature.stop_longitude,
+                    nodes
+                }
+
+                return featureObj
+
+            })
+            console.log(`updating features`)
+            console.log(mapFeatureInfo)
+            setFeatureList(mapFeatureInfo)
+        }
     }
 
     const updateName = async (e) => {
@@ -95,7 +131,10 @@ const MapBuilder = () => {
 
     const deleteMap = (e) => {
         dispatch(removeMap(currentMap.id))
-        history.push('/')
+        setCurrentMap('')
+        setCurrentName('')
+        setFeatureList([])
+        setWelcomeMode(true)
     }
 
     const saveMap = async () => {
@@ -110,7 +149,6 @@ const MapBuilder = () => {
             dispatch(getMaps(sessionUser.id))
             setCurrentMap(newMap)
 
-            //TODO save all map features
 
         } else {
             const updatedMap = await dispatch(updateMap({
@@ -140,36 +178,9 @@ const MapBuilder = () => {
         dispatch(getMaps(sessionUser.id))
     }, []);
 
+
     useEffect(() => {
-        console.log(`oh she runnin`)
-        if (currentMap) {
-            let mapFeatures = currentMap.features
-            let mapFeatureInfo = mapFeatures.map(feature => {
-
-                let nodes = {}
-
-                for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
-                    for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
-                        nodes[`${x}-${y}`] = `${x}-${y}`
-                    }
-                }
-
-                let featureObj = {
-                    name: feature.name,
-                    featureTypeId: feature.feature_type_id,
-                    typeName: feature.type_name,
-                    startLatitude: feature.start_latitude,
-                    startLongitude: feature.start_longitude,
-                    stopLatitude: feature.stop_latitude,
-                    stopLongitude: feature.stop_longitude,
-                    nodes
-                }
-
-                return featureObj
-
-            })
-            setFeatureList(mapFeatureInfo)
-        }
+        updateFeatures(currentMap)
     },[currentMap])
 
 
@@ -186,6 +197,8 @@ const MapBuilder = () => {
                 setDeleteMapMode={setDeleteMapMode}
                 currentMap={currentMap}
                 deleteMap={deleteMap}
+                setCurrentName={setCurrentName}
+                getTitle={getTitle}
             />
             <ConfirmClear
                 clearMapMode={clearMapMode}
@@ -196,10 +209,22 @@ const MapBuilder = () => {
                 loadMapMode={loadMapMode}
                 setLoadMapMode={setLoadMapMode}
                 userMaps={currentMaps}
+                currentMap={currentMap}
                 setCurrentMap={setCurrentMap}
+                getTitle={getTitle}
                 setCurrentName={setCurrentName}
                 featureList={featureList}
                 setFeatureList={setFeatureList}
+
+            />
+            <LoadOrCreate
+                welcomeMode={welcomeMode}
+                setWelcomeMode={setWelcomeMode}
+                setLoadMapMode={setLoadMapMode}
+                setCurrentName={setCurrentName}
+                setFeatureList={setFeatureList}
+                setCurrentMap={setCurrentMap}
+                getTitle={getTitle}
             />
             <div className='map-builder'>
                 <main className='build-area'>
@@ -212,10 +237,8 @@ const MapBuilder = () => {
                             currentMap={currentMap}
                             saveMap={saveMap}
                             saveText={saveText}
-                            drawWaterMode={drawWaterMode}
-                            setDrawWaterMode={setDrawWaterMode}
-                            drawBrushMode={drawBrushMode}
-                            setDrawBrushMode={setDrawBrushMode}
+                            activeControl={activeControl}
+                            setActiveControl={setActiveControl}
                         >
                                  <div className='title-area'>
                         <div className='map-name'>
@@ -258,11 +281,12 @@ const MapBuilder = () => {
                     </div>
                     <div className='build-right'>
                         <GridArea
-                            drawWaterMode={drawWaterMode}
-                            setDrawWaterMode={setDrawWaterMode}
-                            drawBrushMode={drawBrushMode}
+                            activeControl={activeControl}
+                            setActiveControl={setActiveControl}
                             setFeatureList={setFeatureList}
                             featureList={featureList}
+                            updateFeatures={updateFeatures}
+                            currentMap={currentMap}
                         />
                         <div className='instructions'>
                             <div className='info-block'>
@@ -271,7 +295,7 @@ const MapBuilder = () => {
                             <div className='nav-buttons'>
                                 <div className='top-buttons'>
                                     <button onClick={activateLoad}>Load Map</button>
-                                    <button>Create New Map</button>
+                                    <button onClick={activateWelcome}>Create New Map</button>
                                     </div>
                                  <div className='bottom-buttons'>
                                     <button>Github</button>
@@ -281,17 +305,6 @@ const MapBuilder = () => {
                         </div>
                     </div>
                 </main>
-                <footer id='path-container'>
-                     {/* { foundPathList.map((node, idx) => (
-                            idx > 0 &&
-                            <NodeConnector
-                                nodeA={document.getElementById(node.id)}
-                                nodeB={document.getElementById(foundPathList[idx - 1].id)}
-                                thickness={2}
-                            />
-                        ))
-                     } */}
-                </footer>
             </div>
             </>
         )

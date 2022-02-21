@@ -22,6 +22,11 @@
 }
 
 
+.node[is-street="true"]{
+    background-color: purple
+}
+
+
 .node[is-start="true"]{
     background-image: url('../../../../assets/feature-icons/house-icon.svg');
     background-size: cover;

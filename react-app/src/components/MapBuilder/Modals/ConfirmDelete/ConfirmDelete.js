@@ -4,9 +4,14 @@ import './ConfirmDelete.css'
 const ConfirmDelete = ({
     deleteMapMode,
     setDeleteMapMode,
-    deleteMap
+    deleteMap,
+    setCurrentName,
+    getTitle
 }) => {
-    const onConfirm = () => {deleteMap()}
+    const onConfirm = () => {
+        deleteMap()
+        setCurrentName(getTitle())
+    }
     const onCancel = () => {setDeleteMapMode(false)}
 
     return(

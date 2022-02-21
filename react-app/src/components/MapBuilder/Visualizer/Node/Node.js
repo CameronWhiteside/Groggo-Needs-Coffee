@@ -9,7 +9,7 @@ const Node = ({
     isBrush = false,
     isWater = false,
     isHighwayEnd = false,
-    isStreetEnd = false,
+    isStreet = false,
     nodeSize,
     nodeClick,
     nodeMouseOver
@@ -27,8 +27,8 @@ const Node = ({
             is-visited={isVisited.toString()}
             is-brush={isBrush.toString()}
             is-water={isWater.toString()}
-            is-street-end={isStreetEnd.toString()}
-            is-highway-end={isHighwayEnd.toString()}
+            is-street={isStreet.toString()}
+            is-highway={isHighwayEnd.toString()}
             feature-list='{features:[]}'
             onClick={nodeClick}
             onMouseOver={nodeMouseOver}

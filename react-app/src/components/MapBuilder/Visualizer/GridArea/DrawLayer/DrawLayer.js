@@ -1,4 +1,5 @@
 import './DrawLayer.css'
+import { addPathLine } from '../../graphAlgorithms/dijkstra'
 
 const DrawLayer = (
     { height,
@@ -6,8 +7,7 @@ const DrawLayer = (
         nodeSize,
         featureList,
         setFeatureList,
-        drawWaterMode,
-        drawBrushMode
+        activeControl
     }) => {
     let startX = 0
     let startY = 0
@@ -81,54 +81,56 @@ const DrawLayer = (
             }
 
             if (startX < stopX) {
-                featureWidth = `${(stopX - startX + 1) * nodeSize}px`
-                featureLeft = `${startX * nodeSize}px`
+                featureWidth = (stopX - startX + 1) * nodeSize
+                featureLeft = startX * nodeSize
             } else {
-                featureWidth = `${(startX - stopX + 1) * nodeSize}px`
-                featureLeft = `${stopX * nodeSize}px`
+                featureWidth = (startX - stopX + 1) * nodeSize
+                featureLeft = stopX * nodeSize
             }
 
             if (startY < stopY) {
-                featureHeight = `${(stopY - startY + 1) * nodeSize}px`
-                featureTop = `${startY * nodeSize}px`
+                featureHeight = (stopY - startY + 1) * nodeSize
+                featureTop = startY * nodeSize
             } else {
-                featureHeight = `${(startY - stopY + 1) * nodeSize}px`
-                featureTop = `${stopY * nodeSize}px`
+                featureHeight = (startY - stopY + 1) * nodeSize
+                featureTop = stopY * nodeSize
             }
 
             // console.log(`redraw, ${stopX}, ${stopY}`)
             // if (!document.getElementById('drawn-feature')) {
-            if (drawWaterMode) {
+            if (activeControl === 'water') {
                 e.target.innerHTML = ''
                 let newFeature = document.createElement('div')
                 newFeature.id = 'drawn-feature'
                 newFeature.style.position = 'absolute'
-                newFeature.style.width = featureWidth
-                newFeature.style.height = featureHeight
-                newFeature.style.left = featureLeft
-                newFeature.style.top = featureTop
+                newFeature.style.width = `${ featureWidth }px`
+                newFeature.style.height = `${ featureHeight }px`
+                newFeature.style.left = `${ featureLeft }px`
+                newFeature.style.top = `${ featureTop }px`
                 newFeature.classList.add('fake-water')
                 let clickArea = document.getElementById('click-tracker')
                 clickArea.innerHTML = ''
                 clickArea.appendChild(newFeature)
-            }
-
-            if (drawBrushMode) {
-                console.log(`drawinbrush`)
+            } else if (activeControl === 'brush') {
                 e.target.innerHTML = ''
                 let newFeature = document.createElement('div')
                 newFeature.id = 'drawn-feature'
                 newFeature.style.position = 'absolute'
-                newFeature.style.width = featureWidth
-                newFeature.style.height = featureHeight
-                newFeature.style.left = featureLeft
-                newFeature.style.top = featureTop
+                newFeature.style.width = `${ featureWidth }px`
+                newFeature.style.height = `${ featureHeight }px`
+                newFeature.style.left = `${ featureLeft }px`
+                newFeature.style.top = `${ featureTop }px`
                 newFeature.classList.add('fake-brush')
                 let clickArea = document.getElementById('click-tracker')
                 clickArea.innerHTML = ''
                 clickArea.appendChild(newFeature)
+            } else if (activeControl === 'street') {
+                let clickArea = document.getElementById('click-tracker')
+                let start = document.getElementById(`${startX}-${startY}`)
+                let stop = document.getElementById(`${stopX}-${stopY}`)
+                clickArea.innerHTML = ''
+                addPathLine(start, stop, 'click-tracker', 'fake-street', 18)
             }
-            // }
         }
     }
 
@@ -213,20 +215,46 @@ const DrawLayer = (
         return newFeature
     }
 
+    const addStreetToNodes = (x1, x2, y1, y2) => {
+
+
+        let newFeature = {
+            startLatitude: y1,
+            startLongitude: x1,
+            stopLatitude: y1,
+            stopLongitude: x1,
+            featureTypeId: 4,
+            nodes: {}
+        }
+
+        newFeature.nodes[`${x1}-${y1}`] = `${x1}-${y1}`
+        newFeature.nodes[`${x2}-${y2}`] = `${x2}-${y2}`
+        let streetNode1 = document.getElementById(`${x1}-${y1}`)
+        let streetNode2 = document.getElementById(`${x2}-${y2}`)
+        streetNode1.setAttribute('is-street', 'true')
+        streetNode2.setAttribute('is-street', 'true')
+
+        return newFeature
+    }
+
     const finishDraw = (e) => {
         e.stopPropagation()
         e.preventDefault()
         if (drawingActive) {
-            if (drawWaterMode) {
+            if (activeControl === 'water') {
                 let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 7
                 setFeatureList([...featureList, newFeature])
             }
 
-            if (drawBrushMode) {
+            if (activeControl === 'brush') {
                 let newFeature = addBrushToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 6
-                console.log(`newFeature`)
+                setFeatureList([...featureList, newFeature])
+            }
+            if (activeControl === 'street') {
+                let newFeature = addStreetToNodes(startX, stopX, startY, stopY)
+                newFeature['featureTypeId'] = 5
                 setFeatureList([...featureList, newFeature])
             }
         }
@@ -248,8 +276,8 @@ const DrawLayer = (
             }}
             >
         </div>
-            <div id='click-tracker'>
-            </div>
+        <div id='click-tracker'>
+        </div>
         </>
     )
 

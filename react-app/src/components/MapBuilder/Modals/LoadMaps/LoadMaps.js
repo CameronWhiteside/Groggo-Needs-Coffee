@@ -12,6 +12,8 @@ const LoadMaps = ({
     setCurrentName,
     featureList,
     setFeatureList,
+    getTitle,
+    currentMap
 
 }) => {
 
