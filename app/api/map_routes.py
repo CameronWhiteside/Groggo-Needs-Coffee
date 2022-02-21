@@ -19,6 +19,7 @@ def map_features(id):
 @login_required
 def new_features(id):
     request_body = request.json
+    print('~~~~~~~~~~~~~~~~~~~~~~~~', request_body)
     new_feature = Feature.add_a_feature(
         map_id = id,
         feature_type_id= request_body['feature_type_id'],
@@ -27,7 +28,7 @@ def new_features(id):
         start_longitude= request_body['start_longitude'],
         stop_longitude= request_body['stop_longitude']
     )
-    return new_feature
+    return {'feature': new_feature.to_dict()}
 
 @map_routes.route('/<int:id>/features/', methods=['DELETE'])
 @login_required

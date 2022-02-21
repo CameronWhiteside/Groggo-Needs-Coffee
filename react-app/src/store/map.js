@@ -30,7 +30,6 @@ export const getMaps = (userId) => async dispatch => {
     const res = await fetch(`/api/users/${userId}/maps/`);
     if (res.ok) {
         const maps = await res.json();
-        console.log({ maps })
         dispatch(loadMaps(maps))
         return maps
     }

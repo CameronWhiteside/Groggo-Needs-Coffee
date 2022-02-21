@@ -1,5 +1,7 @@
 import './DrawLayer.css'
 import { addPathLine } from '../../graphAlgorithms/dijkstra'
+import { createFeature } from '../../../../../store/feature'
+import { useSelector, useDispatch} from 'react-redux';
 
 const DrawLayer = (
     { height,
@@ -10,6 +12,9 @@ const DrawLayer = (
         activeControl,
         currentMap
     }) => {
+
+    const dispatch = useDispatch();
+
     let startX = 0
     let startY = 0
     let stopX = 0
@@ -160,6 +165,7 @@ const DrawLayer = (
             startLongitude: xMin,
             stopLatitude: yMax,
             stopLongitude: xMax,
+            mapId: currentMap.id,
             featureTypeId: 7,
             nodes: {}
         }
@@ -201,8 +207,10 @@ const DrawLayer = (
             stopLatitude: yMax,
             stopLongitude: xMax,
             featureTypeId: 6,
+            mapId: currentMap.id,
             nodes: {}
         }
+        if (currentMap) newFeature['mapId'] = currentMap.id
 
         for (let x = xMin; x <= xMax; x++) {
             for (let y = yMin; y <= yMax; y++){
@@ -222,11 +230,13 @@ const DrawLayer = (
         let newFeature = {
             startLatitude: y1,
             startLongitude: x1,
-            stopLatitude: y1,
-            stopLongitude: x1,
+            stopLatitude: y2,
+            stopLongitude: x2,
             featureTypeId: 4,
+            mapId: currentMap.id,
             nodes: {}
         }
+
 
         newFeature.nodes[`${x1}-${y1}`] = `${x1}-${y1}`
         newFeature.nodes[`${x2}-${y2}`] = `${x2}-${y2}`
@@ -234,6 +244,7 @@ const DrawLayer = (
         let streetNode2 = document.getElementById(`${x2}-${y2}`)
         streetNode1.setAttribute('is-street', 'true')
         streetNode2.setAttribute('is-street', 'true')
+        console.log({newFeature})
 
         return newFeature
     }
@@ -257,6 +268,7 @@ const DrawLayer = (
                 let newFeature = addStreetToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 5
                 setFeatureList([...featureList, newFeature])
+                if(currentMap) dispatch(createFeature(newFeature))
             }
         }
         document.getElementById('click-tracker').innerHTML = ''

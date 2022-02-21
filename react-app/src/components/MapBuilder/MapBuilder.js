@@ -40,29 +40,40 @@ const MapBuilder = () => {
     const [featureList, setFeatureList] = useState([]);
     const [activeControl, setActiveControl] = useState('water')
 
+    const resetPath = () => {
+        let nodeList = document.querySelectorAll('.line')
+        nodeList.forEach(node => node.remove(`visited`))
+        setPathfindingMode(false)
+    }
+
     const activateDelete = (e) => {
         e.preventDefault()
+        resetPath()
         setDeleteMapMode(true)
     }
 
-       const activateClear = (e) => {
+    const activateClear = (e) => {
         e.preventDefault()
+        resetPath()
         setClearMapMode(true)
     }
 
     const activateLoad = (e) => {
         e.preventDefault()
+        resetPath()
         dispatch(getMaps(sessionUser.id))
         setLoadMapMode(true)
     }
 
     const activateWelcome = (e) => {
         e.preventDefault()
+        resetPath()
         dispatch(getMaps(sessionUser.id))
         setWelcomeMode(true)
     }
 
     const updateFeatures = (currentMap) => {
+        resetPath()
         if (currentMap) {
             let mapFeatures = currentMap.features
             let mapFeatureInfo = mapFeatures.map(feature => {
@@ -89,13 +100,12 @@ const MapBuilder = () => {
                 return featureObj
 
             })
-            console.log(`updating features`)
-            console.log(mapFeatureInfo)
             setFeatureList(mapFeatureInfo)
         }
     }
 
     const updateName = async (e) => {
+        resetPath()
         if (currentMap) {
             let prevMap = { ...currentMap }
             prevMap.name = currentName
@@ -159,11 +169,7 @@ const MapBuilder = () => {
         setSaveText('Saving Successful!')
     }
 
-    const resetPath = () => {
-        let nodeList = document.querySelectorAll('.line')
-        nodeList.forEach(node => node.remove(`visited`))
-        setPathfindingMode(false)
-    }
+
 
     useEffect(() => {
         dispatch(getMaps(sessionUser.id))
@@ -173,7 +179,7 @@ const MapBuilder = () => {
     useEffect(() => {
         updateFeatures(currentMap)
         if (currentMap && currentMap.id) {
-            console.log(`getting`)
+            console.log(`getvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvting`)
             dispatch(getFeatures(currentMap.id))
         }
     },[currentMap])

@@ -32,12 +32,25 @@ const editFeature = (feature) => ({
     feature
 })
 
+//helper
+const pythonify = (feature) => {
+    let pyObj = {}
+    pyObj['id'] = feature.id
+    pyObj['map_id'] = feature.mapId
+    pyObj['feature_type_id'] = feature.featureTypeId
+    pyObj['start_latitude'] = feature.startLatitude || parseInt('0')
+    pyObj['start_longitude'] = feature.startLongitude || parseInt('0')
+    pyObj['stop_latitude'] = feature.stopLatitude || parseInt('0')
+    pyObj['stop_longitude'] = feature.stopLongitude || parseInt('0')
+    console.log({pyObj})
+    return pyObj
+}
+
 //thunks
 export const getFeatures = (mapId) => async dispatch => {
     const res = await fetch(`/api/maps/${mapId}/features/`);
     if (res.ok) {
         const features = await res.json();
-        console.log({ features })
         dispatch(loadFeatures(features))
         return features
     }
@@ -71,12 +84,12 @@ export const createFeature = (featureObject) => async dispatch => {
     const res = await fetch(`/api/maps/${featureObject.mapId}/features/`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(featureObject)
+        body: JSON.stringify(pythonify(featureObject))
     })
 
     if (res.ok) {
         const newFeature = await res.json();
-        dispatch(addFeature(newFeature));
+        dispatch(addFeature(newFeature.feature));
         return newFeature;
     }
 };
@@ -106,9 +119,11 @@ const featureReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_FEATURES: {
-            newState = { ...state }
+            newState = {}
             let foundFeatures = action.features.features
+            console.log(`these found features`, foundFeatures)
             foundFeatures.forEach(feature => {
+                console.log(`this is the feature`, feature)
                 newState[feature.id] = feature
                 }
             )
