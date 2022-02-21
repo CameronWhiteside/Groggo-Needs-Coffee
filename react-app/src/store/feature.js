@@ -4,7 +4,7 @@ const LOAD_FEATURES = 'feature/LOAD_FEATURES';
 const DELETE_FEATURE = 'feature/DELETE_FEATURE';
 const DELETE_MAP_FEATURES = 'feature/DELETE_MAP_FEATURES';
 const ADD_FEATURE = 'feature/ADD_FEATURE';
-const EDIT_FEATURE = 'feature/EDIT_FEATURE'
+const EDIT_FEATURE = 'feature/EDIT_FEATURE';
 
 //action creators
 const loadFeatures = (features) => ({
@@ -55,23 +55,23 @@ export const removeMapFeatures = (mapId) => async dispatch => {
     }
 };
 
-export const removeFeature = (mapId) => async dispatch => {
-    const res = await fetch(`/api/maps/${mapId}/`, {
+export const removeFeature = (featureId) => async dispatch => {
+    const res = await fetch(`/api/features/${featureId}/`, {
         method: "DELETE"
     });
 
     if (res.ok) {
-        const map = await res.json();
-        dispatch(deleteFeature(mapId));
-        return map;
+        const feature = await res.json();
+        dispatch(deleteFeature(featureId));
+        return feature;
     }
 };
 
-export const createFeature = (mapObject) => async dispatch => {
-    const res = await fetch(`/api/users/${mapObject.userId}/maps/`, {
+export const createFeature = (featureObject) => async dispatch => {
+    const res = await fetch(`/api/maps/${featureObject.mapId}/features/`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(mapObject)
+        body: JSON.stringify(featureObject)
     })
 
     if (res.ok) {
@@ -81,13 +81,13 @@ export const createFeature = (mapObject) => async dispatch => {
     }
 };
 
-export const updateFeature = (mapObject) => async dispatch => {
-    let mapId = mapObject.id
+export const updateFeature = (featureObject) => async dispatch => {
+    let featureId = featureObject.id
 
-    const res = await fetch(`/api/maps/${mapId}/`, {
+    const res = await fetch(`/api/features/${featureId}/`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(mapObject)
+        body: JSON.stringify(featureObject)
     })
 
     if (res.ok) {
@@ -101,15 +101,15 @@ export const updateFeature = (mapObject) => async dispatch => {
 //reducer
 const initialState = {};
 
-const mapReducer = (state = initialState, action) => {
+const featureReducer = (state = initialState, action) => {
     let newState;
 
     switch (action.type) {
         case LOAD_FEATURES: {
             newState = { ...state }
-            let foundFeatures = action.maps.maps
-            foundFeatures.forEach(map => {
-                newState[map.id] = map
+            let foundFeatures = action.features.features
+            foundFeatures.forEach(feature => {
+                newState[feature.id] = feature
                 }
             )
             return newState;
@@ -128,13 +128,13 @@ const mapReducer = (state = initialState, action) => {
 
         case ADD_FEATURE: {
             newState = { ...state }
-            newState[action.map.id] = action.map
+            newState[action.feature.id] = action.feature
             return newState;
         }
 
         case EDIT_FEATURE: {
             newState = { ...state }
-            newState[action.map.id] = action.map
+            newState[action.feature.id] = action.feature
             return newState;
         }
 
@@ -143,4 +143,4 @@ const mapReducer = (state = initialState, action) => {
     }
 };
 
-export default mapReducer;
+export default featureReducer;
