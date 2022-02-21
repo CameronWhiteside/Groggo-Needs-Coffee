@@ -1,54 +1,72 @@
 //action types
-const LOAD_MAPS = 'map/LOAD_MAPS';
-const DELETE_MAP = 'map/DELETE_MAP';
-const ADD_MAP = 'map/ADD_MAP';
-const EDIT_MAP = 'map/EDIT_MAP'
+const LOAD_FEATURES = 'feature/LOAD_FEATURES';
+const DELETE_FEATURE = 'feature/DELETE_FEATURE';
+const DELETE_MAP_FEATURES = 'feature/DELETE_MAP_FEATURES';
+const ADD_FEATURE = 'feature/ADD_FEATURE';
+const EDIT_FEATURE = 'feature/EDIT_FEATURE'
 
 //action creators
-const loadMaps = (maps) => ({
-    type: LOAD_MAPS,
-    maps
+const loadFeatures = (features) => ({
+    type: LOAD_FEATURES,
+    features
 });
 
-const deleteMap = (mapId) => ({
-    type: DELETE_MAP,
+const deleteFeature = (featureId) => ({
+    type: DELETE_FEATURE,
+    featureId
+});
+
+const deleteMapFeatures = (mapId) => ({
+    type: DELETE__MAP_FEATURES,
     mapId
 });
 
-const addMap = (map) => ({
-    type: ADD_MAP,
-    map
+const addFeature = (feature) => ({
+    type: ADD_FEATURE,
+    feature
 });
 
-const editMap = (map) => ({
-    type: EDIT_MAP,
-    map
+const editFeature = (feature) => ({
+    type: EDIT_FEATURE,
+    feature
 })
 
 //thunks
 export const getFeatures = (mapId) => async dispatch => {
     const res = await fetch(`/api/maps/${mapId}/features/`);
     if (res.ok) {
-        const maps = await res.json();
-        console.log({ maps })
-        dispatch(loadMaps(maps))
-        return maps
+        const features = await res.json();
+        console.log({ features })
+        dispatch(loadFeatures(features))
+        return features
     }
 };
 
-export const removeMap = (mapId) => async dispatch => {
+export const removeMapFeatures = (mapId) => async dispatch => {
     const res = await fetch(`/api/maps/${mapId}/`, {
         method: "DELETE"
     });
 
     if (res.ok) {
         const map = await res.json();
-        dispatch(deleteMap(mapId));
+        dispatch(deleteFeature(mapId));
         return map;
     }
 };
 
-export const createMap = (mapObject) => async dispatch => {
+export const removeFeature = (mapId) => async dispatch => {
+    const res = await fetch(`/api/maps/${mapId}/`, {
+        method: "DELETE"
+    });
+
+    if (res.ok) {
+        const map = await res.json();
+        dispatch(deleteFeature(mapId));
+        return map;
+    }
+};
+
+export const createFeature = (mapObject) => async dispatch => {
     const res = await fetch(`/api/users/${mapObject.userId}/maps/`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -56,13 +74,13 @@ export const createMap = (mapObject) => async dispatch => {
     })
 
     if (res.ok) {
-        const newMap = await res.json();
-        dispatch(addMap(newMap));
-        return newMap;
+        const newFeature = await res.json();
+        dispatch(addFeature(newFeature));
+        return newFeature;
     }
 };
 
-export const updateMap = (mapObject) => async dispatch => {
+export const updateFeature = (mapObject) => async dispatch => {
     let mapId = mapObject.id
 
     const res = await fetch(`/api/maps/${mapId}/`, {
@@ -72,9 +90,9 @@ export const updateMap = (mapObject) => async dispatch => {
     })
 
     if (res.ok) {
-        const updatedMap = await res.json();
-        dispatch(editMap(updatedMap));
-        return updatedMap;
+        const updatedFeature = await res.json();
+        dispatch(editFeature(updatedFeature));
+        return updatedFeature;
     }
 };
 
@@ -86,30 +104,30 @@ const mapReducer = (state = initialState, action) => {
     let newState;
 
     switch (action.type) {
-        case LOAD_MAPS: {
+        case LOAD_FEATURES: {
             newState = { ...state }
-            let foundMaps = action.maps.maps
-            foundMaps.forEach(map => {
+            let foundFeatures = action.maps.maps
+            foundFeatures.forEach(map => {
                 newState[map.id] = map
                 }
             )
             return newState;
         }
 
-        case DELETE_MAP: {
+        case DELETE_FEATURE: {
             newState = { ...state };
             delete newState[action.mapId]
             return newState;
 
         }
 
-        case ADD_MAP: {
+        case ADD_FEATURE: {
             newState = { ...state }
             newState[action.map.id] = action.map
             return newState;
         }
 
-        case EDIT_MAP: {
+        case EDIT_FEATURE: {
             newState = { ...state }
             newState[action.map.id] = action.map
             return newState;
