@@ -21,7 +21,6 @@ const LoadOrCreate = ({
         setLoadMapMode(true)
     }
     const onCreate = async () => {
-
         const newMap = await dispatch(createMap({
             userId: sessionUser.id,
             name: currentName,
@@ -39,6 +38,7 @@ const LoadOrCreate = ({
             mode={welcomeMode}
             setMode={setWelcomeMode}
             width={450}
+            disableOffclick={true}
         >
             <h3 className='modal-title'>Pick One.</h3>
             <h5 className='modal-warning'>Please choose very carefully. You don't always make the best decisions by the looks of it, but I have hope that you will make the correct choice.</h5>

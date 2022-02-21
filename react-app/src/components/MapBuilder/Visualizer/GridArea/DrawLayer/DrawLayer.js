@@ -213,9 +213,9 @@ const DrawLayer = (
         for (let x = xMin; x <= xMax; x++) {
             for (let y = yMin; y <= yMax; y++){
                 newFeature.nodes[`${x}-${y}`] = `${x}-${y}`
-                let waterNode = document.getElementById(`${x}-${y}`)
-                    waterNode.setAttribute('is-brush', 'true')
-                    waterNode.setAttribute('is-water', 'false')
+                let brushNode = document.getElementById(`${x}-${y}`)
+                    brushNode.setAttribute('is-brush', 'true')
+                    brushNode.setAttribute('is-water', 'false')
                     }
         }
 
@@ -242,7 +242,7 @@ const DrawLayer = (
         let streetNode2 = document.getElementById(`${x2}-${y2}`)
         streetNode1.setAttribute('is-street', 'true')
         streetNode2.setAttribute('is-street', 'true')
-        console.log({newFeature})
+        addPathLine(streetNode1, streetNode2, 'road-display-layer', 'fake-street', 18)
 
         return newFeature
     }

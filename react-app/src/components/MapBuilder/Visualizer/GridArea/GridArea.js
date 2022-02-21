@@ -5,6 +5,7 @@ import Node from "../Node/Node"
 import DrawLayer from './DrawLayer/DrawLayer'
 import PathTraceLayer from "./PathTraceLayer/PathTraceLayer"
 import './GridArea.css'
+import RoadDisplayLayer from "./RoadDisplayLayer/RoadDisplayLayer"
 
 
 
@@ -99,6 +100,11 @@ const GridArea = ({
 
             />
             <PathTraceLayer
+                height={height}
+                width={width}
+                nodeSize={nodeSize}
+            />
+            <RoadDisplayLayer
                 height={height}
                 width={width}
                 nodeSize={nodeSize}

@@ -23,7 +23,8 @@
 
 
 .node[is-street="true"]{
-    background-color: purple
+    background-color: var(--main-800);
+    border-radius: 50%;
 }
 
 

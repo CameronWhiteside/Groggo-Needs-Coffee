@@ -19,7 +19,7 @@ def map_features(id):
 @login_required
 def new_features(id):
     request_body = request.json
-    print('~~~~~~~~~~~~~~~~~~~~~~~~', request_body)
+
     new_feature = Feature.add_a_feature(
         map_id = id,
         feature_type_id= request_body['feature_type_id'],
@@ -43,7 +43,7 @@ def update_map(id):
     updated_map = Map.get_map_by_id(id)
     request_body = request.json
     name = request_body['name']
-    feature_list = request_body['featureList']
+    feature_list = request_body['features']
     Map.update_map(id, name, feature_list)
     return updated_map
 

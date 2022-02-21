@@ -6,11 +6,15 @@ const Modal = ({
     mode,
     setMode,
     width,
+    disableOffclick=false
 }) => {
 
-    const hideModal = (e) => {
-        e.preventDefault()
-        setMode(false)
+    let hideModal = () => { }
+    if (!disableOffclick) {
+        hideModal = (e) => {
+            e.preventDefault()
+            setMode(false)
+        }
     }
 
     return (
@@ -19,8 +23,10 @@ const Modal = ({
             <>
                 <div className="modal-overlay" onClick={hideModal}>
                     <div className="modal-body" style={{width: `${width}px`}}>
-                        <div className='close-button' onClick={hideModal}>
-                        </div>
+                        { !disableOffclick &&
+                            <div className='close-button' onClick={hideModal}>
+                            </div>
+                        }
                         {children}
                     </div>
                 </div>

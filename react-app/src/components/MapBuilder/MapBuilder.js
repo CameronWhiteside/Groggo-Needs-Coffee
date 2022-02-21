@@ -3,6 +3,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
 import { getMaps, updateMap, removeMap, createMap } from '../../store/map';
 import { getFeatures, removeMapFeatures, removeFeature, createFeature, updateFeature } from '../../store/feature';
+import { addPathLine } from './Visualizer/graphAlgorithms/dijkstra';
 
 import './MapBuilder.css'
 import getCityName from './utils/cityNames';
@@ -46,6 +47,11 @@ const MapBuilder = () => {
         setPathfindingMode(false)
     }
 
+    const resetRoadOverlay = () => {
+        let roadDisplay = document.getElementById('road-display-layer')
+        roadDisplay.innerHTML = ''
+    }
+
     const activateDelete = (e) => {
         e.preventDefault()
         resetPath()
@@ -74,16 +80,30 @@ const MapBuilder = () => {
 
     const updateFeatures = (currentMap) => {
         resetPath()
+        resetRoadOverlay()
         if (currentMap) {
             let mapFeatures = currentMap.features
             let mapFeatureInfo = mapFeatures.map(feature => {
 
                 let nodes = {}
 
-                for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
-                    for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
-                        nodes[`${x}-${y}`] = `${x}-${y}`
+                if (feature.feature_type_id === 6 || feature.feature_type_id === 7) {
+                    for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
+                        for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
+                            nodes[`${x}-${y}`] = `${x}-${y}`
+                        }
                     }
+                }
+
+                if (feature.feature_type_id >= 3 && feature.feature_type_id <= 5) {
+                    let startId = `${feature.start_longitude}-${feature.start_latitude}`
+                    let stopId = `${feature.stop_longitude}-${feature.stop_latitude}`
+                    nodes[`${feature.start_longitude}-${feature.start_latitude}`] = startId
+                    nodes[`${feature.stop_longitude}-${feature.stop_latitude}`] = stopId
+                    let start = document.getElementById(startId)
+                    let stop = document.getElementById(stopId)
+
+                    addPathLine(start, stop, 'road-display-layer', 'fake-street', 18)
                 }
 
                 let featureObj = {
@@ -91,8 +111,8 @@ const MapBuilder = () => {
                     featureTypeId: feature.feature_type_id,
                     typeName: feature.type_name,
                     startLatitude: feature.start_latitude,
-                    startLongitude: feature.start_longitude,
-                    stopLatitude: feature.stop_latitude,
+                    startLongitude: feature.start_latitude,
+                    stopLatitude: feature.start_latitude,
                     stopLongitude: feature.stop_longitude,
                     nodes
                 }
@@ -100,35 +120,37 @@ const MapBuilder = () => {
                 return featureObj
 
             })
+
             setFeatureList(mapFeatureInfo)
         }
     }
 
     const updateName = async (e) => {
         resetPath()
-        // if (currentMap) {
+        if (currentMap) {
             let prevMap = { ...currentMap }
             prevMap.name = currentName
+            console.log({currentName})
             setCurrentMap(prevMap)
             dispatch(updateMap(prevMap))
             setEditNameMode(false)
-        // } else {
-        //     const newMap = await dispatch(createMap({
-        //         userId: sessionUser.id,
-        //         name: currentName,
-        //         featureList
-        //     }))
+        } else {
+            const newMap = await dispatch(createMap({
+                userId: sessionUser.id,
+                name: currentName,
+                featureList: [...featureList]
+            }))
 
-        //     setCurrentMap(newMap)
-        //     setEditNameMode(false)
-        // }
+            setCurrentMap(newMap)
+            setEditNameMode(false)
+        }
     }
 
     const clearMap = () => {
         if (currentMap && currentMap.id) {
             dispatch(removeMapFeatures(currentMap.id))
         }
-
+        resetRoadOverlay()
         setFeatureList([])
     }
 

@@ -68,11 +68,11 @@ class Map(db.Model):
       for feature in feature_list:
         Feature.add_a_feature(
             id,
-            feature_type_id = feature['featureTypeId'],
-            start_latitude = feature['startLatitude'],
-            start_longitude = feature['startLongitude'],
-            stop_latitude = feature ['stopLatitude'],
-            stop_longitude = feature ['stopLongitude']
+            feature_type_id = feature['feature_type_id'],
+            start_latitude = feature['start_latitude'],
+            start_longitude = feature['start_longitude'],
+            stop_latitude = feature ['stop_latitude'],
+            stop_longitude = feature ['stop_longitude']
         )
       db.session.commit()
       return edited_map
