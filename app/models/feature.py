@@ -1,5 +1,6 @@
 from .db import db
 from .feature_type import FeatureType
+# from .map import Map
 from sqlalchemy.sql import func
 
 class Feature(db.Model):
@@ -26,6 +27,8 @@ class Feature(db.Model):
       'length': ((self.stop_latitude - self.start_latitude) ** 2 + (self.stop_longitude - self.start_longitude) **2 ) ** 0.5,
       'feature_type_id': self.feature_type_id,
       'type_name': FeatureType.query.filter(FeatureType.id == self.feature_type_id).first().type_name,
+      'map_id': self.map_id,
+      # 'map_name': Map.query.filter(Map.id == self.map_id).first().name,
     }
 
   def add_a_feature(

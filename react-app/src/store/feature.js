@@ -1,3 +1,4 @@
+import { addPathLine } from "../components/MapBuilder/Visualizer/graphAlgorithms/dijkstra";
 
 //action types
 const LOAD_FEATURES = 'feature/LOAD_FEATURES';
@@ -45,13 +46,45 @@ const pythonify = (feature) => {
     return pyObj
 }
 
+const jsFeature = (feature) => {
+    let jsObj = {}
+    jsObj.id = feature.id
+    jsObj.mapId = feature.map_id
+    jsObj.featureTypeId = feature.feature_type_id
+    jsObj.startLatitude = feature.start_latitude
+    jsObj.stopLatitude = feature.stop_latitude
+    jsObj.startLongitude = feature.start_longitude
+    jsObj.stopLongitude = feature.stop_longitude
+
+    let nodes = {}
+    if (feature.feature_type_id >= 3 && feature.feature_type_id <= 5) {
+        let startId = `${feature.start_longitude}-${feature.start_latitude}`
+        let stopId = `${feature.stop_longitude}-${feature.stop_latitude}`
+        nodes[startId] = startId
+        nodes[stopId] = stopId
+        let start = document.getElementById(startId)
+        let stop = document.getElementById(stopId)
+        addPathLine(start, stop, 'road-display-layer', 'fake-street', 18)
+    } else if (feature.feature_type_id === 6 || feature.feature_type_id === 7) {
+            for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
+                for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
+                    nodes[`${x}-${y}`] = `${x}-${y}`
+                }
+            }
+    }
+
+    jsObj.nodes = nodes
+    return jsObj
+}
+
 //thunks
 export const getFeatures = (mapId) => async dispatch => {
     const res = await fetch(`/api/maps/${mapId}/features/`);
     if (res.ok) {
         const features = await res.json();
-        dispatch(loadFeatures(features))
-        return features
+        let jsFeatures = { 'features': features.features.map(feature => jsFeature(feature)) }
+        dispatch(loadFeatures(jsFeatures))
+        return jsFeatures
     }
 };
 
@@ -88,8 +121,10 @@ export const createFeature = (featureObject) => async dispatch => {
 
     if (res.ok) {
         const newFeature = await res.json();
-        dispatch(addFeature(newFeature.feature));
-        return newFeature;
+        let newJsFeature = jsFeature(newFeature.feature)
+        dispatch(addFeature(newJsFeature));
+        console.log(newJsFeature)
+        return newJsFeature;
     }
 };
 
@@ -104,8 +139,9 @@ export const updateFeature = (featureObject) => async dispatch => {
 
     if (res.ok) {
         const updatedFeature = await res.json();
-        dispatch(editFeature(updatedFeature));
-        return updatedFeature;
+        let newJsFeature = { 'feature': jsFeature(updatedFeature.feature) }
+        dispatch(editFeature(newJsFeature));
+        return newJsFeature;
     }
 };
 

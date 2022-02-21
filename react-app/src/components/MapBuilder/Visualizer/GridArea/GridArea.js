@@ -1,5 +1,7 @@
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { getFeatures } from "../../../../store/feature"
 
 import Node from "../Node/Node"
 import DrawLayer from './DrawLayer/DrawLayer'
@@ -11,47 +13,67 @@ import RoadDisplayLayer from "./RoadDisplayLayer/RoadDisplayLayer"
 
 const GridArea = ({
     activeControl,
-    featureList,
-    setFeatureList,
-    updateFeatures,
+    // bork featureList,
+    // bork setFeatureList,
+    // bork updateFeatures,
     currentMap
 }) => {
+
+    const dispatch = useDispatch()
+    const currentStoreFeatures = useSelector(state => state.feature)
+    useEffect(() => {
+        if(currentMap) dispatch(getFeatures(currentMap.id))
+    },[currentMap])
 
     const width = 70
     const height = 35
     const nodeSize = 18
 
-    useEffect(() => {
-        updateFeatures(currentMap)
-    },[currentMap])
 
-    // useEffect(() => {
-    //     console.log(featureList)
-    // },[featureList])
 
-    const MapLayer = ({ width, height, nodeSize, featureList }) => {
+    const MapLayer = ({
+        width,
+        height,
+        nodeSize,
+        // bork featureList
+    }) => {
         let grid = []
         for (let row = 0; row < height; row++) {
             let newRow = []
             for (let col = 0; col < width; col++) {
 
-                let isStart, isFinish, isWater, isBrush, isStreet = false
+                let
+                    isStart,
+                    isFinish,
+                    isStreet,
+                    featureType = 'flat'
 
-                isStart = (row === 20 && col === 12)
-                isFinish = (row === 17 && col === 50)
+                let adjacentNodes = { streets: {}, highways: {}}
 
-                for (let j = 0; j < featureList.length; j++) {
-                    let feature = featureList[j]
+                if (row === 8 && col === 8) {
+                    isStart = true
+                    featureType = 'start'
+                }
+
+                if (row === 20 && col === 55) {
+                    isFinish = true
+                    featureType = 'finish'
+                }
+
+                // for (let j = 0; j < featureList.length; j++) {
+                //     let feature = featureList[j]
+                for (let j = 0; j < Object.values(currentStoreFeatures).length; j++) {
+                    let feature = Object.values(currentStoreFeatures)[j]
                     if (feature.nodes[`${col}-${row}`]) {
                         if (feature.featureTypeId === 7) {
-                            isWater = true
+                            featureType = 'water'
                         }
                         if (feature.featureTypeId === 6) {
-                            isWater = false
-                            isBrush = true
+                            featureType = 'brush'
                         }
                         if (feature.featureTypeId === 5) {
                             isStreet = true
+                            featureType = 'street'
                         }
                     }
                 }
@@ -62,8 +84,8 @@ const GridArea = ({
                         isStart={isStart}
                         isFinish={isFinish}
                         isStreet={isStreet}
-                        isWater={isWater}
-                        isBrush={isBrush}
+                        featureType={featureType}
+                        adjacentNodes={adjacentNodes}
                         nodeSize={nodeSize}
                         key = {`${col}-${row}`}
                         />
@@ -93,8 +115,8 @@ const GridArea = ({
                 height={height}
                 width={width}
                 nodeSize={nodeSize}
-                featureList={featureList}
-                setFeatureList={setFeatureList}
+                // bork featureList={featureList}
+                // bork setFeatureList={setFeatureList}
                 activeControl={activeControl}
                 currentMap={currentMap}
 
@@ -109,12 +131,12 @@ const GridArea = ({
                 width={width}
                 nodeSize={nodeSize}
             />
-            {featureList &&
+            {currentStoreFeatures &&
                 <MapLayer
                     height={height}
                     width={width}
                     nodeSize={nodeSize}
-                    featureList={featureList}
+                    // bork featureList={featureList}
                 />
             }
             {/* {NodeGrid(height, width, nodeSize)} */}

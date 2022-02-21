@@ -1,5 +1,4 @@
 import './Modal.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Modal = ({
     children,

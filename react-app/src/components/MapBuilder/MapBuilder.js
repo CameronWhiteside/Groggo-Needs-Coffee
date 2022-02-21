@@ -27,7 +27,7 @@ const MapBuilder = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const currentMaps = useSelector(state => state.map)
-    const currentStoreFeatures = useSelector(state => state.features)
+    const currentStoreFeatures = useSelector(state => state.feature)
 
     const [currentMap, setCurrentMap] = useState();
     const [saveText, setSaveText] = useState('Save Map');
@@ -38,7 +38,7 @@ const MapBuilder = () => {
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
     const [pathfindingMode, setPathfindingMode] = useState(false)
-    const [featureList, setFeatureList] = useState([]);
+    // bork const [featureList, setFeatureList] = useState([]);
     const [activeControl, setActiveControl] = useState('water')
 
     const resetPath = () => {
@@ -83,9 +83,14 @@ const MapBuilder = () => {
         resetRoadOverlay()
         if (currentMap) {
             let mapFeatures = currentMap.features
+            let storeFeatures = Object.values(currentStoreFeatures)
+            console.log(`lookin at id `, currentMap.id)
+            console.log(`if you wanted a store`, currentStoreFeatures)
+            console.log(`store has `, Object.keys(currentStoreFeatures).length)
             let mapFeatureInfo = mapFeatures.map(feature => {
 
                 let nodes = {}
+                let adjacentNodes = { streets: {}, highways: {}}
 
                 if (feature.feature_type_id === 6 || feature.feature_type_id === 7) {
                     for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
@@ -98,11 +103,10 @@ const MapBuilder = () => {
                 if (feature.feature_type_id >= 3 && feature.feature_type_id <= 5) {
                     let startId = `${feature.start_longitude}-${feature.start_latitude}`
                     let stopId = `${feature.stop_longitude}-${feature.stop_latitude}`
-                    nodes[`${feature.start_longitude}-${feature.start_latitude}`] = startId
-                    nodes[`${feature.stop_longitude}-${feature.stop_latitude}`] = stopId
+                    nodes[startId] = startId
+                    nodes[stopId] = stopId
                     let start = document.getElementById(startId)
                     let stop = document.getElementById(stopId)
-
                     addPathLine(start, stop, 'road-display-layer', 'fake-street', 18)
                 }
 
@@ -117,11 +121,14 @@ const MapBuilder = () => {
                     nodes
                 }
 
+
                 return featureObj
 
             })
+            console.log(`using these mapFeautres`, mapFeatureInfo)
+            console.log(`the store is this tho`, storeFeatures)
 
-            setFeatureList(mapFeatureInfo)
+            // bork setFeatureList(mapFeatureInfo)
         }
     }
 
@@ -130,7 +137,6 @@ const MapBuilder = () => {
         if (currentMap) {
             let prevMap = { ...currentMap }
             prevMap.name = currentName
-            console.log({currentName})
             setCurrentMap(prevMap)
             dispatch(updateMap(prevMap))
             setEditNameMode(false)
@@ -138,7 +144,8 @@ const MapBuilder = () => {
             const newMap = await dispatch(createMap({
                 userId: sessionUser.id,
                 name: currentName,
-                featureList: [...featureList]
+                // bork featureList: [...featureList]
+                featureList: []
             }))
 
             setCurrentMap(newMap)
@@ -151,14 +158,14 @@ const MapBuilder = () => {
             dispatch(removeMapFeatures(currentMap.id))
         }
         resetRoadOverlay()
-        setFeatureList([])
+        // bork setFeatureList([])
     }
 
     const deleteMap = (e) => {
         dispatch(removeMap(currentMap.id))
         setCurrentMap('')
         setCurrentName('')
-        setFeatureList([])
+        // bork setFeatureList([])
         setWelcomeMode(true)
     }
 
@@ -174,27 +181,15 @@ const MapBuilder = () => {
         dispatch(getMaps(sessionUser.id))
         setCurrentMap(newMap)
         setCurrentName(newName)
-        setFeatureList([])
+        // setFeatureList([])
     }
 
     const saveMap = async () => {
 
-        // if (!currentMap) {
-        //     const newMap = await dispatch(createMap({
-        //         userId: sessionUser.id,
-        //         name: currentName,
-        //         featureList
-        //     }))
-
-        //     dispatch(getMaps(sessionUser.id))
-        //     setCurrentMap(newMap)
-
-
-        // } else {
             const updatedMap = await dispatch(updateMap({
                 id: currentMap.id,
                 name: currentName,
-                featureList
+                // featureList
             }))
 
             dispatch(getMaps(sessionUser.id))
@@ -208,12 +203,13 @@ const MapBuilder = () => {
 
     useEffect(() => {
         dispatch(getMaps(sessionUser.id))
+        updateFeatures(currentMap)
     }, []);
 
 
     useEffect(() => {
         updateFeatures(currentMap)
-        if (currentMap && currentMap.id) {
+        if (currentMap) {
             dispatch(getFeatures(currentMap.id))
         }
     },[currentMap])
@@ -249,8 +245,8 @@ const MapBuilder = () => {
                 setCurrentMap={setCurrentMap}
                 getTitle={getTitle}
                 setCurrentName={setCurrentName}
-                featureList={featureList}
-                setFeatureList={setFeatureList}
+                // bork featureList={featureList}
+                // bork setFeatureList={setFeatureList}
 
             />
             <LoadOrCreate
@@ -259,7 +255,7 @@ const MapBuilder = () => {
                 setLoadMapMode={setLoadMapMode}
                 currentName={currentName}
                 setCurrentName={setCurrentName}
-                setFeatureList={setFeatureList}
+                // bork setFeatureList={setFeatureList}
                 setCurrentMap={setCurrentMap}
                 getTitle={getTitle}
             />
@@ -320,8 +316,8 @@ const MapBuilder = () => {
                         <GridArea
                             activeControl={activeControl}
                             setActiveControl={setActiveControl}
-                            setFeatureList={setFeatureList}
-                            featureList={featureList}
+                            // setFeatureList={setFeatureList}
+                            // featureList={featureList}
                             updateFeatures={updateFeatures}
                             currentMap={currentMap}
                         />

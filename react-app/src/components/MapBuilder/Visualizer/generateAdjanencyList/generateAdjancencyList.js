@@ -25,32 +25,35 @@ const generateAdjacencyList = () => {
     htmlNodes.forEach(node => {
 
         let newNode = {
-            id: `${node.attributes.col.value}-${node.attributes.row.value}`,
+            id: node.id,
             row: parseInt(node.attributes.row.value),
             col: parseInt(node.attributes.col.value),
-            featureType: node.attributes['feature-type'],
-            adjacentStreets: JSON.parse(node.attributes['adjacent-roads']),
-            adjacentHighway: JSON.parse(node.attributes['adjacent-highway']),
-            isWater: (node.attributes['is-water'].value === 'true'),
-            isBrush: (node.attributes['is-brush'].value === 'true')
+            featureType: node.attributes['feature-type'].value,
+            adjacentNodes:node.attributes['adjacent-nodes'].value,
         }
 
         list.addNode(newNode)
 
-        if (!newNode.isWater) {
+        if (newNode.featureType !== 'water') {
             let testIndex = list.nodes.length - 2
             let nodeToTest = list.nodes[testIndex]
             let startingRow = newNode.row
+
+            if (newNode.featureType === 'street' ||
+                newNode.featureType === 'highway') {
+                let adjacentStreets = newNode.adjacentNodes
+                console.log({ adjacentStreets })
+            }
+
             while ((testIndex >= 0) && (nodeToTest.row >= startingRow - 1)) {
                 let nodeToTest = list.nodes[testIndex]
-                if (!nodeToTest.isWater) {
+                if (nodeToTest.featureType !== 'water') {
                     let rowDist = Math.abs(newNode.row - nodeToTest.row)
                     let colDist = Math.abs(newNode.col - nodeToTest.col)
                     if ((rowDist <= 1 && colDist <= 1)) {
-                        // console.log('y')
                         let dist = Math.sqrt(rowDist ** 2 + colDist ** 2)
-                        if (nodeToTest.isBrush) dist *= 1.8
-                        if (newNode.isBrush) dist *= 1.8
+                        if (nodeToTest.featureType === 'brush') dist *= 1.8
+                        if (newNode.featureType === 'brush') dist *= 1.8
                         list.addEdge(newNode, nodeToTest, dist)
                     }
                 }

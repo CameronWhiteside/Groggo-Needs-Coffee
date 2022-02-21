@@ -13,12 +13,16 @@
     background-color: var(--main-400);
 }
 
-.node[is-water="true"]{
+.node[feature-type="water"]{
     background-image: url('../../../../assets/feature-icons/water-icon.svg')
 }
 
-.node[is-brush="true"]{
+.node[feature-type="brush"]{
     background-color: var(--brush)
+}
+
+.node[feature-type="street"]{
+  background-image: url('../../../../assets/feature-icons/street-node.svg')
 }
 
 
@@ -53,7 +57,7 @@
   animation-play-state: running;
 }
 
-.visited.node[is-brush="true"]{
+.visited.node[feature-type="brush"]{
   animation-name: visitedBrush;
   animation-duration: 1s;
   animation-timing-function: ease-out;

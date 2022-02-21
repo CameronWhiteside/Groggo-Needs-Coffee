@@ -1,11 +1,11 @@
+Remove featureList from state variable and replace with store information
+DONE - Refactor nodes to have a single node-type instead of boolean
 refactor nodes to incldue a featureId?
-Refactor nodes to have a single node-type instead of boolean
 refactor nodes to include lists of connected street-pairs & highway-pairs
 
 Add highway placement
 
 
-Remove featureList from state variable and replace with store information
 Test save map behavior based on logical clicking
 Handle logical off click on Load Screen (maybe add create button)
 Remove save map button

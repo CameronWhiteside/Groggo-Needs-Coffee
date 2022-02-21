@@ -39,8 +39,8 @@ const LoadMaps = ({
                                 <MapCard
                                     setCurrentMap={setCurrentMap}
                                     setCurrentName={setCurrentName}
-                                    featureList={featureList}
-                                    setFeatureList={setFeatureList}
+                                    // bork featureList={featureList}
+                                    // bork setFeatureList={setFeatureList}
                                     key={map.id}
                                     map={map}
 

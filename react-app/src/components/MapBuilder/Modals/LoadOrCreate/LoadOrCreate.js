@@ -7,7 +7,7 @@ const LoadOrCreate = ({
     welcomeMode,
     setWelcomeMode,
     setLoadMapMode,
-    setFeatureList,
+    // bork setFeatureList,
     currentName,
     setCurrentMap,
 }) => {
@@ -29,7 +29,7 @@ const LoadOrCreate = ({
 
         dispatch(getMaps(sessionUser.id))
         setCurrentMap(newMap)
-        setFeatureList([])
+        // bork setFeatureList([])
         setWelcomeMode(false)
     }
 

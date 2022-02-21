@@ -1,37 +1,43 @@
 import './MapCard.css'
 
-const MapCard = ({ map, setCurrentMap, setCurrentName, featureList, setFeatureList }) => {
+const MapCard = ({
+    map,
+    setCurrentMap,
+    setCurrentName,
+    // bork featureList,
+    // bork setFeatureList
+}) => {
 
     const selectMap = () => {
         setCurrentMap(map)
 
-        let mapFeatures = map.features
-        let mapFeatureInfo = mapFeatures.map(feature => {
+        // bork let mapFeatures = map.features
+        // let mapFeatureInfo = mapFeatures.map(feature => {
 
-            let nodes = {}
+        //     let nodes = {}
 
-            for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
-                for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
-                    nodes[`${x}-${y}`] = `${x}-${y}`
-                }
-            }
+        //     for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
+        //         for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
+        //             nodes[`${x}-${y}`] = `${x}-${y}`
+        //         }
+        //     }
 
-            let featureObj = {
-                name: feature.name,
-                featureTypeId: feature.feature_type_id,
-                typeName: feature.type_name,
-                startLatitude: feature.start_latitude,
-                startLongitude: feature.start_longitude,
-                stopLatitude: feature.stop_latitude,
-                stopLongitude: feature.stop_longitude,
-                nodes
-            }
+        //     let featureObj = {
+        //         name: feature.name,
+        //         featureTypeId: feature.feature_type_id,
+        //         typeName: feature.type_name,
+        //         startLatitude: feature.start_latitude,
+        //         startLongitude: feature.start_longitude,
+        //         stopLatitude: feature.stop_latitude,
+        //         stopLongitude: feature.stop_longitude,
+        //         nodes
+        //     }
 
-            return featureObj
+        //     return featureObj
 
-        })
+        // })
 
-        setFeatureList(mapFeatureInfo)
+        // setFeatureList(mapFeatureInfo)
         setCurrentName(map.name)
     }
 

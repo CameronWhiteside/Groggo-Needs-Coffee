@@ -7,8 +7,8 @@ const DrawLayer = (
     { height,
         width,
         nodeSize,
-        featureList,
-        setFeatureList,
+        // bork featureList,
+        // bork setFeatureList,
         activeControl,
         currentMap
     }) => {
@@ -172,8 +172,8 @@ const DrawLayer = (
             for (let y = yMin; y <= yMax; y++){
                 newFeature.nodes[`${x}-${y}`] = `${x}-${y}`
                 let waterNode = document.getElementById(`${x}-${y}`)
-                    waterNode.setAttribute('is-brush', 'false')
-                    waterNode.setAttribute('is-water', 'true')
+                    // waterNode.setAttribute('is-brush', 'false')
+                    // waterNode.setAttribute('is-water', 'true')
                     waterNode.setAttribute('feature-type', 'water')
                     }
         }
@@ -215,8 +215,8 @@ const DrawLayer = (
             for (let y = yMin; y <= yMax; y++){
                 newFeature.nodes[`${x}-${y}`] = `${x}-${y}`
                 let brushNode = document.getElementById(`${x}-${y}`)
-                    brushNode.setAttribute('is-brush', 'true')
-                    brushNode.setAttribute('is-water', 'false')
+                    // brushNode.setAttribute('is-brush', 'true')
+                    // brushNode.setAttribute('is-water', 'false')
                     brushNode.setAttribute('feature-type', 'brush')
                     }
         }
@@ -242,12 +242,18 @@ const DrawLayer = (
         newFeature.nodes[`${x2}-${y2}`] = `${x2}-${y2}`
         let streetNode1 = document.getElementById(`${x1}-${y1}`)
         let streetNode2 = document.getElementById(`${x2}-${y2}`)
-        let pairList1 = streetNode1.getAttribute('adjacent-streets')
-        let pairList2 = streetNode2.getAttribute('adjacent-streets')
-        streetNode1.setAttribute('is-street', 'true')
-        streetNode1.setAttribute('street-pair', `${x2}-${y2}`)
-        streetNode2.setAttribute('is-street', 'true')
-        streetNode1.setAttribute('street-pair', `${x1}-${y1}`)
+        let adjacentNodes1 = JSON.parse(streetNode1.getAttribute('adjacent-nodes'))
+        let adjacentNodes2 = JSON.parse(streetNode2.getAttribute('adjacent-nodes'))
+
+        streetNode1.setAttribute('feature-type', 'street')
+        adjacentNodes1['streets'][`${x2}-${y2}`] = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) * 0.2
+        let stringNodes = JSON.stringify(adjacentNodes1)
+        console.log(adjacentNodes1)
+        console.log(JSON.stringify(adjacentNodes1))
+        streetNode1.setAttribute('adjacent-nodes', '{"blurp": false}')
+        streetNode2.setAttribute('feature-type', 'street')
+        adjacentNodes2['streets'][`${x1}-${y1}`] = Math.sqrt((x2 - x1) ** 2 + (y2-y1) **2) * 0.2
+        streetNode2.setAttribute('adjacent-nodes', JSON.stringify(adjacentNodes2))
         addPathLine(streetNode1, streetNode2, 'road-display-layer', 'fake-street', 18)
 
         return newFeature
@@ -260,20 +266,20 @@ const DrawLayer = (
             if (activeControl === 'water') {
                 let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 7
-                setFeatureList([...featureList, newFeature])
+                // bork setFeatureList([...featureList, newFeature])
                 if(currentMap) dispatch(createFeature(newFeature))
             }
 
             if (activeControl === 'brush') {
                 let newFeature = addBrushToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 6
-                setFeatureList([...featureList, newFeature])
+                // setFeatureList([...featureList, newFeature])
                 if(currentMap) dispatch(createFeature(newFeature))
             }
             if (activeControl === 'street') {
                 let newFeature = addStreetToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 5
-                setFeatureList([...featureList, newFeature])
+                // setFeatureList([...featureList, newFeature])
                 if(currentMap) dispatch(createFeature(newFeature))
             }
         }
