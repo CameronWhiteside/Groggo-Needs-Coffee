@@ -86,5 +86,5 @@ class Map(db.Model):
   def clear_map(map_id):
       all_features = Feature.query.filter(Feature.map_id == map_id).all()
       for feature in all_features:
-        feature.delete()
+        db.session.delete(feature)
       db.session.commit()

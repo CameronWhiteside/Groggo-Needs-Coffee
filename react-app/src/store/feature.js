@@ -1,3 +1,4 @@
+
 //action types
 const LOAD_FEATURES = 'feature/LOAD_FEATURES';
 const DELETE_FEATURE = 'feature/DELETE_FEATURE';
@@ -17,7 +18,7 @@ const deleteFeature = (featureId) => ({
 });
 
 const deleteMapFeatures = (mapId) => ({
-    type: DELETE__MAP_FEATURES,
+    type: DELETE_MAP_FEATURES,
     mapId
 });
 
@@ -43,13 +44,13 @@ export const getFeatures = (mapId) => async dispatch => {
 };
 
 export const removeMapFeatures = (mapId) => async dispatch => {
-    const res = await fetch(`/api/maps/${mapId}/`, {
+    const res = await fetch(`/api/maps/${mapId}/features`, {
         method: "DELETE"
     });
 
     if (res.ok) {
         const map = await res.json();
-        dispatch(deleteFeature(mapId));
+        dispatch(deleteMapFeatures(mapId));
         return map;
     }
 };
@@ -116,9 +117,13 @@ const mapReducer = (state = initialState, action) => {
 
         case DELETE_FEATURE: {
             newState = { ...state };
-            delete newState[action.mapId]
+            delete newState[action.featureId]
             return newState;
 
+        }
+
+        case DELETE_MAP_FEATURES: {
+            return initialState
         }
 
         case ADD_FEATURE: {

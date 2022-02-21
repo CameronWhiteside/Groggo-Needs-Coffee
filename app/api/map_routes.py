@@ -28,6 +28,13 @@ def new_features(id):
     )
     return new_feature
 
+@map_routes.route('/<int:id>/features/', methods=['DELETE'])
+@login_required
+def delete_all_features(id):
+    Map.clear_map(id)
+    return {'message': f'map {id} cleared successfully'}
+
+
 @map_routes.route('/<int:id>/', methods=['PUT'])
 @login_required
 def update_map(id):
