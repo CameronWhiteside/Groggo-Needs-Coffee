@@ -91,19 +91,18 @@ const MapBuilder = () => {
             dispatch(removeMapFeatures(currentMap.id))
         }
         resetRoadOverlay()
-        // bork setFeatureList([])
     }
 
     const deleteMap = (e) => {
         dispatch(removeMap(currentMap.id))
         setCurrentMap('')
         setCurrentName('')
-        // bork setFeatureList([])
         setWelcomeMode(true)
     }
 
     const createNewMap = async (e) => {
-
+        resetPath()
+        resetRoadOverlay()
         let newName = getTitle()
         const newMap = await dispatch(createMap({
             userId: sessionUser.id,
