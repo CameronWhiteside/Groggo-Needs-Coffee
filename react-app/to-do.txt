@@ -1,14 +1,32 @@
+Add highway placement
+refactor nodes to incldue a featureId
+change start and stop to automatically post on new maps
+
+Create delete mode for setDeleteMode true and hovering over a featureId
+refactor cursor control panel to remove labels/features/ and add info area
+    -get rid of cursor
+    -add borders to grid area based on current mode
+create edit mode
+    -add hover to show corner dots (maybe border)
+    -on click of corner dots, delete feature and jump into draw layer again
+    -smush and re-post
+
+
+BONUS
+   -add fun cursor and highlight
+   -add detailed pictographic
+   -add groggo drawings to modals
+   -add dotted background and loading animations
+
+
 DONE - Remove featureList from state variable and replace with store information
 DONE - Refactor nodes to have a single node-type instead of boolean
-refactor nodes to incldue a featureId?
 DONE - refactor nodes to include lists of connected street-pairs & highway-pairs
 
-Add highway placement
 
 
 DONE - Test save map behavior based on logical clicking
-Handle logical off click on Load Screen (maybe add create button)
+DONE - Handle logical off click on Load Screen (maybe add create button)
 DONE - Remove save map button
 DONE - Rename to clear all features instead of clear features
-Create delete mode for setDeleteMode true and hovering over a featureId
 Prevent drawing on the same node
