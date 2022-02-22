@@ -28,7 +28,6 @@ const GridArea = ({
         width,
         height,
         nodeSize,
-        // bork featureList
     }) => {
 
 
@@ -98,7 +97,10 @@ const GridArea = ({
             grid.push(newRow)
         }
         return (
-            <div className="map-grid" id='map-layer'>
+            <div className={
+                    `map-grid
+                    `}
+                id='map-layer'>
                 {
                     grid.map((row, rowNumber) => (
                     <div className="grid-row" key={`row-${rowNumber}`}>
@@ -114,13 +116,16 @@ const GridArea = ({
 
 
     return (
-        <div id="grid-area">
+        <div id='grid-area'
+            className={`
+                editLayer-${activeControl === 'editFeatures'}
+                deleteLayer-${activeControl === 'deleteFeatures'}
+            `}
+        >
             <DrawLayer
                 height={height}
                 width={width}
                 nodeSize={nodeSize}
-                // bork featureList={featureList}
-                // bork setFeatureList={setFeatureList}
                 activeControl={activeControl}
                 currentMap={currentMap}
 
@@ -140,10 +145,8 @@ const GridArea = ({
                     height={height}
                     width={width}
                     nodeSize={nodeSize}
-                    // bork featureList={featureList}
                 />
             }
-            {/* {NodeGrid(height, width, nodeSize)} */}
             </div>
     )
 }

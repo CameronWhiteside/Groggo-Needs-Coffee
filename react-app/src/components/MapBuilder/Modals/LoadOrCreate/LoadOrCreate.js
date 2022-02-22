@@ -28,7 +28,6 @@ const LoadOrCreate = ({
 
         dispatch(getMaps(sessionUser.id))
         setCurrentMap(newMap)
-        // bork setFeatureList([])
         setWelcomeMode(false)
     }
 

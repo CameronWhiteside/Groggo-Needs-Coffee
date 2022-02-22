@@ -43,7 +43,7 @@ const MapBuilder = () => {
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
     const [pathfindingMode, setPathfindingMode] = useState(false)
-    const [activeControl, setActiveControl] = useState('water')
+    const [activeControl, setActiveControl] = useState('')
 
     const resetPath = () => {
         let nodeList = document.querySelectorAll('.line')
@@ -194,7 +194,6 @@ const MapBuilder = () => {
                             <button
                                 className='visualize-button'
                                 onClick={() => {
-                                    // setPathfindingMode(true)
                                     visualizeDijkstra(setPathfindingMode)
                                 }}
                             >
@@ -218,7 +217,7 @@ const MapBuilder = () => {
                         />
                         <div className='instructions'>
                             <div className='info-block'>
-                                <Lorem chars='500' />
+                                <Lorem chars='400' />
                             </div>
                             <div className='nav-buttons'>
                                 <div className='top-buttons'>

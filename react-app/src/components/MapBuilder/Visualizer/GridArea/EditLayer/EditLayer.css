@@ -1,0 +1,34 @@
+/* #draw-layer{
+    position: absolute;
+    z-index: 6;
+}
+
+
+#click-tracker{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 5;
+}
+
+
+.fake-water{
+    z-index: 4;
+    position: absolute;
+    background-color: var(--water);
+}
+.fake-brush{
+    z-index: 4;
+    position: absolute;
+    background-color: var(--brush);
+}
+
+.fake-street{
+    z-index: 4;
+    position: absolute;
+    background-image: url('../../../../../assets/feature-icons/street-icon.svg');
+    background-size: contain;
+    border-radius: 9px;
+} */

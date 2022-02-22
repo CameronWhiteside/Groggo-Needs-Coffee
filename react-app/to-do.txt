@@ -11,6 +11,8 @@ create edit mode
     -on click of corner dots, delete feature and jump into draw layer again
     -smush and re-post
 
+DONE - Add logical back button for Load Panel
+
 
 BONUS
    -add fun cursor and highlight
