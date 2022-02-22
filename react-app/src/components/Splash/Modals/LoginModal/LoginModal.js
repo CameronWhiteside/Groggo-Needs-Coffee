@@ -1,4 +1,3 @@
-import { Redirect } from 'react-router-dom'
 import SplashModal from '../SplashModal'
 import LoginForm from '../../../auth/LoginForm'
 import './LoginModal.css'

@@ -2,8 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
 import { getMaps, updateMap, removeMap, createMap } from '../../store/map';
-import { getFeatures, removeMapFeatures, removeFeature, createFeature, updateFeature } from '../../store/feature';
-import { addPathLine } from './Visualizer/graphAlgorithms/dijkstra';
+import {
+    getFeatures,
+    removeMapFeatures,
+    // removeFeature,
+    // createFeature,
+    // updateFeature
+} from '../../store/feature';
+// import { addPathLine } from './Visualizer/graphAlgorithms/dijkstra';
+import {
+    resetRoadOverlay,
+    // addPathLine
+} from './utils';
 
 import './MapBuilder.css'
 import getCityName from './utils/cityNames';
@@ -27,7 +37,7 @@ const MapBuilder = () => {
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
     const currentMaps = useSelector(state => state.map)
-    const currentStoreFeatures = useSelector(state => state.feature)
+    const currentFeatures = useSelector(state => Object.values(state.feature))
 
     const [currentMap, setCurrentMap] = useState();
     const [saveText, setSaveText] = useState('Save Map');
@@ -38,7 +48,7 @@ const MapBuilder = () => {
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
     const [pathfindingMode, setPathfindingMode] = useState(false)
-    // bork const [featureList, setFeatureList] = useState([]);
+    const [featureList, setFeatureList] = useState([]);
     const [activeControl, setActiveControl] = useState('water')
 
     const resetPath = () => {
@@ -47,10 +57,6 @@ const MapBuilder = () => {
         setPathfindingMode(false)
     }
 
-    const resetRoadOverlay = () => {
-        let roadDisplay = document.getElementById('road-display-layer')
-        roadDisplay.innerHTML = ''
-    }
 
     const activateDelete = (e) => {
         e.preventDefault()
@@ -71,65 +77,58 @@ const MapBuilder = () => {
         setLoadMapMode(true)
     }
 
-    const activateWelcome = (e) => {
-        e.preventDefault()
-        resetPath()
-        dispatch(getMaps(sessionUser.id))
-        setWelcomeMode(true)
-    }
-
     const updateFeatures = (currentMap) => {
         resetPath()
         resetRoadOverlay()
-        if (currentMap) {
-            let mapFeatures = currentMap.features
-            let storeFeatures = Object.values(currentStoreFeatures)
-            console.log(`lookin at id `, currentMap.id)
-            console.log(`if you wanted a store`, currentStoreFeatures)
-            console.log(`store has `, Object.keys(currentStoreFeatures).length)
-            let mapFeatureInfo = mapFeatures.map(feature => {
+        // if (currentMap) {
+        //     let mapFeatures = currentMap.features
+        //     let storeFeatures = Object.values(currentStoreFeatures)
+        //     console.log(`lookin at id `, currentMap.id)
+        //     console.log(`if you wanted a store`, currentStoreFeatures)
+        //     console.log(`store has `, Object.keys(currentStoreFeatures).length)
+        //     let mapFeatureInfo = mapFeatures.map(feature => {
 
-                let nodes = {}
-                let adjacentNodes = { streets: {}, highways: {}}
+        //         let nodes = {}
+        //         let adjacentNodes = { streets: {}, highways: {}}
 
-                if (feature.feature_type_id === 6 || feature.feature_type_id === 7) {
-                    for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
-                        for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
-                            nodes[`${x}-${y}`] = `${x}-${y}`
-                        }
-                    }
-                }
+        //         if (feature.feature_type_id === 6 || feature.feature_type_id === 7) {
+        //             for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
+        //                 for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
+        //                     nodes[`${x}-${y}`] = `${x}-${y}`
+        //                 }
+        //             }
+        //         }
 
-                if (feature.feature_type_id >= 3 && feature.feature_type_id <= 5) {
-                    let startId = `${feature.start_longitude}-${feature.start_latitude}`
-                    let stopId = `${feature.stop_longitude}-${feature.stop_latitude}`
-                    nodes[startId] = startId
-                    nodes[stopId] = stopId
-                    let start = document.getElementById(startId)
-                    let stop = document.getElementById(stopId)
-                    addPathLine(start, stop, 'road-display-layer', 'fake-street', 18)
-                }
+        //         if (feature.feature_type_id >= 3 && feature.feature_type_id <= 5) {
+        //             let startId = `${feature.start_longitude}-${feature.start_latitude}`
+        //             let stopId = `${feature.stop_longitude}-${feature.stop_latitude}`
+        //             nodes[startId] = startId
+        //             nodes[stopId] = stopId
+        //             let start = document.getElementById(startId)
+        //             let stop = document.getElementById(stopId)
+        //             addPathLine(start, stop, 'road-display-layer', 'fake-street', 18)
+        //         }
 
-                let featureObj = {
-                    name: feature.name,
-                    featureTypeId: feature.feature_type_id,
-                    typeName: feature.type_name,
-                    startLatitude: feature.start_latitude,
-                    startLongitude: feature.start_latitude,
-                    stopLatitude: feature.start_latitude,
-                    stopLongitude: feature.stop_longitude,
-                    nodes
-                }
+        //         let featureObj = {
+        //             name: feature.name,
+        //             featureTypeId: feature.feature_type_id,
+        //             typeName: feature.type_name,
+        //             startLatitude: feature.start_latitude,
+        //             startLongitude: feature.start_latitude,
+        //             stopLatitude: feature.start_latitude,
+        //             stopLongitude: feature.stop_longitude,
+        //             nodes
+        //         }
 
 
-                return featureObj
+        //         return featureObj
 
-            })
-            console.log(`using these mapFeautres`, mapFeatureInfo)
-            console.log(`the store is this tho`, storeFeatures)
+        //     })
+        //     console.log(`using these mapFeautres`, mapFeatureInfo)
+        //     console.log(`the store is this tho`, storeFeatures)
 
-            // bork setFeatureList(mapFeatureInfo)
-        }
+        //     // bork setFeatureList(mapFeatureInfo)
+        // }
     }
 
     const updateName = async (e) => {
@@ -202,18 +201,8 @@ const MapBuilder = () => {
     }
 
     useEffect(() => {
-        dispatch(getMaps(sessionUser.id))
-        updateFeatures(currentMap)
-    }, []);
-
-
-    useEffect(() => {
-        updateFeatures(currentMap)
-        if (currentMap) {
-            dispatch(getFeatures(currentMap.id))
-        }
-    },[currentMap])
-
+        dispatch(getFeatures(currentMap))
+    }, [currentMap, dispatch]);
 
 
     if (!sessionUser) return (
@@ -320,6 +309,7 @@ const MapBuilder = () => {
                             // featureList={featureList}
                             updateFeatures={updateFeatures}
                             currentMap={currentMap}
+                            currentFeatures={currentFeatures}
                         />
                         <div className='instructions'>
                             <div className='info-block'>

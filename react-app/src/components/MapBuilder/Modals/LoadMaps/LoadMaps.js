@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import {
+    useEffect,
+    // useState
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMaps } from '../../../../store/map';
 import Modal from '../Modal'
@@ -10,10 +13,10 @@ const LoadMaps = ({
     setLoadMapMode,
     setCurrentMap,
     setCurrentName,
-    featureList,
-    setFeatureList,
-    getTitle,
-    currentMap
+    // featureList,
+    // setFeatureList,
+    // getTitle,
+    // currentMap
 
 }) => {
 
@@ -23,7 +26,7 @@ const LoadMaps = ({
 
     useEffect(() => {
         dispatch(getMaps(sessionUser.id))
-    }, []);
+    }, [dispatch, sessionUser.id]);
 
 
             return(

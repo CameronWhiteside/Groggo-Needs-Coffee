@@ -1,4 +1,5 @@
 import './MapCard.css'
+import { resetRoadOverlay } from '../../utils'
 
 const MapCard = ({
     map,
@@ -9,6 +10,7 @@ const MapCard = ({
 }) => {
 
     const selectMap = () => {
+        resetRoadOverlay()
         setCurrentMap(map)
 
         // bork let mapFeatures = map.features

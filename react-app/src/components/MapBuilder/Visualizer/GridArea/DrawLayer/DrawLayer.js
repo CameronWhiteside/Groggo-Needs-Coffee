@@ -1,7 +1,10 @@
 import './DrawLayer.css'
-import { addPathLine } from '../../graphAlgorithms/dijkstra'
+import { addPathLine } from '../../../utils'
 import { createFeature } from '../../../../../store/feature'
-import { useSelector, useDispatch} from 'react-redux';
+import {
+    // useSelector,
+    useDispatch
+} from 'react-redux';
 
 const DrawLayer = (
     { height,
@@ -247,10 +250,8 @@ const DrawLayer = (
 
         streetNode1.setAttribute('feature-type', 'street')
         adjacentNodes1['streets'][`${x2}-${y2}`] = Math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) * 0.2
-        let stringNodes = JSON.stringify(adjacentNodes1)
-        console.log(adjacentNodes1)
-        console.log(JSON.stringify(adjacentNodes1))
-        streetNode1.setAttribute('adjacent-nodes', '{"blurp": false}')
+        let adjacentString1 = JSON.stringify(adjacentNodes1)
+        streetNode1.setAttribute('adjacent-nodes', adjacentString1)
         streetNode2.setAttribute('feature-type', 'street')
         adjacentNodes2['streets'][`${x1}-${y1}`] = Math.sqrt((x2 - x1) ** 2 + (y2-y1) **2) * 0.2
         streetNode2.setAttribute('adjacent-nodes', JSON.stringify(adjacentNodes2))

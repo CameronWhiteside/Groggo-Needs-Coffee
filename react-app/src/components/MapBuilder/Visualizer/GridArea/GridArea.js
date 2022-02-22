@@ -1,13 +1,13 @@
 
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { getFeatures } from "../../../../store/feature"
+// import { useDispatch, useSelector } from "react-redux"
+// import { getFeatures } from "../../../../store/feature"
 
 import Node from "../Node/Node"
 import DrawLayer from './DrawLayer/DrawLayer'
 import PathTraceLayer from "./PathTraceLayer/PathTraceLayer"
-import './GridArea.css'
 import RoadDisplayLayer from "./RoadDisplayLayer/RoadDisplayLayer"
+import './GridArea.css'
 
 
 
@@ -16,14 +16,10 @@ const GridArea = ({
     // bork featureList,
     // bork setFeatureList,
     // bork updateFeatures,
-    currentMap
+    currentMap,
+    currentFeatures
 }) => {
 
-    const dispatch = useDispatch()
-    const currentStoreFeatures = useSelector(state => state.feature)
-    useEffect(() => {
-        if(currentMap) dispatch(getFeatures(currentMap.id))
-    },[currentMap])
 
     const width = 70
     const height = 35
@@ -37,6 +33,8 @@ const GridArea = ({
         nodeSize,
         // bork featureList
     }) => {
+
+
         let grid = []
         for (let row = 0; row < height; row++) {
             let newRow = []
@@ -62,8 +60,8 @@ const GridArea = ({
 
                 // for (let j = 0; j < featureList.length; j++) {
                 //     let feature = featureList[j]
-                for (let j = 0; j < Object.values(currentStoreFeatures).length; j++) {
-                    let feature = Object.values(currentStoreFeatures)[j]
+                for (let j = 0; j < currentFeatures.length; j++) {
+                    let feature = currentFeatures[j]
                     if (feature.nodes[`${col}-${row}`]) {
                         if (feature.featureTypeId === 7) {
                             featureType = 'water'
@@ -131,7 +129,7 @@ const GridArea = ({
                 width={width}
                 nodeSize={nodeSize}
             />
-            {currentStoreFeatures &&
+            {currentFeatures &&
                 <MapLayer
                     height={height}
                     width={width}

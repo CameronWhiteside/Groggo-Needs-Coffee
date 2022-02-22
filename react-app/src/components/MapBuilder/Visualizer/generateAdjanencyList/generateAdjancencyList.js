@@ -41,8 +41,7 @@ const generateAdjacencyList = () => {
 
             if (newNode.featureType === 'street' ||
                 newNode.featureType === 'highway') {
-                let adjacentStreets = newNode.adjacentNodes
-                console.log({ adjacentStreets })
+                // let adjacentStreets = newNode.adjacentNodes.streets
             }
 
             while ((testIndex >= 0) && (nodeToTest.row >= startingRow - 1)) {

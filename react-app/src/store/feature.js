@@ -1,4 +1,4 @@
-import { addPathLine } from "../components/MapBuilder/Visualizer/graphAlgorithms/dijkstra";
+import { addPathLine } from '../components/MapBuilder/utils'
 
 //action types
 const LOAD_FEATURES = 'feature/LOAD_FEATURES';
@@ -78,13 +78,19 @@ const jsFeature = (feature) => {
 }
 
 //thunks
-export const getFeatures = (mapId) => async dispatch => {
-    const res = await fetch(`/api/maps/${mapId}/features/`);
-    if (res.ok) {
-        const features = await res.json();
-        let jsFeatures = { 'features': features.features.map(feature => jsFeature(feature)) }
-        dispatch(loadFeatures(jsFeatures))
-        return jsFeatures
+export const getFeatures = (map) => async dispatch => {
+
+    if (map && map.id) {
+        let mapId = map.id
+        const res = await fetch(`/api/maps/${mapId}/features/`);
+        if (res.ok) {
+            const features = await res.json();
+            let jsFeatures = { 'features': features.features.map(feature => jsFeature(feature)) }
+            dispatch(loadFeatures(jsFeatures))
+            return jsFeatures
+        }
+    } else {
+        return {}
     }
 };
 
@@ -123,7 +129,7 @@ export const createFeature = (featureObject) => async dispatch => {
         const newFeature = await res.json();
         let newJsFeature = jsFeature(newFeature.feature)
         dispatch(addFeature(newJsFeature));
-        console.log(newJsFeature)
+        // console.log(newJsFeature)
         return newJsFeature;
     }
 };

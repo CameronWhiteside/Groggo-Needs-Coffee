@@ -1,14 +1,16 @@
 import Modal from '../Modal'
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
 import './ConfirmClear.css'
 
 const ConfirmClear = ({
     clearMapMode,
     setClearMapMode,
-    currentMap,
+    // currentMap,
     clearMap
 }) => {
-    const onConfirm = () => {clearMap()}
+    const onConfirm = () => {
+        clearMap()
+    }
     const onCancel = () => {setClearMapMode(false)}
 
     return(

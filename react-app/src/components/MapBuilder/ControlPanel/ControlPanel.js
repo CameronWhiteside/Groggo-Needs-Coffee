@@ -1,27 +1,14 @@
-import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux";
-import { getMaps } from "../../../store/map";
-
 import './ControlPanel.css'
 
 const ControlPanel = ({
-    activateLoad,
     activateClear,
     activateDelete,
-    children,
-    // currentMap,
-    // setCurrentMap
-    saveMap,
-    saveText,
+    // saveMap,
+    // saveText,
     activeControl,
-    setActiveControl
+    setActiveControl,
+    children,
 }) => {
-    // const dispatch = useDispatch();
-    // const sessionUser = useSelector(state => state.session.user);
-
-    // useEffect(() => {
-    //     dispatch(getMaps(sessionUser.id))
-    // }, []);
 
     const FeatureType = ({
         featureName,
@@ -40,11 +27,6 @@ const ControlPanel = ({
             </div>
         )
     }
-
-    // const activateClear = (e) => {
-    //     e.preventDefault()
-    //     setClearMapMode(true)
-    // }
 
     const toggleWater = () => {
         if (activeControl === 'water') {
@@ -114,10 +96,9 @@ const ControlPanel = ({
                 </div>
             </div>
             <div className="control-buttons">
-                <button onClick={saveMap}>{saveText}</button>
-                <button onClick={activateClear}>Clear Features</button>
+                {/* <button onClick={saveMap}>{saveText}</button> */}
+                <button onClick={activateClear}>Clear All Features</button>
                 <button onClick={activateDelete}>Delete Map</button>
-                {/* <button onClick={activateLoad}>Load Map</button> */}
             </div>
         </div>
     )
