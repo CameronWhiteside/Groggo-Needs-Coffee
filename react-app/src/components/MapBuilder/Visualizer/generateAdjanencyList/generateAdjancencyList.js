@@ -52,11 +52,9 @@ const generateAdjacencyList = () => {
             if (newNode.featureType === 'street' ||
                 newNode.featureType === 'highway') {
                 let adjacentStreets = newNode.adjacentNodes.streets
-                console.log(adjacentStreets)
                 let nodeList = Object.entries(adjacentStreets)
                 nodeList.forEach(pair => {
                     let otherNode = document.getElementById(pair[0])
-                    console.log(otherNode)
                     let distance = pair[1]
                     let weightedDistance = distance / 30
                     list.addEdge(newNode, otherNode, weightedDistance)

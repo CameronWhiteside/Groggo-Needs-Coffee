@@ -32,15 +32,14 @@ const MapBuilder = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const sessionUser = useSelector(state => state.session.user);
-    const currentMaps = useSelector(state => state.map)
     const currentFeatures = useSelector(state => Object.values(state.feature))
 
     const [currentMap, setCurrentMap] = useState();
-    // const [saveText, setSaveText] = useState('Save Map');
     const [currentName, setCurrentName] = useState(getTitle());
     const [editNameMode, setEditNameMode] = useState(false)
     const [loadMapMode, setLoadMapMode] = useState(false)
     const [welcomeMode, setWelcomeMode] = useState(true)
+    const [backToWelcome, setBackToWelcome] = useState(true)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
     const [pathfindingMode, setPathfindingMode] = useState(false)
@@ -70,22 +69,18 @@ const MapBuilder = () => {
         resetPath()
         dispatch(getMaps(sessionUser.id))
         setLoadMapMode(true)
+        setBackToWelcome(false)
     }
-
 
 
     const updateName = async (e) => {
         resetPath()
-        if (currentMap) {
-            let prevMap = { ...currentMap }
-            let newName = document.getElementById('name-input-area').value
-            console.log(newName)
-            prevMap.name = newName
-            setCurrentMap(prevMap)
-            dispatch(updateMap(prevMap))
-            setEditNameMode(false)
-            setEditNameMode(false)
-        }
+        let prevMap = { ...currentMap }
+        let newName = document.getElementById('name-input-area').value
+        prevMap.name = newName
+        setCurrentMap(prevMap)
+        dispatch(updateMap(prevMap))
+        setEditNameMode(false)
     }
 
     const clearMap = () => {
@@ -118,25 +113,8 @@ const MapBuilder = () => {
         dispatch(getMaps(sessionUser.id))
         setCurrentMap(newMap)
         setCurrentName(newName)
-        // setFeatureList([])
     }
 
-    // const saveMap = async () => {
-
-    //         const updatedMap = await dispatch(updateMap({
-    //             id: currentMap.id,
-    //             name: currentName,
-    //             // featureList
-    //         }))
-
-    //         dispatch(getMaps(sessionUser.id))
-    //         setCurrentMap(updatedMap)
-    //     // }
-    //     setTimeout(() => {
-    //         setSaveText('Save Map')
-    //     }, 600)
-    //     setSaveText('Saving Successful!')
-    // }
 
     useEffect(() => {
         dispatch(getFeatures(currentMap))
@@ -153,7 +131,6 @@ const MapBuilder = () => {
             <ConfirmDelete
                 deleteMapMode={deleteMapMode}
                 setDeleteMapMode={setDeleteMapMode}
-                currentMap={currentMap}
                 deleteMap={deleteCurrentMap}
                 setCurrentName={setCurrentName}
                 getTitle={getTitle}
@@ -161,18 +138,16 @@ const MapBuilder = () => {
             <ConfirmClear
                 clearMapMode={clearMapMode}
                 setClearMapMode={setClearMapMode}
-                currentMap={currentMap}
                 clearMap={clearMap}
             />
             <LoadMaps
                 loadMapMode={loadMapMode}
                 setLoadMapMode={setLoadMapMode}
-                userMaps={currentMaps}
-                currentMap={currentMap}
                 setCurrentMap={setCurrentMap}
-                getTitle={getTitle}
                 setCurrentName={setCurrentName}
                 createNewMap={createNewMap}
+                setWelcomeMode={setWelcomeMode}
+                backToWelcome={backToWelcome}
 
             />
             <LoadOrCreate
@@ -180,9 +155,7 @@ const MapBuilder = () => {
                 setWelcomeMode={setWelcomeMode}
                 setLoadMapMode={setLoadMapMode}
                 currentName={currentName}
-                setCurrentName={setCurrentName}
                 setCurrentMap={setCurrentMap}
-                getTitle={getTitle}
             />
             <div className='map-builder'>
                 <main className='build-area'>

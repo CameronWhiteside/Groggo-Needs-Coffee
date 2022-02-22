@@ -17,11 +17,11 @@ const ControlPanel = ({
 
         return (
             <div onClick={onClick} className="feature-type">
-                <div className={`feature-icon ${featureName}`}>
+                <div className={`feature-icon ${controlName}`}>
                     <div className={`active-feature-${controlName === activeControl}`}>
                     </div>
                 </div>
-                <div className="feature-name">{featureName}</div>
+                {/* <div className="feature-name">{featureName}</div> */}
             </div>
         )
     }
@@ -50,6 +50,46 @@ const ControlPanel = ({
         }
     }
 
+    const toggleHighway = () => {
+        if (activeControl === 'highway') {
+            setActiveControl('')
+        } else {
+            setActiveControl('highway')
+        }
+    }
+
+    const toggleEditFeatures = () => {
+        if (activeControl === 'editFeatures') {
+            setActiveControl('')
+        } else {
+            setActiveControl('editFeatures')
+        }
+    }
+
+    const toggleDeleteFeatures = () => {
+        if (activeControl === 'deleteFeatures') {
+            setActiveControl('')
+        } else {
+            setActiveControl('deleteFeatures')
+        }
+    }
+
+    const toggleHome = () => {
+        if (activeControl === 'homes') {
+            setActiveControl('')
+        } else {
+            setActiveControl('home')
+        }
+    }
+
+    const toggleShop = () => {
+        if (activeControl === 'shop') {
+            setActiveControl('')
+        } else {
+            setActiveControl('shop')
+        }
+    }
+
 
     return (
         <div className="control-panel">
@@ -58,41 +98,57 @@ const ControlPanel = ({
                 <div className="feature-row top-row">
                     <FeatureType
                         featureName="Home"
+                        onClick={toggleHome}
+                        controlName='home'
                     />
                     <FeatureType
-                        icon='C'
-                        featureName="Shop"
+                        onClick={toggleShop}
+                        controlName='shop'
+                        featureName='Shop'
                     />
+
+                </div>
+                <div className="feature-row top-row">
+
                     <FeatureType
                         onClick={toggleWater}
                         controlName='water'
                         featureName='Water'
                     />
-                    </div>
+                        <FeatureType
+                        controlName='brush'
+                        featureName='Brush'
+                        onClick={toggleBrush}
+                />
+                </div>
                 <div className="feature-row top-row">
                 <FeatureType
-                featureName='Highway'
+                        onClick={toggleHighway}
+                        controlName='highway'
+                        featureName='Highway'
                 />
                 <FeatureType
                         controlName='street'
                         featureName='Street'
                         onClick={toggleStreet}
                     />
+
+                </div>
+                <div className="feature-row top-row">
                 <FeatureType
-                        controlName='brush'
-                        featureName='Brush'
-                        onClick={toggleBrush}
+                        onClick={toggleEditFeatures}
+                        controlName='editFeatures'
+                        featureName='Edit'
                 />
+                <FeatureType
+                        onClick={toggleDeleteFeatures}
+                        controlName='deleteFeatures'
+                        featureName='Delete'
+                />
+
                 </div>
             </div>
-            <div className="cursor-container">
-                <div className="cursor build">
-                </div>
-                <div className="cursor move">
-                </div>
-                <div className="cursor destroy">
-                </div>
-            </div>
+  
             <div className="control-buttons">
                 {/* <button onClick={saveMap}>{saveText}</button> */}
                 <button onClick={activateClear}>Clear All Features</button>

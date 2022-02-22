@@ -1,9 +1,9 @@
 .map-card{
-    width: 95%;
-    margin: 25px 0px;
+    width: calc(100% - 10px);
+    margin: 20px 0px 20px;
     background-color: var(--main-800);
     border-radius: 35px;
-    padding: 15px 30px;
+    padding: 15px 0px;
     transition: 0.2s all ease-in-out;
 }
 

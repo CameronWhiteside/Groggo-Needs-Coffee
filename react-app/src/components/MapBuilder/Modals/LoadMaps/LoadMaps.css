@@ -1,8 +1,9 @@
 .maps-list{
     width: 625px;
     max-height: 370px;
-    padding-top: -20px;
+    padding: 0px 10px 0px 0px;
     margin-top: 40px;
+    margin-right: -15px;
     overflow-y: scroll;
     position: relative;
 }

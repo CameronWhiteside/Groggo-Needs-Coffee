@@ -15,11 +15,8 @@ const LoadMaps = ({
     setCurrentMap,
     setCurrentName,
     createNewMap,
-    // featureList,
-    // setFeatureList,
-    // getTitle,
-    // currentMap
-
+    setWelcomeMode,
+    backToWelcome
 }) => {
 
     const dispatch = useDispatch()
@@ -36,7 +33,21 @@ const LoadMaps = ({
         createNewMap()
         setLoadMapMode(false)
     }
-    const onCancel = () => { history.push('/') }
+    const backToHome = () => { history.push('/') }
+
+
+    const goBackToWelcome = () => {
+        setLoadMapMode(false)
+        setWelcomeMode(true)
+
+    }
+
+    const goBackToBuildMap = () => {
+        setLoadMapMode(false)
+    }
+
+    let goBack = goBackToBuildMap
+    if (backToWelcome) goBack = goBackToWelcome
 
     return (
         <>
@@ -44,8 +55,10 @@ const LoadMaps = ({
                 <Modal
                     mode={loadMapMode}
                     setMode={setLoadMapMode}
-                    width={700}
+                    width={690}
                     disableOffclick={true}
+                    backButton={true}
+                    onBackClick={goBack}
                 >
 
 
@@ -54,8 +67,6 @@ const LoadMaps = ({
                             <MapCard
                                 setCurrentMap={setCurrentMap}
                                 setCurrentName={setCurrentName}
-                                // bork featureList={featureList}
-                                // bork setFeatureList={setFeatureList}
                                 setLoadMapMode={setLoadMapMode}
                                 key={map.id}
                                 map={map}
@@ -84,7 +95,7 @@ const LoadMaps = ({
                         >Create A New Map</button>
                         <button
                             className='modal-button wide'
-                            onClick={onCancel}
+                            onClick={backToHome}
                         >Too Scary. Go Home.</button>
                     </div>
                     </Modal>

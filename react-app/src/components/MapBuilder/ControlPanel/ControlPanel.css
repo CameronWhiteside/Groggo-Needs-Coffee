@@ -17,7 +17,7 @@
     width: 100%;
     top: 0;
     left: 0;
-    border-radius: 5px;
+    border-radius: 15px;
     border: 4px solid var(--error);
 }
 
@@ -32,9 +32,9 @@
 
 .feature-row{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
-    margin: 5px 0px;
+    margin: 0px 0px;
 }
 
 .feature-type{
@@ -54,9 +54,10 @@
 }
 
 .feature-icon{
-    height: 55px;
-    width: 55px;
-    border-radius: 5px;
+    height: 70px;
+    width: 70px;
+    border-radius: 15px;
+    margin: 5px;
     position: relative;
     background-size: contain;
     transition: 0.2s all ease-in-out;
@@ -68,34 +69,34 @@
     cursor: pointer;
 }
 
-.feature-icon.Highway{
+.feature-icon.highway{
     background-image: url('../../../assets/feature-icons/highway-icon.svg');
 }
 
-.feature-icon.Street{
+.feature-icon.street{
     background-image: url('../../../assets/feature-icons/street-icon.svg');
 }
 
-.feature-icon.Brush{
+.feature-icon.brush{
     background-image: url('../../../assets/feature-icons/brush-icon.svg');
 }
 
-.feature-icon.Water{
+.feature-icon.water{
     background-image: url('../../../assets/feature-icons/water-icon.svg');
 }
 
-.feature-icon.Home{
+.feature-icon.home{
     background-image: url('../../../assets/feature-icons/house-icon.svg');
 }
 
-.feature-icon.Shop{
+.feature-icon.shop{
     background-image: url('../../../assets/feature-icons/shop-icon.svg');
 }
 
 .cursor-container{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     margin: 10px 0px 25px;
 }
@@ -125,14 +126,12 @@ background-size: 60% 60%;
 background-image: url('../../../assets/cursor-icons/destroy-icon.svg');
 }
 
-.cursor.build{
-background-size: 46% 46%;
-background-image: url('../../../assets/cursor-icons/regular-icon.svg');
+.feature-icon.editFeatures{
+background-image: url('../../../assets/feature-icons/edit-icon-full.svg');
 }
 
-.cursor.move{
-background-size: 60% 60%;
-background-image: url('../../../assets/cursor-icons/move-icon.svg');
+.feature-icon.deleteFeatures{
+background-image: url('../../../assets/feature-icons/delete-icon-full.svg');
 }
 
 
@@ -147,8 +146,3 @@ background-image: url('../../../assets/cursor-icons/move-icon.svg');
 .cursor > span{
     text-align: center;
 }
-
-
-/* .control-buttons{
-    margin-top: 30px;
-} */

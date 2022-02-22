@@ -7,7 +7,6 @@ const LoadOrCreate = ({
     welcomeMode,
     setWelcomeMode,
     setLoadMapMode,
-    // bork setFeatureList,
     currentName,
     setCurrentMap,
 }) => {

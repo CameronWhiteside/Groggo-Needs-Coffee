@@ -1,5 +1,5 @@
 
-import { useEffect } from "react"
+// import { useEffect } from "react"
 // import { useDispatch, useSelector } from "react-redux"
 // import { getFeatures } from "../../../../store/feature"
 

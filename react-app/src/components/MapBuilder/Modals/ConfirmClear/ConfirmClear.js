@@ -5,7 +5,6 @@ import './ConfirmClear.css'
 const ConfirmClear = ({
     clearMapMode,
     setClearMapMode,
-    // currentMap,
     clearMap
 }) => {
     const onConfirm = () => {
