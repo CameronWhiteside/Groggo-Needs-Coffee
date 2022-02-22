@@ -40,7 +40,7 @@ const LoadOrCreate = ({
             width={450}
             disableOffclick={true}
         >
-            <h3 className='modal-title'>Well Hey There.</h3>
+            <h3 className='modal-title'>Choose Wisely.</h3>
             <h5 className='modal-warning'>Would you rather work on one of your previous maps, or are you ready to create a new map from scratch?</h5>
             <div className='action-container'>
             <button
