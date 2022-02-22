@@ -14,7 +14,7 @@
 }
 
 .node[feature-type="water"]{
-    background-image: url('../../../../assets/feature-icons/water-icon.svg')
+    background-image: url('../../../../../assets/feature-icons/water-icon.svg')
 }
 
 .node[feature-type="brush"]{
@@ -22,18 +22,18 @@
 }
 
 .node[feature-type="street"]{
-  background-image: url('../../../../assets/feature-icons/street-node.svg')
+  background-image: url('../../../../../assets/feature-icons/street-node.svg')
 }
 
 
 .node[is-start="true"]{
-    background-image: url('../../../../assets/feature-icons/house-icon.svg');
+    background-image: url('../../../../../assets/feature-icons/house-icon.svg');
     background-size: cover;
 }
 
 
 .node[is-finish="true"]{
-    background-image: url('../../../../assets/feature-icons/shop-icon.svg');
+    background-image: url('../../../../../assets/feature-icons/shop-icon.svg');
     background-size: cover;
 }
 

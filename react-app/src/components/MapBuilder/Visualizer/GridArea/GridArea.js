@@ -3,7 +3,7 @@ import { useEffect } from "react"
 // import { useDispatch, useSelector } from "react-redux"
 // import { getFeatures } from "../../../../store/feature"
 
-import Node from "../Node/Node"
+import Node from "./Node/Node"
 import DrawLayer from './DrawLayer/DrawLayer'
 import PathTraceLayer from "./PathTraceLayer/PathTraceLayer"
 import RoadDisplayLayer from "./RoadDisplayLayer/RoadDisplayLayer"
@@ -39,8 +39,9 @@ const GridArea = ({
 
                 let
                     isStart,
-                    isFinish,
-                    featureType = 'flat'
+                    isFinish = false
+                let featureType = 'flat'
+                let featureId = null
 
                 let adjacentNodes = { streets: {}, highways: {}}
 
@@ -57,12 +58,6 @@ const GridArea = ({
                 for (let j = 0; j < currentFeatures.length; j++) {
                     let feature = currentFeatures[j]
                     if (feature.nodes[`${col}-${row}`]) {
-                        if (feature.featureTypeId === 7) {
-                            featureType = 'water'
-                        }
-                        if (feature.featureTypeId === 6) {
-                            featureType = 'brush'
-                        }
                         if (feature.featureTypeId === 5) {
                             featureType = 'street'
                             let lat1 = feature.startLatitude
@@ -78,12 +73,18 @@ const GridArea = ({
                                 adjacentNodes.streets[`${long1}-${lat1}`] = length
                             }
                         }
+                        else if (feature.featureTypeId === 6) {
+                            featureType = 'brush'
+                        }
+                        else if (feature.featureTypeId === 7) {
+                            featureType = 'water'
+                        }
 
                     }
                 }
-                    newRow.push(
-                        <Node
-                        row={row}
+                newRow.push(
+                    <Node
+                    row={row}
                         col={col}
                         isStart={isStart}
                         isFinish={isFinish}

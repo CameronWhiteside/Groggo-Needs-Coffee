@@ -36,7 +36,7 @@ const MapBuilder = () => {
     const currentFeatures = useSelector(state => Object.values(state.feature))
 
     const [currentMap, setCurrentMap] = useState();
-    const [saveText, setSaveText] = useState('Save Map');
+    // const [saveText, setSaveText] = useState('Save Map');
     const [currentName, setCurrentName] = useState(getTitle());
     const [editNameMode, setEditNameMode] = useState(false)
     const [loadMapMode, setLoadMapMode] = useState(false)
@@ -78,7 +78,9 @@ const MapBuilder = () => {
         resetPath()
         if (currentMap) {
             let prevMap = { ...currentMap }
-            prevMap.name = currentName
+            let newName = document.getElementById('name-input-area').value
+            console.log(newName)
+            prevMap.name = newName
             setCurrentMap(prevMap)
             dispatch(updateMap(prevMap))
             setEditNameMode(false)
@@ -93,8 +95,11 @@ const MapBuilder = () => {
         resetRoadOverlay()
     }
 
-    const deleteMap = (e) => {
+    const deleteCurrentMap = (e) => {
+        console.log(`hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhharrrrrrrrrrrrrrrrrrrrrr`)
+        dispatch(getFeatures(''))
         dispatch(removeMap(currentMap.id))
+        console.log(`this`)
         setCurrentMap('')
         setCurrentName('')
         setWelcomeMode(true)
@@ -149,7 +154,7 @@ const MapBuilder = () => {
                 deleteMapMode={deleteMapMode}
                 setDeleteMapMode={setDeleteMapMode}
                 currentMap={currentMap}
-                deleteMap={deleteMap}
+                deleteMap={deleteCurrentMap}
                 setCurrentName={setCurrentName}
                 getTitle={getTitle}
             />
@@ -196,13 +201,14 @@ const MapBuilder = () => {
                             {<form id='update-name'>
                                 <textarea
                                     className='name-input'
+                                    id='name-input-area'
                                     type='text'
                                     autoFocus={true}
-                                    maxLength={24}
+                                    maxLength={18}
                                     disabled={!editNameMode}
                                     onChange={(e) => (setCurrentName(e.target.value))}
                                     value={currentName}
-                                />
+                                    >{currentName}</textarea>
                              </form>}
                         </div>
                         <div className='edit-name'>

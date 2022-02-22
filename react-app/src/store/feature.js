@@ -79,7 +79,6 @@ const jsFeature = (feature) => {
 
 //thunks
 export const getFeatures = (map) => async dispatch => {
-
     if (map && map.id) {
         let mapId = map.id
         const res = await fetch(`/api/maps/${mapId}/features/`);
@@ -90,7 +89,8 @@ export const getFeatures = (map) => async dispatch => {
             return jsFeatures
         }
     } else {
-        return {}
+        dispatch(loadFeatures({'features': []}))
+        return {'features': []}
     }
 };
 

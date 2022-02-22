@@ -9,6 +9,7 @@ const Node = ({
     isVisited = false,
     isHighwayEnd = false,
     featureType = `flat`,
+    featureId = null,
     adjacentNodes = {
         streets: {},
         highways: {},
@@ -30,6 +31,7 @@ const Node = ({
             is-visited={isVisited.toString()}
             is-highway={isHighwayEnd.toString()}
             feature-type={featureType.toString()}
+            feature-id={featureId}
             adjacent-nodes={JSON.stringify(adjacentNodes)}
             onClick={nodeClick}
             onMouseOver={nodeMouseOver}
