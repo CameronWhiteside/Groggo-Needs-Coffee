@@ -5,7 +5,7 @@ change start and stop to automatically post on new maps
 Create delete mode for setDeleteMode true and hovering over a featureId
 refactor cursor control panel to remove labels/features/ and add info area
     -get rid of cursor
-    -add borders to grid area based on current mode
+    DONE -add borders to grid area based on current mode
 create edit mode
     -add hover to show corner dots (maybe border)
     -on click of corner dots, delete feature and jump into draw layer again

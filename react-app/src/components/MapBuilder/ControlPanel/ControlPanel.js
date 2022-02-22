@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './ControlPanel.css'
 
 const ControlPanel = ({
@@ -14,6 +15,12 @@ const ControlPanel = ({
         controlName
     }) => {
 
+        useEffect(() => {
+            if (activeControl !== 'editFeatures') {
+                let editLayer = document.getElementById('edit-layer')
+                editLayer.innerHTML=''
+            }
+        },[activeControl])
 
         return (
             <div onClick={onClick} className="feature-type">
@@ -60,6 +67,8 @@ const ControlPanel = ({
 
     const toggleEditFeatures = () => {
         if (activeControl === 'editFeatures') {
+            let editLayer = document.getElementById('edit-layer')
+            editLayer.innerHTML=''
             setActiveControl('')
         } else {
             setActiveControl('editFeatures')
@@ -148,7 +157,7 @@ const ControlPanel = ({
 
                 </div>
             </div>
-  
+
             <div className="control-buttons">
                 {/* <button onClick={saveMap}>{saveText}</button> */}
                 <button onClick={activateClear}>Clear All Features</button>

@@ -8,6 +8,7 @@ import DrawLayer from './DrawLayer/DrawLayer'
 import PathTraceLayer from "./PathTraceLayer/PathTraceLayer"
 import RoadDisplayLayer from "./RoadDisplayLayer/RoadDisplayLayer"
 import './GridArea.css'
+import EditLayer from "./EditLayer/EditLayer"
 
 
 
@@ -17,12 +18,9 @@ const GridArea = ({
     currentFeatures
 }) => {
 
-
     const width = 70
     const height = 35
     const nodeSize = 18
-
-
 
     const MapLayer = ({
         width,
@@ -140,13 +138,31 @@ const GridArea = ({
                 width={width}
                 nodeSize={nodeSize}
             />
-            {currentFeatures &&
+            {
+                currentFeatures &&
                 <MapLayer
                     height={height}
                     width={width}
                     nodeSize={nodeSize}
                 />
             }
+                <div id="edit-layer"
+                style={{
+                    zIndex: `${20*(activeControl === 'editFeatures')}`,
+                    height: `${height * nodeSize}px`,
+                    width: `${width * nodeSize}px`,
+                }}>
+                </div>
+                {  currentFeatures &&
+                activeControl === 'editFeatures' &&
+                    <EditLayer
+                        height={height}
+                        width={width}
+                        nodeSize={nodeSize}
+                        currentFeatures={currentFeatures}
+                        currentMap={currentMap}
+                        />
+                    }
             </div>
     )
 }

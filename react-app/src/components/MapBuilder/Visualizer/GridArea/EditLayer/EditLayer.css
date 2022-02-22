@@ -1,34 +1,35 @@
-/* #draw-layer{
+#edit-layer{
     position: absolute;
-    z-index: 6;
 }
 
 
-#click-tracker{
+#edit-tracker{
+    background-color: var(--accent-800-alpha);
     position: absolute;
     top: 0px;
     left: 0px;
     height: 100%;
     width: 100%;
-    z-index: 5;
+    z-index: 13;
 }
 
 
-.fake-water{
-    z-index: 4;
+.edit-water{
+    z-index: 14;
     position: absolute;
     background-color: var(--water);
 }
-.fake-brush{
-    z-index: 4;
+
+.edit-brush{
+    z-index: 15;
     position: absolute;
     background-color: var(--brush);
 }
 
-.fake-street{
-    z-index: 4;
+.edit-street{
+    z-index: 16;
     position: absolute;
     background-image: url('../../../../../assets/feature-icons/street-icon.svg');
     background-size: contain;
     border-radius: 9px;
-} */
+}
