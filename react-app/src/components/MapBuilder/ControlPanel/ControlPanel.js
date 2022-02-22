@@ -98,7 +98,7 @@ const ControlPanel = ({
             <div className="control-buttons">
                 {/* <button onClick={saveMap}>{saveText}</button> */}
                 <button onClick={activateClear}>Clear All Features</button>
-                <button onClick={activateDelete}>Delete Map</button>
+                <button onClick={activateDelete}>Delete This Map</button>
             </div>
         </div>
     )

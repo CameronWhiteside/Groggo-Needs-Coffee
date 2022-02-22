@@ -15,7 +15,7 @@ const HomeNav = () => {
           <NavLink to='/login' className='menu-button' exact={true} activeClassName='active'>Login</NavLink>
           <NavLink to='/sign-up' className='menu-button' exact={true} activeClassName='active'>Sign Up</NavLink>
           <NavLink to='/create'  className='menu-button' exact={true} activeClassName='active'>Create A Map</NavLink>
-          <NavLink to='/learn' className='menu-button' exact={true} activeClassName='active'>Github</NavLink>
+          <NavLink to='/learn' className='menu-button' exact={true} activeClassName='active'>View On Github</NavLink>
           <LogoutButton />
       </div>
     </nav>

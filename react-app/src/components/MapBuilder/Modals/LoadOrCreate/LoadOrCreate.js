@@ -40,17 +40,17 @@ const LoadOrCreate = ({
             width={450}
             disableOffclick={true}
         >
-            <h3 className='modal-title'>Pick One.</h3>
-            <h5 className='modal-warning'>Please choose very carefully. You don't always make the best decisions by the looks of it, but I have hope that you will make the correct choice.</h5>
+            <h3 className='modal-title'>Welcome.</h3>
+            <h5 className='modal-warning'>Would you rather continue working on one of your previous maps, or are you ready to create a new map from scratch?</h5>
             <div className='action-container'>
             <button
                 className='modal-button delete'
                 onClick={onLoadSelect}
-                >Load</button>
+                >Select From Maps</button>
             <button
                 className='modal-button delete'
                 onClick={onCreate}
-                >Create</button>
+                >Build From Scratch</button>
             </div>
         </Modal>
     )

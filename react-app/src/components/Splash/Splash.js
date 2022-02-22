@@ -48,7 +48,7 @@ const Splash = () => {
                             <NavLink to='/learn' className='big-button' exact={true} activeClassName='active'>View On Github</NavLink>
                             {userId ?
                                 <>
-                                    <NavLink to='/create'  className='big-button' exact={true} activeClassName='active'>Map Builder</NavLink>
+                                    <NavLink to='/visualizer'  className='big-button' exact={true} activeClassName='active'>Dijkstra Visualizer</NavLink>
                                     <LogoutButton styleLike='big-button' />
                                 </>
                                 :

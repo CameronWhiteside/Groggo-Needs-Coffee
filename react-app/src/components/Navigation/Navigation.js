@@ -16,7 +16,7 @@ const NavBar = () => {
       <NavLink to='/' className='menu-button' exact={true} activeClassName='active'>Home</NavLink>
           <NavLink to='/login' className='menu-button' exact={true} activeClassName='active'>Login</NavLink>
           <NavLink to='/sign-up' className='menu-button' exact={true} activeClassName='active'>Sign Up</NavLink>
-          <NavLink to='/create'  className='menu-button' exact={true} activeClassName='active'>Create A Map</NavLink>
+          <NavLink to='/visualizer'  className='menu-button' exact={true} activeClassName='active'>Create A Map</NavLink>
           <NavLink to='/' className='menu-button' exact={true} activeClassName='active'>Home</NavLink>
           <NavLink to='/login' className='menu-button' exact={true} activeClassName='active'>Login</NavLink>
           <NavLink to='/sign-up' className='menu-button' exact={true} activeClassName='active'>Sign Up</NavLink>

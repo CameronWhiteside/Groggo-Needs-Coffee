@@ -77,59 +77,7 @@ const MapBuilder = () => {
         setLoadMapMode(true)
     }
 
-    const updateFeatures = (currentMap) => {
-        resetPath()
-        resetRoadOverlay()
-        // if (currentMap) {
-        //     let mapFeatures = currentMap.features
-        //     let storeFeatures = Object.values(currentStoreFeatures)
-        //     console.log(`lookin at id `, currentMap.id)
-        //     console.log(`if you wanted a store`, currentStoreFeatures)
-        //     console.log(`store has `, Object.keys(currentStoreFeatures).length)
-        //     let mapFeatureInfo = mapFeatures.map(feature => {
 
-        //         let nodes = {}
-        //         let adjacentNodes = { streets: {}, highways: {}}
-
-        //         if (feature.feature_type_id === 6 || feature.feature_type_id === 7) {
-        //             for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
-        //                 for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
-        //                     nodes[`${x}-${y}`] = `${x}-${y}`
-        //                 }
-        //             }
-        //         }
-
-        //         if (feature.feature_type_id >= 3 && feature.feature_type_id <= 5) {
-        //             let startId = `${feature.start_longitude}-${feature.start_latitude}`
-        //             let stopId = `${feature.stop_longitude}-${feature.stop_latitude}`
-        //             nodes[startId] = startId
-        //             nodes[stopId] = stopId
-        //             let start = document.getElementById(startId)
-        //             let stop = document.getElementById(stopId)
-        //             addPathLine(start, stop, 'road-display-layer', 'fake-street', 18)
-        //         }
-
-        //         let featureObj = {
-        //             name: feature.name,
-        //             featureTypeId: feature.feature_type_id,
-        //             typeName: feature.type_name,
-        //             startLatitude: feature.start_latitude,
-        //             startLongitude: feature.start_latitude,
-        //             stopLatitude: feature.start_latitude,
-        //             stopLongitude: feature.stop_longitude,
-        //             nodes
-        //         }
-
-
-        //         return featureObj
-
-        //     })
-        //     console.log(`using these mapFeautres`, mapFeatureInfo)
-        //     console.log(`the store is this tho`, storeFeatures)
-
-        //     // bork setFeatureList(mapFeatureInfo)
-        // }
-    }
 
     const updateName = async (e) => {
         resetPath()
@@ -234,7 +182,7 @@ const MapBuilder = () => {
                 setCurrentMap={setCurrentMap}
                 getTitle={getTitle}
                 setCurrentName={setCurrentName}
-                // bork featureList={featureList}
+                createNewMap={createNewMap}
                 // bork setFeatureList={setFeatureList}
 
             />
@@ -305,9 +253,6 @@ const MapBuilder = () => {
                         <GridArea
                             activeControl={activeControl}
                             setActiveControl={setActiveControl}
-                            // setFeatureList={setFeatureList}
-                            // featureList={featureList}
-                            updateFeatures={updateFeatures}
                             currentMap={currentMap}
                             currentFeatures={currentFeatures}
                         />
@@ -317,11 +262,11 @@ const MapBuilder = () => {
                             </div>
                             <div className='nav-buttons'>
                                 <div className='top-buttons'>
-                                    <button onClick={activateLoad}>Load Map</button>
-                                    <button onClick={createNewMap}>Create New Map</button>
+                                    <button onClick={activateLoad}>Load A Map</button>
+                                    <button onClick={createNewMap}>Create A New Map</button>
                                     </div>
                                  <div className='bottom-buttons'>
-                                    <button>Github</button>
+                                    <button>View On Github</button>
                                     <button onClick={()=>history.push('/')}>Back To Home</button>
                                 </div>
                             </div>

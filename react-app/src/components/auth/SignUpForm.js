@@ -21,7 +21,7 @@ const SignUpForm = ({setSignupMode}) => {
         setErrors(data)
       } else {
         setSignupMode(false)
-        history.push('/create')
+        history.push('/visualizer')
       }
     }
   };

@@ -13,9 +13,6 @@ import './GridArea.css'
 
 const GridArea = ({
     activeControl,
-    // bork featureList,
-    // bork setFeatureList,
-    // bork updateFeatures,
     currentMap,
     currentFeatures
 }) => {

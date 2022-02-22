@@ -46,7 +46,7 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute> */}
-        <ProtectedRoute path='/create' exact={true} >
+        <ProtectedRoute path='/visualizer' exact={true} >
           <MapBuilder/>
         </ProtectedRoute>
         <Route path="*">

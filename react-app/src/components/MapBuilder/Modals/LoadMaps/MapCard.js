@@ -5,6 +5,7 @@ const MapCard = ({
     map,
     setCurrentMap,
     setCurrentName,
+    setLoadMapMode,
     // bork featureList,
     // bork setFeatureList
 }) => {
@@ -41,6 +42,7 @@ const MapCard = ({
 
         // setFeatureList(mapFeatureInfo)
         setCurrentName(map.name)
+        setLoadMapMode(false)
     }
 
     let createdAt = new Date(map.created_at).toLocaleDateString("en-US")
