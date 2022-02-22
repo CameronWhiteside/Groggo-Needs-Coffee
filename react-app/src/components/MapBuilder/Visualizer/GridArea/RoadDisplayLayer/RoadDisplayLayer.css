@@ -1,5 +1,4 @@
 #road-display-layer{
     position: absolute;
-    z-index: 3;
+    z-index: 2;
 }
-

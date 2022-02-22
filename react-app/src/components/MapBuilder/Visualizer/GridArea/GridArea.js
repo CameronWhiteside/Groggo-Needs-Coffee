@@ -40,7 +40,6 @@ const GridArea = ({
                 let
                     isStart,
                     isFinish,
-                    isStreet,
                     featureType = 'flat'
 
                 let adjacentNodes = { streets: {}, highways: {}}
@@ -55,8 +54,6 @@ const GridArea = ({
                     featureType = 'finish'
                 }
 
-                // for (let j = 0; j < featureList.length; j++) {
-                //     let feature = featureList[j]
                 for (let j = 0; j < currentFeatures.length; j++) {
                     let feature = currentFeatures[j]
                     if (feature.nodes[`${col}-${row}`]) {
@@ -67,9 +64,21 @@ const GridArea = ({
                             featureType = 'brush'
                         }
                         if (feature.featureTypeId === 5) {
-                            isStreet = true
                             featureType = 'street'
+                            let lat1 = feature.startLatitude
+                            let lat2 = feature.stopLatitude
+                            let long1 = feature.startLongitude
+                            let long2 = feature.stopLongitude
+                            let isStart = (`${col}-${row}` === `${long1}-${lat1}`)
+                            let isFinish = (`${col}-${row}` === `${long2}-${lat2}`)
+                            let length = Math.sqrt((lat1 - lat2)**2 + (long1 - long2) **2)
+                            if (isStart) {
+                                adjacentNodes.streets[`${long2}-${lat2}`] = length
+                            } else if (isFinish) {
+                                adjacentNodes.streets[`${long1}-${lat1}`] = length
+                            }
                         }
+
                     }
                 }
                     newRow.push(
@@ -78,7 +87,6 @@ const GridArea = ({
                         col={col}
                         isStart={isStart}
                         isFinish={isFinish}
-                        isStreet={isStreet}
                         featureType={featureType}
                         adjacentNodes={adjacentNodes}
                         nodeSize={nodeSize}

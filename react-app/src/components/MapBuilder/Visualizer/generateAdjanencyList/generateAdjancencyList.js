@@ -23,16 +23,26 @@ const generateAdjacencyList = () => {
 
     let htmlNodes = document.querySelectorAll('.node')
     htmlNodes.forEach(node => {
-
         let newNode = {
             id: node.id,
             row: parseInt(node.attributes.row.value),
             col: parseInt(node.attributes.col.value),
             featureType: node.attributes['feature-type'].value,
-            adjacentNodes:node.attributes['adjacent-nodes'].value,
+            adjacentNodes: JSON.parse(node.attributes['adjacent-nodes'].value),
         }
 
         list.addNode(newNode)
+    })
+
+    htmlNodes.forEach(node => {
+        let newNode = {
+            id: node.id,
+            row: parseInt(node.attributes.row.value),
+            col: parseInt(node.attributes.col.value),
+            featureType: node.attributes['feature-type'].value,
+            adjacentNodes: JSON.parse(node.attributes['adjacent-nodes'].value),
+        }
+
 
         if (newNode.featureType !== 'water') {
             let testIndex = list.nodes.length - 2
@@ -41,7 +51,17 @@ const generateAdjacencyList = () => {
 
             if (newNode.featureType === 'street' ||
                 newNode.featureType === 'highway') {
-                // let adjacentStreets = newNode.adjacentNodes.streets
+                let adjacentStreets = newNode.adjacentNodes.streets
+                console.log(adjacentStreets)
+                let nodeList = Object.entries(adjacentStreets)
+                nodeList.forEach(pair => {
+                    let otherNode = document.getElementById(pair[0])
+                    console.log(otherNode)
+                    let distance = pair[1]
+                    let weightedDistance = distance / 30
+                    list.addEdge(newNode, otherNode, weightedDistance)
+                })
+
             }
 
             while ((testIndex >= 0) && (nodeToTest.row >= startingRow - 1)) {

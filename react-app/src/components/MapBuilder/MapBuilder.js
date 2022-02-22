@@ -5,11 +5,7 @@ import { getMaps, updateMap, removeMap, createMap } from '../../store/map';
 import {
     getFeatures,
     removeMapFeatures,
-    // removeFeature,
-    // createFeature,
-    // updateFeature
 } from '../../store/feature';
-// import { addPathLine } from './Visualizer/graphAlgorithms/dijkstra';
 import {
     resetRoadOverlay,
     // addPathLine
@@ -48,7 +44,6 @@ const MapBuilder = () => {
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
     const [pathfindingMode, setPathfindingMode] = useState(false)
-    const [featureList, setFeatureList] = useState([]);
     const [activeControl, setActiveControl] = useState('water')
 
     const resetPath = () => {

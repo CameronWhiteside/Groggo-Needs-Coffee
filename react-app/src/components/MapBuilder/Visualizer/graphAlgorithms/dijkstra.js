@@ -73,18 +73,22 @@ const findNodesAndPath = () => {
   let path = [finishNode]
   let lastStep = finishNode
 
-  if (currentNode === finishNode) {
+  // if (currentNode === finishNode) {
     while (lastStep !== startNode) {
       path.unshift(backtrace[lastStep.id])
       lastStep = backtrace[lastStep.id]
     }
-  } else {
-    path = []
-  }
+  // } else {
+  //   console.log(`too short`)
+  //   path = []
+  // }
+
+  console.log({path, visitOrder, travelTime, times})
   return {
     path,
     visitOrder,
     travelTime,
+    times
   }
 
 }
