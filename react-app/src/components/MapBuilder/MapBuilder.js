@@ -82,15 +82,6 @@ const MapBuilder = () => {
             setCurrentMap(prevMap)
             dispatch(updateMap(prevMap))
             setEditNameMode(false)
-        } else {
-            const newMap = await dispatch(createMap({
-                userId: sessionUser.id,
-                name: currentName,
-                // bork featureList: [...featureList]
-                featureList: []
-            }))
-
-            setCurrentMap(newMap)
             setEditNameMode(false)
         }
     }
@@ -126,22 +117,22 @@ const MapBuilder = () => {
         // setFeatureList([])
     }
 
-    const saveMap = async () => {
+    // const saveMap = async () => {
 
-            const updatedMap = await dispatch(updateMap({
-                id: currentMap.id,
-                name: currentName,
-                // featureList
-            }))
+    //         const updatedMap = await dispatch(updateMap({
+    //             id: currentMap.id,
+    //             name: currentName,
+    //             // featureList
+    //         }))
 
-            dispatch(getMaps(sessionUser.id))
-            setCurrentMap(updatedMap)
-        // }
-        setTimeout(() => {
-            setSaveText('Save Map')
-        }, 600)
-        setSaveText('Saving Successful!')
-    }
+    //         dispatch(getMaps(sessionUser.id))
+    //         setCurrentMap(updatedMap)
+    //     // }
+    //     setTimeout(() => {
+    //         setSaveText('Save Map')
+    //     }, 600)
+    //     setSaveText('Saving Successful!')
+    // }
 
     useEffect(() => {
         dispatch(getFeatures(currentMap))
@@ -178,7 +169,6 @@ const MapBuilder = () => {
                 getTitle={getTitle}
                 setCurrentName={setCurrentName}
                 createNewMap={createNewMap}
-                // bork setFeatureList={setFeatureList}
 
             />
             <LoadOrCreate
@@ -187,7 +177,6 @@ const MapBuilder = () => {
                 setLoadMapMode={setLoadMapMode}
                 currentName={currentName}
                 setCurrentName={setCurrentName}
-                // bork setFeatureList={setFeatureList}
                 setCurrentMap={setCurrentMap}
                 getTitle={getTitle}
             />
@@ -200,8 +189,6 @@ const MapBuilder = () => {
                             activateClear={activateClear}
                             activateDelete={activateDelete}
                             currentMap={currentMap}
-                            saveMap={saveMap}
-                            saveText={saveText}
                             activeControl={activeControl}
                             setActiveControl={setActiveControl}
                         >

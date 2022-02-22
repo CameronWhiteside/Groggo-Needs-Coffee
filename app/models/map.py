@@ -58,22 +58,22 @@ class Map(db.Model):
       found_map = Map.query.get(id)
       return found_map.to_dict()
 
-  def update_map(id, name, feature_list=[]):
+  def update_map(id, name):
       edited_map = Map.query.filter(Map.id == id).first()
       edited_map.name = name
       edited_map.updated_at = func.now()
-      old_feature_list = Feature.query.filter(Feature.map_id == id).all()
-      for feature in old_feature_list:
-        db.session.delete(feature)
-      for feature in feature_list:
-        Feature.add_a_feature(
-            id,
-            feature_type_id = feature['feature_type_id'],
-            start_latitude = feature['start_latitude'],
-            start_longitude = feature['start_longitude'],
-            stop_latitude = feature ['stop_latitude'],
-            stop_longitude = feature ['stop_longitude']
-        )
+      # old_feature_list = Feature.query.filter(Feature.map_id == id).all()
+      # for feature in old_feature_list:
+      #   db.session.delete(feature)
+      # for feature in feature_list:
+      #   Feature.add_a_feature(
+      #       id,
+      #       feature_type_id = feature['feature_type_id'],
+      #       start_latitude = feature['start_latitude'],
+      #       start_longitude = feature['start_longitude'],
+      #       stop_latitude = feature ['stop_latitude'],
+      #       stop_longitude = feature ['stop_longitude']
+      #   )
       db.session.commit()
       return edited_map
 

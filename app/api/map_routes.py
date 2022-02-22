@@ -43,8 +43,8 @@ def update_map(id):
     updated_map = Map.get_map_by_id(id)
     request_body = request.json
     name = request_body['name']
-    feature_list = request_body['features']
-    Map.update_map(id, name, feature_list)
+    # feature_list = request_body['features']
+    Map.update_map(id, name)
     return updated_map
 
 @map_routes.route('/<int:id>/', methods=['DELETE'])

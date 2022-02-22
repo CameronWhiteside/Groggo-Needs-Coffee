@@ -55,7 +55,8 @@ const findNodesAndPath = () => {
     currentNode = shortestStep[0];
     visitOrder.push(currentNode)
     if (currentNode === finishNode) {
-      pq.collection = []
+      // pq.collection = []
+      break;
     } else {
       // eslint-disable-next-line no-loop-func
       adjacencyList[currentNode.id].forEach(neighbor => {

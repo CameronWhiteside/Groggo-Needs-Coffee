@@ -3,8 +3,6 @@ import './ControlPanel.css'
 const ControlPanel = ({
     activateClear,
     activateDelete,
-    // saveMap,
-    // saveText,
     activeControl,
     setActiveControl,
     children,

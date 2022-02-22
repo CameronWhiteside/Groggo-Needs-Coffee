@@ -53,8 +53,14 @@ export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', classNam
     lineSegment.style.margin= '0px'
     lineSegment.style.height= `${thickness}px`
     lineSegment.style.position= `absolute`
-    lineSegment.style.left= `${centerXCoord}px`
-    lineSegment.style.top= `${centerYCoord + 18}px`
+  lineSegment.style.left = `${centerXCoord}px`
+
+  // if (parentId === 'path-trace-layer' && length > 40) {
+  //   lineSegment.style.zIndex = 100
+  // } else {
+  //   lineSegment.style.zIndex = 2
+  // }
+    lineSegment.style.top = `${centerYCoord + 18}px`
     lineSegment.style.width= `${length}px`
     lineSegment.style.transform= `rotate(${angle}deg)`
 
