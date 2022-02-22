@@ -96,10 +96,10 @@ const MapBuilder = () => {
     }
 
     const deleteCurrentMap = (e) => {
-        console.log(`hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhharrrrrrrrrrrrrrrrrrrrrr`)
         dispatch(getFeatures(''))
         dispatch(removeMap(currentMap.id))
-        console.log(`this`)
+        resetPath()
+        resetRoadOverlay()
         setCurrentMap('')
         setCurrentName('')
         setWelcomeMode(true)

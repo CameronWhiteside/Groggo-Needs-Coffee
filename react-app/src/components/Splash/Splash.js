@@ -45,10 +45,11 @@ const Splash = () => {
                             <h3 id='title-needs-coffee'>Needs Coffee</h3>
                         </div>
                         <div className="button-area">
-                            <NavLink to='/learn' className='big-button' exact={true} activeClassName='active'>View On Github</NavLink>
+
                             {userId ?
                                 <>
                                     <NavLink to='/visualizer'  className='big-button' exact={true} activeClassName='active'>Dijkstra Visualizer</NavLink>
+                                    <NavLink to='/learn' className='big-button' exact={true} activeClassName='active'>View On Github</NavLink>
                                     <LogoutButton styleLike='big-button' />
                                 </>
                                 :
@@ -56,6 +57,7 @@ const Splash = () => {
                                     <button className='big-button' onClick={demoLogin}>Demo Site</button>
                                     <button className='big-button' onClick={()=>setSignupMode(true)}>Sign Up</button>
                                     <button className='big-button' onClick={() => setLoginMode(true)}>Log In</button>
+                                    <NavLink to='/learn' className='big-button' exact={true} activeClassName='active'>View On Github</NavLink>
                                 </>
                             }
                         </div>

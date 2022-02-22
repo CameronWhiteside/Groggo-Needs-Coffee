@@ -75,7 +75,7 @@ const LoadMaps = ({
                     disableOffclick={true}
                 >
                     <h3 className='modal-title load'>Ope.</h3>
-                    <h5 className='modal-warning'>You haven't made any maps yet, you lil' baby cartographer you. Go explore the world! And map it too, so you can load them here.
+                    <h5 className='modal-warning'>You haven't made any maps yet, you lil' baby cartographer you. Go explore the world! And map it too, so you can load it here.
                     </h5>
                     <div className='action-container'>
                         <button
