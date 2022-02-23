@@ -10,14 +10,15 @@ def feature_by_id(id):
 @feature_routes.route('/<int:id>/', methods=['PUT'])
 def update_feature(id):
     request_body = request.json
+    print(request_body)
     updated_feature = Feature.update_feature(
         id = id,
-        map_id = request_body['map_id'],
-        feature_type_id= request_body['feature_type_id'],
-        start_latitude= request_body['start_latitude'],
-        stop_latitude= request_body['stop_latitude'],
-        start_longitude= request_body['start_longitude'],
-        stop_longitude= request_body['stop_longitude']
+        map_id = request_body['mapId'],
+        feature_type_id= request_body['featureTypeId'],
+        start_latitude= request_body['startLatitude'],
+        stop_latitude= request_body['stopLatitude'],
+        start_longitude= request_body['startLongitude'],
+        stop_longitude= request_body['stopLongitude']
     )
 
     return updated_feature.to_dict()

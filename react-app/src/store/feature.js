@@ -139,13 +139,16 @@ export const updateFeature = (featureObject) => async dispatch => {
 
     const res = await fetch(`/api/features/${featureId}/`, {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(featureObject)
     })
 
+
     if (res.ok) {
         const updatedFeature = await res.json();
-        let newJsFeature = { 'feature': jsFeature(updatedFeature.feature) }
+        console.log({ updatedFeature })
+        let newJsFeature = jsFeature(updatedFeature)
+        // console.log(newJsFeature)
         dispatch(editFeature(newJsFeature));
         return newJsFeature;
     }
@@ -188,6 +191,7 @@ const featureReducer = (state = initialState, action) => {
 
         case EDIT_FEATURE: {
             newState = { ...state }
+            console.log(action.feature)
             newState[action.feature.id] = action.feature
             return newState;
         }

@@ -4,7 +4,7 @@ export const resetRoadOverlay = () => {
     roadDisplay.innerHTML = ''
 }
 
-export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', className='line', thickness='4') => {
+export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', className='line', thickness='4', itemId='') => {
     let displayContainer = document.getElementById(parentId)
     let lineSegment = document.createElement('div')
 
@@ -47,13 +47,16 @@ export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', classNam
     const centerYCoord = ((yCoordA + yCoordB) / 2) - (thickness / 2);
     const angle = Math.atan2((yCoordA - yCoordB), (xCoordA - xCoordB)) * (180 / Math.PI);
 
+    if (itemId.length) {
+      lineSegment.id = itemId
+    }
     lineSegment.classList.add(className)
     lineSegment.classList.add('fading-effect')
     lineSegment.style.padding = '0px'
     lineSegment.style.margin= '0px'
     lineSegment.style.height= `${thickness}px`
     lineSegment.style.position= `absolute`
-  lineSegment.style.left = `${centerXCoord}px`
+    lineSegment.style.left = `${centerXCoord}px`
 
   // if (parentId === 'path-trace-layer' && length > 40) {
   //   lineSegment.style.zIndex = 100

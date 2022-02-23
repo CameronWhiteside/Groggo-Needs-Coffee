@@ -28,7 +28,6 @@ class Feature(db.Model):
       'feature_type_id': self.feature_type_id,
       'type_name': FeatureType.query.filter(FeatureType.id == self.feature_type_id).first().type_name,
       'map_id': self.map_id,
-      # 'map_name': Map.query.filter(Map.id == self.map_id).first().name,
     }
 
   def add_a_feature(
@@ -69,7 +68,7 @@ class Feature(db.Model):
     stop_latitude,
     stop_longitude
   ):
-    updated_feature = Feature.get_feature(id)
+    updated_feature = Feature.query.filter(Feature.id == id).first()
     updated_feature.map_id = map_id,
     updated_feature.feature_type_id = feature_type_id
     updated_feature.start_latitude = start_latitude
@@ -77,7 +76,7 @@ class Feature(db.Model):
     updated_feature.start_longitude = start_longitude
     updated_feature.stop_longitude = stop_longitude
     db.session.commit()
-    return updated_feature.to_dict()
+    return updated_feature
 
 
   def update_feature_start(id, latitude, longitude):

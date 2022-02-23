@@ -1,8 +1,19 @@
 import './EditLayer.css'
 import { addPathLine } from '../../../utils'
-import { createFeature } from '../../../../../store/feature'
+import { createFeature, updateFeature } from '../../../../../store/feature'
 import { useDispatch} from 'react-redux';
 import { useEffect } from 'react';
+
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
 
 const EditLayer = (
     { height,
@@ -27,58 +38,26 @@ const EditLayer = (
         editLayer.innerHTML = ''
     }
 
+    let editedFeatureId, movingCorner, staticCorner, newFeature, updateEnd, featureTypeId
+
+    const startEditDraw = (e) => {
 
 
-    const fakifyFeatures = () => {
-        console.log(currentFeatures)
-        let editTracker = document.createElement('div')
-        editTracker.id='edit-tracker'
-        editLayer.appendChild(editTracker)
+        let featureData = e.target.id.split('-')
+        featureTypeId = e.target.getAttribute('featureTypeId')
+        editedFeatureId = featureData[0]
+        updateEnd = featureData[1]
+        newFeature = document.getElementById(`${editedFeatureId}-edit`)
 
-        for (let i = 0; i < currentFeatures.length; i++) {
-            let {
-                featureTypeId,
-                id,
-                startLatitude,
-                stopLatitude,
-                startLongitude,
-                stopLongitude
-            } = currentFeatures[i]
-            let newFeature = document.createElement('div')
-            newFeature.id = id
-            newFeature.style.position = 'absolute'
-            newFeature.style.width = `${(Math.abs(startLongitude - stopLongitude) +1)*nodeSize}px`
-            newFeature.style.height = `${(Math.abs(startLatitude - stopLatitude) + 1)*nodeSize}px`
-            newFeature.style.left = `${ startLongitude * nodeSize}px`
-            newFeature.style.top = `${ startLatitude * nodeSize }px`
-            newFeature.classList.add('edit-water')
-            editTracker.appendChild(newFeature)
-
-            if (featureTypeId === 5) {
-                let startNode = document.createElement('div')
-                startNode.id = `${id}-start`
-                startNode.style.left = `${ startLongitude * nodeSize}px`
-                startNode.style.top = `${startLatitude * nodeSize}px`
-                startNode.style.width = `${nodeSize}px`
-                startNode.style.height = `${nodeSize}px`
-                startNode.classList.add('edit-road-handle')
-                let stopNode = document.createElement('div')
-                stopNode.id = `${id}-stop`
-                stopNode.style.left = `${ stopLongitude * nodeSize}px`
-                stopNode.style.top = `${stopLatitude * nodeSize}px`
-                stopNode.style.width = `${nodeSize}px`
-                stopNode.style.height = `${nodeSize}px`
-                stopNode.classList.add('edit-water')
-                addPathLine(startNode, stopNode, 'edit-tracker', 'edit-road', '4')
-            }
+        if (updateEnd === 'start') {
+            movingCorner = document.getElementById(`${editedFeatureId}-start`)
+            staticCorner = document.getElementById(`${editedFeatureId}-stop`)
+        } else {
+            movingCorner = document.getElementById(`${editedFeatureId}-stop`)
+            staticCorner = document.getElementById(`${editedFeatureId}-start`)
         }
 
-    }
-
-    useEffect(fakifyFeatures, [currentFeatures])
-
-    const startDraw = (e) => {
-
+        drawingActive = true
 
         const getOffsetTop = element => {
             let offsetTop = 0;
@@ -107,17 +86,18 @@ const EditLayer = (
         let clickX = e.pageX
         let newStartX = Math.floor((clickX - boxX) / nodeSize)
         if (newStartX >= 0) {
-            startX = newStartX
+            startX = staticCorner.style.left.split('px')[0]/nodeSize
             stopX = newStartX
         }
         let newStartY = Math.floor(((clickY - boxY) / nodeSize))
         if (newStartY >= 0) {
-            startY = newStartY
+            startY = staticCorner.style.top.split('px')[0]/nodeSize
             stopY = newStartY
         }
+
     }
 
-    const moveDraw = (e) => {
+    const moveEditDraw = (e) => {
         e.stopPropagation()
         e.preventDefault()
 
@@ -157,41 +137,125 @@ const EditLayer = (
                 featureTop = stopY * nodeSize
             }
 
-            if (activeControl === 'water') {
-                e.target.innerHTML = ''
-                let newFeature = document.createElement('div')
-                newFeature.id = 'drawn-feature'
-                newFeature.style.position = 'absolute'
-                newFeature.style.width = `${ featureWidth }px`
-                newFeature.style.height = `${ featureHeight }px`
-                newFeature.style.left = `${ featureLeft }px`
-                newFeature.style.top = `${ featureTop }px`
-                newFeature.classList.add('edit-water')
-                let clickArea = document.getElementById('edit-tracker')
-                clickArea.innerHTML = ''
-                clickArea.appendChild(newFeature)
-            } else if (activeControl === 'brush') {
-                e.target.innerHTML = ''
-                let newFeature = document.createElement('div')
-                newFeature.id = 'drawn-feature'
-                newFeature.style.position = 'absolute'
-                newFeature.style.width = `${ featureWidth }px`
-                newFeature.style.height = `${ featureHeight }px`
-                newFeature.style.left = `${ featureLeft }px`
-                newFeature.style.top = `${ featureTop }px`
-                newFeature.classList.add('edit-brush')
-                let clickArea = document.getElementById('edit-tracker')
-                clickArea.innerHTML = ''
-                clickArea.appendChild(newFeature)
-            } else if (activeControl === 'street') {
-                let clickArea = document.getElementById('edit-tracker')
-                let start = document.getElementById(`${startX}-${startY}`)
-                let stop = document.getElementById(`${stopX}-${stopY}`)
-                clickArea.innerHTML = ''
-                addPathLine(start, stop, 'edit-tracker', 'edit-street', 18)
+
+
+            console.log(stopX, startX)
+
+            if (stopX < startX) {
+                movingCorner.style.left = `${featureLeft}px`
+            } else {
+                movingCorner.style.left = `${featureLeft + featureWidth - nodeSize}px`
             }
+
+            if (stopY < startY) {
+                movingCorner.style.top = `${featureTop}px`
+            } else {
+                movingCorner.style.top = `${featureTop + featureHeight - nodeSize}px`
+            }
+
+            if (featureTypeId > 5) {
+                newFeature.style.width = `${featureWidth}px`
+                newFeature.style.height = `${featureHeight}px`
+                newFeature.style.left = `${featureLeft}px`
+                newFeature.style.top = `${featureTop}px`
+            } else if (featureTypeId > 2) {
+                newFeature.remove()
+                addPathLine(staticCorner, movingCorner, 'edit-tracker', 'edit-street', '18', `${editedFeatureId}-edit`)
+                newFeature = document.getElementById(`${editedFeatureId}-edit`)
+            }
+
+
+                let clickArea = document.getElementById('edit-tracker')
+                clickArea.appendChild(newFeature)
+            // } else if (activeControl === 'brush') {
+            //     e.target.innerHTML = ''
+            //     let newFeature = document.createElement('div')
+            //     newFeature.id = 'drawn-feature'
+            //     newFeature.style.position = 'absolute'
+            //     newFeature.style.width = `${ featureWidth }px`
+            //     newFeature.style.height = `${ featureHeight }px`
+            //     newFeature.style.left = `${ featureLeft }px`
+            //     newFeature.style.top = `${ featureTop }px`
+            //     newFeature.classList.add('edit-brush')
+            //     let clickArea = document.getElementById('edit-tracker')
+            //     clickArea.innerHTML = ''
+            //     clickArea.appendChild(newFeature)
+            // } else if (activeControl === 'street') {
+            //     let clickArea = document.getElementById('edit-tracker')
+            //     let start = document.getElementById(`${startX}-${startY}`)
+            //     let stop = document.getElementById(`${stopX}-${stopY}`)
+            //     clickArea.innerHTML = ''
+            //     addPathLine(start, stop, 'edit-tracker', 'edit-street', 18)
+            // }
         }
     }
+
+
+    const fakifyFeatures = () => {
+        console.log(currentFeatures)
+        let editTracker = document.createElement('div')
+        editTracker.id = 'edit-tracker'
+        editTracker.addEventListener('mousemove', moveEditDraw)
+        editTracker.addEventListener('mouseup', finishEditDraw)
+        editTracker.addEventListener('mouseleave', finishEditDraw)
+        editLayer.appendChild(editTracker)
+
+        for (let i = 0; i < currentFeatures.length; i++) {
+            let {
+                featureTypeId,
+                id,
+                startLatitude,
+                stopLatitude,
+                startLongitude,
+                stopLongitude
+            } = currentFeatures[i]
+
+                let startNode = document.createElement('div')
+                startNode.id = `${id}-start`
+                startNode.style.left = `${ startLongitude * nodeSize}px`
+                startNode.style.top = `${startLatitude * nodeSize}px`
+                startNode.style.width = `${nodeSize}px`
+                startNode.style.height = `${nodeSize}px`
+                startNode.classList.add('edit-water')
+                startNode.classList.add('edit-handle')
+                startNode.setAttribute('featureTypeId', featureTypeId)
+                startNode.addEventListener('mousedown', startEditDraw)
+                let stopNode = document.createElement('div')
+                stopNode.id = `${id}-stop`
+                stopNode.style.left = `${ stopLongitude * nodeSize}px`
+                stopNode.style.top = `${stopLatitude * nodeSize}px`
+                stopNode.style.width = `${nodeSize}px`
+                stopNode.style.height = `${nodeSize}px`
+                stopNode.classList.add('edit-water')
+                stopNode.classList.add('edit-handle')
+                stopNode.setAttribute('featureTypeId', featureTypeId)
+                stopNode.addEventListener('mousedown', startEditDraw)
+                editTracker.appendChild(startNode)
+                editTracker.appendChild(stopNode)
+
+            if (featureTypeId > 5) {
+                let newFeature = document.createElement('div')
+                newFeature.id = `${id}-edit`
+                newFeature.style.position = 'absolute'
+                newFeature.style.width = `${(Math.abs(startLongitude - stopLongitude) + 1) * nodeSize}px`
+                newFeature.style.height = `${(Math.abs(startLatitude - stopLatitude) + 1) * nodeSize}px`
+                newFeature.style.left = `${startLongitude * nodeSize}px`
+                newFeature.style.top = `${startLatitude * nodeSize}px`
+                newFeature.setAttribute('featureTypeId', featureTypeId)
+                if (featureTypeId === 7) newFeature.classList.add('edit-water')
+                if (featureTypeId === 6) newFeature.classList.add('edit-brush')
+                editTracker.appendChild(newFeature)
+            }
+
+            if (featureTypeId === 5) {
+                addPathLine(startNode, stopNode, 'edit-tracker', 'edit-street', '18', `${id}-edit`)
+            }
+        }
+
+    }
+
+    useEffect(fakifyFeatures, [currentFeatures])
+
 
 
     const addWaterToNodes = (x1, x2, y1, y2) => {
@@ -312,14 +376,16 @@ const EditLayer = (
         return newFeature
     }
 
-    const finishDraw = (e) => {
+    const finishEditDraw = (e) => {
         e.stopPropagation()
         e.preventDefault()
         if (drawingActive) {
-            if (activeControl === 'water') {
+            if (parseInt(featureTypeId) === 7) {
+                console.log(`donesee poo`, featureTypeId)
                 let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 7
-                if(currentMap) dispatch(createFeature(newFeature))
+                newFeature['id'] = editedFeatureId
+                if(currentMap) dispatch(updateFeature(newFeature))
             }
 
             if (activeControl === 'brush') {
@@ -338,10 +404,10 @@ const EditLayer = (
 
     return (
         <div
-            id="another-layer"
+            id="edit-tracking-layer"
             // onMouseDown={startDraw}
             // onMouseUp={finishDraw}
-            // onMouseMove={moveDraw}
+            // onMouseMove={moveEditDraw}
             // onMouseLeave={finishDraw}
             // style={{
             //     height: `${height * nodeSize}px`,

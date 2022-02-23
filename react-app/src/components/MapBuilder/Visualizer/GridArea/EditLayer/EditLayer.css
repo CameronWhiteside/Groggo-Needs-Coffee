@@ -2,6 +2,12 @@
     position: absolute;
 }
 
+#edit-tracking-layer{
+    position: absolute;
+    height: 100%;
+    width: 100%
+}
+
 
 #edit-tracker{
     background-color: var(--accent-800-alpha);
@@ -10,7 +16,7 @@
     left: 0px;
     height: 100%;
     width: 100%;
-    z-index: 13;
+    z-index: 213;
 }
 
 
@@ -32,4 +38,21 @@
     background-image: url('../../../../../assets/feature-icons/street-icon.svg');
     background-size: contain;
     border-radius: 9px;
+}
+
+.edit-handle{
+    z-index: 500;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 4px solid var(--light-400);
+    transition: 0.1s border ease-in-out;
+}
+
+/* #edit-layer > .edit-street{
+    z-index:211;
+} */
+
+.edit-handle:hover{
+    background-color: var(--accent-800-alpha);
+    border: 4px solid var(--error);
 }
