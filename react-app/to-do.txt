@@ -2,14 +2,14 @@ Add highway placement
 refactor nodes to incldue a featureId
 change start and stop to automatically post on new maps
 
-Create delete mode for setDeleteMode true and hovering over a featureId
+DONE Create delete mode for setDeleteMode true and hovering over a featureId
 refactor cursor control panel to remove labels/features/ and add info area
-    -get rid of cursor
+    DONE -get rid of cursor
     DONE -add borders to grid area based on current mode
-create edit mode
-    -add hover to show corner dots (maybe border)
-    -on click of corner dots, delete feature and jump into draw layer again
-    -smush and re-post
+DPME create edit mode
+    -DONE add hover to show corner dots (maybe border)
+    DONE -on click of corner dots, delete feature and jump into draw layer again
+    DONE -smush and re-post
 
 DONE - Add logical back button for Load Panel
 
