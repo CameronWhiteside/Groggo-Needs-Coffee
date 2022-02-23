@@ -1,5 +1,5 @@
 
-// import { useEffect } from "react"
+import { useEffect } from "react"
 // import { useDispatch, useSelector } from "react-redux"
 // import { getFeatures } from "../../../../store/feature"
 
@@ -28,6 +28,12 @@ const GridArea = ({
         nodeSize,
     }) => {
 
+
+        useEffect(() => {
+            if (activeControl !== 'delete') {
+                document.getElementById('delete-layer').innerHTML = ''
+            }
+        },[activeControl])
 
         let grid = []
         for (let row = 0; row < height; row++) {
@@ -163,15 +169,18 @@ const GridArea = ({
                         currentMap={currentMap}
                         />
             }
+            {
                <div id="delete-layer"
                 style={{
+                    position: "absolute",
                     zIndex: `${20*(activeControl === 'deleteFeatures')}`,
                     height: `${height * nodeSize}px`,
                     width: `${width * nodeSize}px`,
                 }}>
                 </div>
+            }
                 {  currentFeatures &&
-                activeControl === 'deleteFeatures' &&
+                    activeControl === 'deleteFeatures' &&
                     <DeleteLayer
                         height={height}
                         width={width}

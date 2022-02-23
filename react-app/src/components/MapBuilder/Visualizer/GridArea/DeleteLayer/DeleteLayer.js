@@ -45,8 +45,12 @@ const DeleteLayer = (
 
     }
 
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     function fakifyFeatures() {
+
+
+
         let deleteTracker = document.createElement('div');
         deleteTracker.id = 'delete-tracker';
         deleteLayer.appendChild(deleteTracker);
