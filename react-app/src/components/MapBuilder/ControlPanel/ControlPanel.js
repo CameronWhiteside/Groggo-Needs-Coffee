@@ -138,13 +138,6 @@ const ControlPanel = ({
                         featureName='Brush'
                         onClick={toggleBrush}
                 />
-                </div>
-                <div className="feature-row top-row">
-                <FeatureType
-                        onClick={toggleHighway}
-                        controlName='highway'
-                        featureName='Highway'
-                />
                 <FeatureType
                         controlName='street'
                         featureName='Street'
@@ -168,7 +161,6 @@ const ControlPanel = ({
             </div>
 
             <div className="control-buttons">
-                {/* <button onClick={saveMap}>{saveText}</button> */}
                 <button onClick={activateClear}>Clear All Features</button>
                 <button onClick={activateDelete}>Delete This Map</button>
             </div>
