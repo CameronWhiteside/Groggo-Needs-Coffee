@@ -9,7 +9,7 @@ import PathTraceLayer from "./PathTraceLayer/PathTraceLayer"
 import RoadDisplayLayer from "./RoadDisplayLayer/RoadDisplayLayer"
 import './GridArea.css'
 import EditLayer from "./EditLayer/EditLayer"
-
+import DeleteLayer from "./DeleteLayer/DeleteLayer"
 
 
 const GridArea = ({
@@ -162,7 +162,24 @@ const GridArea = ({
                         currentFeatures={currentFeatures}
                         currentMap={currentMap}
                         />
-                    }
+            }
+               <div id="delete-layer"
+                style={{
+                    zIndex: `${20*(activeControl === 'deleteFeatures')}`,
+                    height: `${height * nodeSize}px`,
+                    width: `${width * nodeSize}px`,
+                }}>
+                </div>
+                {  currentFeatures &&
+                activeControl === 'deleteFeatures' &&
+                    <DeleteLayer
+                        height={height}
+                        width={width}
+                        nodeSize={nodeSize}
+                        currentFeatures={currentFeatures}
+                        currentMap={currentMap}
+                        />
+                }
             </div>
     )
 }

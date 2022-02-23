@@ -95,5 +95,6 @@ class Feature(db.Model):
 
   def delete_feature(id):
       deleted_feature = Feature.query.filter(Feature.id == id).first()
-      deleted_feature.delete()
+      db.session.delete(deleted_feature)
       db.session.commit()
+      return {'message': 'feature deleted'}
