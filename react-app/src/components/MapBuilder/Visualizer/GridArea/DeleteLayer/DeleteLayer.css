@@ -19,14 +19,31 @@
     z-index: 213;
 }
 
+.delete-water,
+.delete-brush,
+.delete-highway,
+.delete-street,
+.delete-start,
+.delete-handle{
+    opacity: 0.1;
+    position: absolute;
+    background-color: var(--error);
+    transition: 0.2s opacity ease-in-out;
+}
+
+.delete-water:hover,
+.delete-handle:hover,
+.delete-highway:hover,
+.delete-brush:hover,
+.delete-street:hover{
+    opacity: 30%;
+}
+
 
 
 .delete-water,
 .delete-handle.handle-7{
     z-index: 14;
-    position: absolute;
-    background-color: var(--error);
-    opacity: 10%;
 }
 
 .delete-handle.handle-7{
@@ -36,66 +53,27 @@
 .delete-brush,
 .delete-handle.handle-6{
     z-index: 16;
-    position: absolute;
-    background-color: var(--error);
-    opacity: 10%;
 }
 
 .delete-handle.handle-6{
     z-index: 17;
 }
 
-.delete-handle.handle-6:hover{
-    background-color: var(--error);
-    opacity: 10%;
-}
-
 .delete-street,
 .delete-handle.handle-5{
     z-index: 17;
-    position: absolute;
-    background-color: var(--error);
-    opacity: 10%;
 }
 
 .delete-handle.handle-5{
     z-index: 18;
 }
 
-.delete-handle.handle-5:hover{
-    background-color: var(--main-400);
-    opacity: 10%;
-}
 
 .delete-street{
     z-index: 18;
-    position: absolute;
-    background-color: var(--main-400);
-    opacity: 10%;
-    /* background-image: url('../../../../../assets/feature-icons/street-icon.svg'); */
-    background-size: contain;
-    border-radius: 9px;
-}
-
-.delete-handle{
-    /* z-index: 17; */
-    background-color: rgba(250,220,190, 0.2);
-    transition: 0.1s border ease-in-out;
 }
 
 
-.delete-water,
-.delete-handle,
-.delete-brush,
-.delete-street{
-    transition: 0.2s opacity ease-in-out;
-}
-.delete-water:hover,
-.delete-handle:hover,
-.delete-brush:hover,
-.delete-street:hover{
-    opacity: 60%;
-}
 
 
 /* #delete-layer > .delete-street{
