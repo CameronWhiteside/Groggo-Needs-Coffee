@@ -10,7 +10,7 @@
 
 
 #edit-tracker{
-    background-color: var(--accent-800-alpha);
+    background-color: var(--accent-400);
     position: absolute;
     top: 0px;
     left: 0px;
@@ -20,20 +20,52 @@
 }
 
 
-.edit-water{
+.edit-water,
+.handle-7{
     z-index: 14;
     position: absolute;
     background-color: var(--water);
+    border: 3px solid var(--water-200)
 }
 
-.edit-brush{
+.handle-7{
     z-index: 15;
+}
+
+.edit-brush,
+.handle-6{
+    z-index: 16;
     position: absolute;
     background-color: var(--brush);
+    border: 3px solid var(--brush-200);
+}
+
+.handle-6{
+    z-index: 17;
+}
+
+.handle-6:hover{
+    background-color: var(--brush-200);
+}
+
+.edit-street,
+.handle-5{
+    z-index: 17;
+    position: absolute;
+    background-color: var(--main-800);
+    border: 3px solid var(--main-400);
+}
+
+.handle-5{
+    z-index: 18;
+}
+
+.handle-5:hover{
+    background-color: var(--main-400);
 }
 
 .edit-street{
-    z-index: 16;
+    z-index: 18;
     position: absolute;
     background-image: url('../../../../../assets/feature-icons/street-icon.svg');
     background-size: contain;
@@ -41,18 +73,11 @@
 }
 
 .edit-handle{
-    z-index: 500;
-    border-radius: 50%;
-    background-color: transparent;
-    border: 4px solid var(--light-400);
+    /* z-index: 17; */
+    background-color: rgba(250,220,190, 0.2);
     transition: 0.1s border ease-in-out;
 }
 
 /* #edit-layer > .edit-street{
     z-index:211;
 } */
-
-.edit-handle:hover{
-    background-color: var(--accent-800-alpha);
-    border: 4px solid var(--error);
-}

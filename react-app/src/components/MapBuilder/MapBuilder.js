@@ -8,7 +8,7 @@ import {
 } from '../../store/feature';
 import {
     resetRoadOverlay,
-    // addPathLine
+    addPathLine
 } from './utils';
 
 import './MapBuilder.css'
@@ -120,6 +120,20 @@ const MapBuilder = () => {
         dispatch(getFeatures(currentMap))
     }, [currentMap, dispatch]);
 
+    useEffect(() => {
+        resetRoadOverlay()
+        for (let i = 0; i < currentFeatures.length; i++) {
+            let feature = currentFeatures[i]
+            if (feature.featureTypeId >= 3 && feature.featureTypeId <= 5) {
+                let startId = `${feature.startLongitude}-${feature.startLatitude}`
+                let stopId = `${feature.stopLongitude}-${feature.stopLatitude}`
+                let start = document.getElementById(startId)
+                let stop = document.getElementById(stopId)
+                addPathLine(start, stop, 'road-display-layer', 'fake-street', 18)
+            }
+        }
+    },[currentFeatures])
+
 
     if (!sessionUser) return (
         <Redirect to='/'/>
@@ -168,6 +182,7 @@ const MapBuilder = () => {
                             currentMap={currentMap}
                             activeControl={activeControl}
                             setActiveControl={setActiveControl}
+                            resetPath={resetPath}
                         >
                                  <div className='title-area'>
                         <div className='map-name'>

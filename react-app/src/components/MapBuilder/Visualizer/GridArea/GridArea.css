@@ -7,9 +7,9 @@
     width: fit-content;
     margin: 0px 0px 15px 5px;
     box-shadow: 0px 0px 4px 4px rgba(0, 0, 0, 0);
-    border-radius: 15px;
+    /* border-radius: 15px; */
     overflow: hidden;
-    transition: 0.2s all ease-in-out;
+    /* transition: 0.2s all ease-in-out; */
 }
 
 .grid-row{
@@ -18,9 +18,9 @@
 }
 
 #grid-area.editLayer-true{
-    box-shadow: 0px 0px 0px 6px var(--brush-800);
+    box-shadow: 0px 0px 0px 3px var(--light-200);
 }
 
 #grid-area.deleteLayer-true{
-    box-shadow: 0px 0px 0px 6px var(--error);
+    box-shadow: 0px 0px 0px 3px var(--error);
 }

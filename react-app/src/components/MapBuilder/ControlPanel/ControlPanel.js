@@ -6,6 +6,7 @@ const ControlPanel = ({
     activateDelete,
     activeControl,
     setActiveControl,
+    resetPath,
     children,
 }) => {
 
@@ -20,7 +21,7 @@ const ControlPanel = ({
                 let editLayer = document.getElementById('edit-layer')
                 editLayer.innerHTML=''
             }
-        },[activeControl])
+        },[])
 
         return (
             <div onClick={onClick} className="feature-type">
@@ -37,6 +38,7 @@ const ControlPanel = ({
         if (activeControl === 'water') {
             setActiveControl('')
         } else {
+            resetPath()
             setActiveControl('water')
         }
     }
@@ -45,6 +47,7 @@ const ControlPanel = ({
         if (activeControl === 'brush') {
             setActiveControl('')
         } else {
+            resetPath()
             setActiveControl('brush')
         }
     }
@@ -53,6 +56,7 @@ const ControlPanel = ({
         if (activeControl === 'street') {
             setActiveControl('')
         } else {
+            resetPath()
             setActiveControl('street')
         }
     }
@@ -61,6 +65,7 @@ const ControlPanel = ({
         if (activeControl === 'highway') {
             setActiveControl('')
         } else {
+            resetPath()
             setActiveControl('highway')
         }
     }
@@ -71,6 +76,7 @@ const ControlPanel = ({
             editLayer.innerHTML=''
             setActiveControl('')
         } else {
+            resetPath()
             setActiveControl('editFeatures')
         }
     }
@@ -79,6 +85,7 @@ const ControlPanel = ({
         if (activeControl === 'deleteFeatures') {
             setActiveControl('')
         } else {
+            resetPath()
             setActiveControl('deleteFeatures')
         }
     }
@@ -87,6 +94,7 @@ const ControlPanel = ({
         if (activeControl === 'homes') {
             setActiveControl('')
         } else {
+            resetPath()
             setActiveControl('home')
         }
     }
@@ -95,6 +103,7 @@ const ControlPanel = ({
         if (activeControl === 'shop') {
             setActiveControl('')
         } else {
+            resetPath()
             setActiveControl('shop')
         }
     }

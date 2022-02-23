@@ -1,5 +1,3 @@
-import { addPathLine } from '../components/MapBuilder/utils'
-
 //action types
 const LOAD_FEATURES = 'feature/LOAD_FEATURES';
 const DELETE_FEATURE = 'feature/DELETE_FEATURE';
@@ -62,9 +60,6 @@ const jsFeature = (feature) => {
         let stopId = `${feature.stop_longitude}-${feature.stop_latitude}`
         nodes[startId] = startId
         nodes[stopId] = stopId
-        let start = document.getElementById(startId)
-        let stop = document.getElementById(stopId)
-        addPathLine(start, stop, 'road-display-layer', 'fake-street', 18)
     } else if (feature.feature_type_id === 6 || feature.feature_type_id === 7) {
             for (let x = feature.start_longitude; x <= feature.stop_longitude; x++) {
                 for (let y = feature.start_latitude; y <= feature.stop_latitude; y++) {
@@ -79,6 +74,7 @@ const jsFeature = (feature) => {
 
 //thunks
 export const getFeatures = (map) => async dispatch => {
+    // resetRoadOverlay()
     if (map && map.id) {
         let mapId = map.id
         const res = await fetch(`/api/maps/${mapId}/features/`);
@@ -129,7 +125,6 @@ export const createFeature = (featureObject) => async dispatch => {
         const newFeature = await res.json();
         let newJsFeature = jsFeature(newFeature.feature)
         dispatch(addFeature(newJsFeature));
-        // console.log(newJsFeature)
         return newJsFeature;
     }
 };
@@ -146,9 +141,7 @@ export const updateFeature = (featureObject) => async dispatch => {
 
     if (res.ok) {
         const updatedFeature = await res.json();
-        console.log({ updatedFeature })
         let newJsFeature = jsFeature(updatedFeature)
-        // console.log(newJsFeature)
         dispatch(editFeature(newJsFeature));
         return newJsFeature;
     }
@@ -191,7 +184,6 @@ const featureReducer = (state = initialState, action) => {
 
         case EDIT_FEATURE: {
             newState = { ...state }
-            console.log(action.feature)
             newState[action.feature.id] = action.feature
             return newState;
         }

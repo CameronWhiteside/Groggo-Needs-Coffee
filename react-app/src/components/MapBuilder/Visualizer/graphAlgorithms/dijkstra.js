@@ -81,8 +81,6 @@ const findNodesAndPath = () => {
     }
 
   // let lastNodeIndex = path.indexOf(finishNode)
-  // console.log(path.length)
-  // console.log(lastNodeIndex)
   // let finishVisit = visitOrder.map(obj => obj.id).indexOf(finishNode.id)
   if (path.length && path.indexOf(finishNode)) {
     let finishVisit = visitOrder.map(obj => obj.id).indexOf(finishNode.id)

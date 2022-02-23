@@ -1,10 +1,9 @@
 export const resetRoadOverlay = () => {
-    // console.log(`resttin roads thx`)
     let roadDisplay = document.getElementById('road-display-layer')
     roadDisplay.innerHTML = ''
 }
 
-export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', className='line', thickness='4', itemId='') => {
+export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', className='line', thickness='4', itemId=`${nodeA.id}-${nodeB.id}`) => {
     let displayContainer = document.getElementById(parentId)
     let lineSegment = document.createElement('div')
 
@@ -27,7 +26,7 @@ export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', classNam
   }
 
     const getOffset = (el) => {
-      // var elContainer = el.getBoundingClientRect();
+
       return {
         left: getOffsetLeft(el) - getOffsetLeft(displayContainer),
         top: getOffsetTop(el) - getOffsetTop(displayContainer),
@@ -58,17 +57,9 @@ export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', classNam
     lineSegment.style.position= `absolute`
     lineSegment.style.left = `${centerXCoord}px`
 
-  // if (parentId === 'path-trace-layer' && length > 40) {
-  //   lineSegment.style.zIndex = 100
-  // } else {
-  //   lineSegment.style.zIndex = 2
-  // }
     lineSegment.style.top = `${centerYCoord + 18}px`
     lineSegment.style.width= `${length}px`
     lineSegment.style.transform= `rotate(${angle}deg)`
-
-    // lineSegment.style.backgroundColor= `var(--error)`
-    // lineSegment.style.borderRadius = `2px`
 
     displayContainer.appendChild(lineSegment)
   }

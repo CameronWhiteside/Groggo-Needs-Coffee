@@ -38,7 +38,7 @@ const GridArea = ({
                     isStart,
                     isFinish = false
                 let featureType = 'flat'
-                let featureId = null
+
 
                 let adjacentNodes = { streets: {}, highways: {}}
 

@@ -1,6 +1,6 @@
 import './EditLayer.css'
-import { addPathLine } from '../../../utils'
-import { createFeature, updateFeature } from '../../../../../store/feature'
+import { resetRoadOverlay, addPathLine } from '../../../utils'
+import { updateFeature } from '../../../../../store/feature'
 import { useDispatch} from 'react-redux';
 import { useEffect } from 'react';
 
@@ -38,23 +38,58 @@ const EditLayer = (
         editLayer.innerHTML = ''
     }
 
-    let editedFeatureId, movingCorner, staticCorner, newFeature, updateEnd, featureTypeId
+    let editedFeatureId,
+        movingCorner,
+        staticCorner,
+        moveX,
+        moveY,
+        newFeature,
+        updateEnd,
+        featureTypeId
 
     const startEditDraw = (e) => {
 
-
+        resetRoadOverlay()
         let featureData = e.target.id.split('-')
         featureTypeId = e.target.getAttribute('featureTypeId')
+
+        if (featureTypeId < 6 && featureTypeId > 2) {
+
+        }
+
         editedFeatureId = featureData[0]
         updateEnd = featureData[1]
         newFeature = document.getElementById(`${editedFeatureId}-edit`)
 
+        let startNode = document.getElementById(`${editedFeatureId}-start`)
+        let startRightNode = document.getElementById(`${editedFeatureId}-start-right`)
+        let stopNode = document.getElementById(`${editedFeatureId}-stop`)
+        let stopLeftNode = document.getElementById(`${editedFeatureId}-stop-left`)
+
         if (updateEnd === 'start') {
-            movingCorner = document.getElementById(`${editedFeatureId}-start`)
-            staticCorner = document.getElementById(`${editedFeatureId}-stop`)
+            if (featureData[2]) {
+                movingCorner = startRightNode
+                staticCorner = stopLeftNode
+                moveX = stopNode
+                moveY = startNode
+            } else {
+                movingCorner = startNode
+                staticCorner = stopNode
+                moveX = stopLeftNode
+                moveY = startRightNode
+            }
         } else {
-            movingCorner = document.getElementById(`${editedFeatureId}-stop`)
-            staticCorner = document.getElementById(`${editedFeatureId}-start`)
+            if (featureData[2]) {
+                movingCorner = stopLeftNode
+                staticCorner = startRightNode
+                moveX = startNode
+                moveY = stopNode
+            } else {
+                movingCorner = stopNode
+                staticCorner = startNode
+                moveX = startRightNode
+                moveY = stopLeftNode
+            }
         }
 
         drawingActive = true
@@ -94,7 +129,6 @@ const EditLayer = (
             startY = staticCorner.style.top.split('px')[0]/nodeSize
             stopY = newStartY
         }
-
     }
 
     const moveEditDraw = (e) => {
@@ -137,20 +171,20 @@ const EditLayer = (
                 featureTop = stopY * nodeSize
             }
 
-
-
-            console.log(stopX, startX)
-
             if (stopX < startX) {
                 movingCorner.style.left = `${featureLeft}px`
+                if (moveX) moveX.style.left = `${featureLeft}px`
             } else {
                 movingCorner.style.left = `${featureLeft + featureWidth - nodeSize}px`
+                if (moveX) moveX.style.left = `${featureLeft + featureWidth - nodeSize}px`
             }
 
             if (stopY < startY) {
                 movingCorner.style.top = `${featureTop}px`
+                if (moveY) moveY.style.top = `${featureTop}px`
             } else {
                 movingCorner.style.top = `${featureTop + featureHeight - nodeSize}px`
+                if (moveY) moveY.style.top = `${featureTop + featureHeight - nodeSize}px`
             }
 
             if (featureTypeId > 5) {
@@ -160,101 +194,101 @@ const EditLayer = (
                 newFeature.style.top = `${featureTop}px`
             } else if (featureTypeId > 2) {
                 newFeature.remove()
-                addPathLine(staticCorner, movingCorner, 'edit-tracker', 'edit-street', '18', `${editedFeatureId}-edit`)
-                newFeature = document.getElementById(`${editedFeatureId}-edit`)
+                addPathLine(staticCorner, movingCorner, 'edit-tracker', 'edit-street', '18', `${newFeature.id}-edit`)
+                newFeature = document.getElementById(`${newFeature.id}-edit`)
             }
-
 
                 let clickArea = document.getElementById('edit-tracker')
                 clickArea.appendChild(newFeature)
-            // } else if (activeControl === 'brush') {
-            //     e.target.innerHTML = ''
-            //     let newFeature = document.createElement('div')
-            //     newFeature.id = 'drawn-feature'
-            //     newFeature.style.position = 'absolute'
-            //     newFeature.style.width = `${ featureWidth }px`
-            //     newFeature.style.height = `${ featureHeight }px`
-            //     newFeature.style.left = `${ featureLeft }px`
-            //     newFeature.style.top = `${ featureTop }px`
-            //     newFeature.classList.add('edit-brush')
-            //     let clickArea = document.getElementById('edit-tracker')
-            //     clickArea.innerHTML = ''
-            //     clickArea.appendChild(newFeature)
-            // } else if (activeControl === 'street') {
-            //     let clickArea = document.getElementById('edit-tracker')
-            //     let start = document.getElementById(`${startX}-${startY}`)
-            //     let stop = document.getElementById(`${stopX}-${stopY}`)
-            //     clickArea.innerHTML = ''
-            //     addPathLine(start, stop, 'edit-tracker', 'edit-street', 18)
-            // }
         }
     }
 
 
-    const fakifyFeatures = () => {
-        console.log(currentFeatures)
-        let editTracker = document.createElement('div')
-        editTracker.id = 'edit-tracker'
-        editTracker.addEventListener('mousemove', moveEditDraw)
-        editTracker.addEventListener('mouseup', finishEditDraw)
-        editTracker.addEventListener('mouseleave', finishEditDraw)
-        editLayer.appendChild(editTracker)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    function fakifyFeatures() {
+        let editTracker = document.createElement('div');
+        editTracker.id = 'edit-tracker';
+        editTracker.addEventListener('mousemove', moveEditDraw);
+        editTracker.addEventListener('mouseup', finishEditDraw);
+        editTracker.addEventListener('mouseleave', finishEditDraw);
+        editLayer.appendChild(editTracker);
 
         for (let i = 0; i < currentFeatures.length; i++) {
             let {
-                featureTypeId,
-                id,
-                startLatitude,
-                stopLatitude,
-                startLongitude,
-                stopLongitude
-            } = currentFeatures[i]
+                featureTypeId, id, startLatitude, stopLatitude, startLongitude, stopLongitude
+            } = currentFeatures[i];
 
-                let startNode = document.createElement('div')
-                startNode.id = `${id}-start`
-                startNode.style.left = `${ startLongitude * nodeSize}px`
-                startNode.style.top = `${startLatitude * nodeSize}px`
-                startNode.style.width = `${nodeSize}px`
-                startNode.style.height = `${nodeSize}px`
-                startNode.classList.add('edit-water')
-                startNode.classList.add('edit-handle')
-                startNode.setAttribute('featureTypeId', featureTypeId)
-                startNode.addEventListener('mousedown', startEditDraw)
-                let stopNode = document.createElement('div')
-                stopNode.id = `${id}-stop`
-                stopNode.style.left = `${ stopLongitude * nodeSize}px`
-                stopNode.style.top = `${stopLatitude * nodeSize}px`
-                stopNode.style.width = `${nodeSize}px`
-                stopNode.style.height = `${nodeSize}px`
-                stopNode.classList.add('edit-water')
-                stopNode.classList.add('edit-handle')
-                stopNode.setAttribute('featureTypeId', featureTypeId)
-                stopNode.addEventListener('mousedown', startEditDraw)
-                editTracker.appendChild(startNode)
-                editTracker.appendChild(stopNode)
+            let startNode = document.createElement('div');
+            startNode.id = `${id}-start`;
+            startNode.style.left = `${startLongitude * nodeSize}px`;
+            startNode.style.top = `${startLatitude * nodeSize}px`;
+            startNode.style.width = `${nodeSize}px`;
+            startNode.style.height = `${nodeSize}px`;
+            startNode.classList.add(`handle-${featureTypeId}`);
+            startNode.classList.add('edit-handle');
+            startNode.setAttribute('featureTypeId', featureTypeId);
+            startNode.addEventListener('mousedown', startEditDraw);
+            let stopNode = document.createElement('div');
+            stopNode.id = `${id}-stop`;
+            stopNode.style.left = `${stopLongitude * nodeSize}px`;
+            stopNode.style.top = `${stopLatitude * nodeSize}px`;
+            stopNode.style.width = `${nodeSize}px`;
+            stopNode.style.height = `${nodeSize}px`;
+            stopNode.classList.add(`handle-${featureTypeId}`);
+            stopNode.classList.add('edit-handle');
+            stopNode.setAttribute('featureTypeId', featureTypeId);
+            stopNode.addEventListener('mousedown', startEditDraw);
+            editTracker.appendChild(startNode);
+            editTracker.appendChild(stopNode);
 
             if (featureTypeId > 5) {
-                let newFeature = document.createElement('div')
-                newFeature.id = `${id}-edit`
-                newFeature.style.position = 'absolute'
-                newFeature.style.width = `${(Math.abs(startLongitude - stopLongitude) + 1) * nodeSize}px`
-                newFeature.style.height = `${(Math.abs(startLatitude - stopLatitude) + 1) * nodeSize}px`
-                newFeature.style.left = `${startLongitude * nodeSize}px`
-                newFeature.style.top = `${startLatitude * nodeSize}px`
-                newFeature.setAttribute('featureTypeId', featureTypeId)
-                if (featureTypeId === 7) newFeature.classList.add('edit-water')
-                if (featureTypeId === 6) newFeature.classList.add('edit-brush')
-                editTracker.appendChild(newFeature)
+                let startRightNode = document.createElement('div');
+                startRightNode.id = `${id}-start-right`;
+                startRightNode.style.left = `${stopLongitude * nodeSize}px`;
+                startRightNode.style.top = `${startLatitude * nodeSize}px`;
+                startRightNode.style.width = `${nodeSize}px`;
+                startRightNode.style.height = `${nodeSize}px`;
+                startRightNode.classList.add(`handle-${featureTypeId}`);
+                startRightNode.classList.add('edit-handle');
+                startRightNode.setAttribute('featureTypeId', featureTypeId);
+                startRightNode.addEventListener('mousedown', startEditDraw);
+                let stopLeftNode = document.createElement('div');
+                stopLeftNode.id = `${id}-stop-left`;
+                stopLeftNode.style.left = `${startLongitude * nodeSize}px`;
+                stopLeftNode.style.top = `${stopLatitude * nodeSize}px`;
+                stopLeftNode.style.width = `${nodeSize}px`;
+                stopLeftNode.style.height = `${nodeSize}px`;
+                stopLeftNode.classList.add(`handle-${featureTypeId}`);
+                stopLeftNode.classList.add('edit-handle');
+                stopLeftNode.setAttribute('featureTypeId', featureTypeId);
+                stopLeftNode.addEventListener('mousedown', startEditDraw);
+                editTracker.appendChild(startRightNode);
+                editTracker.appendChild(stopLeftNode);
+                let newFeature = document.createElement('div');
+                newFeature.id = `${id}-edit`;
+                newFeature.style.position = 'absolute';
+                newFeature.style.width = `${(Math.abs(startLongitude - stopLongitude) + 1) * nodeSize}px`;
+                newFeature.style.height = `${(Math.abs(startLatitude - stopLatitude) + 1) * nodeSize}px`;
+                newFeature.style.left = `${startLongitude * nodeSize}px`;
+                newFeature.style.top = `${startLatitude * nodeSize}px`;
+                newFeature.setAttribute('featureTypeId', featureTypeId);
+                if (featureTypeId === 7)
+                    newFeature.classList.add('edit-water');
+                if (featureTypeId === 6)
+                    newFeature.classList.add('edit-brush');
+                editTracker.appendChild(newFeature);
             }
 
-            if (featureTypeId === 5) {
-                addPathLine(startNode, stopNode, 'edit-tracker', 'edit-street', '18', `${id}-edit`)
+            if (parseInt(featureTypeId) === 5) {
+                addPathLine(startNode, stopNode, 'edit-tracker', `edit-street`, '18', `${id}-edit`);
             }
         }
 
     }
 
-    useEffect(fakifyFeatures, [currentFeatures])
+    useEffect(() => {
+        fakifyFeatures()
+    }, [currentFeatures, fakifyFeatures])
 
 
 
@@ -381,22 +415,23 @@ const EditLayer = (
         e.preventDefault()
         if (drawingActive) {
             if (parseInt(featureTypeId) === 7) {
-                console.log(`donesee poo`, featureTypeId)
                 let newFeature = addWaterToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 7
                 newFeature['id'] = editedFeatureId
                 if(currentMap) dispatch(updateFeature(newFeature))
             }
 
-            if (activeControl === 'brush') {
+            if (parseInt(featureTypeId) === 6) {
                 let newFeature = addBrushToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 6
-                if(currentMap) dispatch(createFeature(newFeature))
+                newFeature['id'] = editedFeatureId
+                if(currentMap) dispatch(updateFeature(newFeature))
             }
-            if (activeControl === 'street') {
+            if (parseInt(featureTypeId) === 5) {
                 let newFeature = addStreetToNodes(startX, stopX, startY, stopY)
                 newFeature['featureTypeId'] = 5
-                if(currentMap) dispatch(createFeature(newFeature))
+                newFeature['id'] = editedFeatureId
+                if(currentMap) dispatch(updateFeature(newFeature))
             }
         }
         drawingActive = false
