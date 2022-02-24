@@ -72,10 +72,17 @@
     border-radius: 9px;
 }
 
+.handle-1,
+.handle-2{
+    z-index: 19;
+    position: absolute;
+    background-color: var(--brush);
+    border: 3px solid var(--brush-200);
+}
+
 .edit-handle{
     /* z-index: 17; */
-    background-color: rgba(250,220,190, 0.2);
-    transition: 0.1s border ease-in-out;
+    position: absolute;
 }
 
 /* #edit-layer > .edit-street{
