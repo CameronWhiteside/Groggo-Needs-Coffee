@@ -1,0 +1,29 @@
+#start-stop-layer,
+#start-display,
+#stop-display
+{
+    position: absolute;
+    z-index: 5;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+}
+
+
+#start-indicator,
+#stop-indicator{
+    position: absolute;
+    z-index: 50000;
+    border-radius: 50%;
+}
+
+
+#start-indicator{
+    background-image: url('../../../../../assets/control-icons/house.svg');
+    /* border: 2px solid var(--accent-800) */
+}
+
+#stop-indicator{
+    background-image: url('../../../../../assets/control-icons/coffee-shop.svg');
+}

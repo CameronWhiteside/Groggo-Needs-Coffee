@@ -55,7 +55,6 @@ const findNodesAndPath = () => {
     currentNode = shortestStep[0];
     visitOrder.push(currentNode)
     if (currentNode === finishNode) {
-      // pq.collection = []
       break;
     } else {
       // eslint-disable-next-line no-loop-func
@@ -74,20 +73,16 @@ const findNodesAndPath = () => {
   let path = [finishNode]
   let lastStep = finishNode
 
-  // if (currentNode === finishNode) {
+
     while (lastStep !== startNode) {
       path.unshift(backtrace[lastStep.id])
       lastStep = backtrace[lastStep.id]
     }
 
-  // let lastNodeIndex = path.indexOf(finishNode)
-  // let finishVisit = visitOrder.map(obj => obj.id).indexOf(finishNode.id)
   if (path.length && path.indexOf(finishNode)) {
     let finishVisit = visitOrder.map(obj => obj.id).indexOf(finishNode.id)
     visitOrder = visitOrder.slice(0, finishVisit+1)
   }
-
-  // if
 
   console.log({path, visitOrder, travelTime, times})
   return {

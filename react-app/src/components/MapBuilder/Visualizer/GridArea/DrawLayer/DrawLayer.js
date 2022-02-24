@@ -1,6 +1,6 @@
 import './DrawLayer.css'
 import { addPathLine } from '../../../utils'
-import { createFeature } from '../../../../../store/feature'
+import { createFeature, updateFeature } from '../../../../../store/feature'
 import {
     // useSelector,
     useDispatch
@@ -11,7 +11,8 @@ const DrawLayer = (
         width,
         nodeSize,
         activeControl,
-        currentMap
+        currentMap,
+        currentFeatures
     }) => {
 
     const dispatch = useDispatch();
@@ -61,11 +62,46 @@ const DrawLayer = (
             startY = newStartY
             stopY = newStartY
         }
+
+        if (activeControl === 'home' || activeControl === 'shop') {
+
+            let previousFeature, typeId
+
+            if (activeControl === 'home') {
+                previousFeature = Object.values(currentFeatures).filter(feature => parseInt(feature.featureTypeId) === 1)
+                typeId = 1
+            }
+            if (activeControl === 'shop') {
+                previousFeature = Object.values(currentFeatures).filter(feature => parseInt(feature.featureTypeId) === 2)
+                typeId = 2
+            }
+            if (previousFeature.length) {
+                let updatedFeature = previousFeature[0]
+                updatedFeature.startLatitude = startY
+                updatedFeature.stopLatitude = startY
+                updatedFeature.startLongitude = startX
+                updatedFeature.stopLongitude = startX
+                if(currentMap) dispatch(updateFeature(updatedFeature))
+            } else {
+                let newFeature = {
+                    mapId: currentMap.id,
+                    featureTypeId: typeId,
+                    startLatitude: startY,
+                    stopLatitude: startY,
+                    startLongitude: startX,
+                    stopLongitude: startX
+                }
+                if(currentMap) dispatch(createFeature(newFeature))
+            }
+        }
     }
 
     const moveDraw = (e) => {
         e.stopPropagation()
         e.preventDefault()
+
+        if (activeControl === 'home') return
+        if (activeControl === 'shop') return
 
         let nextX
         let nextY
@@ -216,8 +252,6 @@ const DrawLayer = (
             for (let y = yMin; y <= yMax; y++){
                 newFeature.nodes[`${x}-${y}`] = `${x}-${y}`
                 let brushNode = document.getElementById(`${x}-${y}`)
-                    // brushNode.setAttribute('is-brush', 'true')
-                    // brushNode.setAttribute('is-water', 'false')
                     brushNode.setAttribute('feature-type', 'brush')
                     }
         }
@@ -261,6 +295,9 @@ const DrawLayer = (
     const finishDraw = (e) => {
         e.stopPropagation()
         e.preventDefault()
+
+        if (activeControl === 'home' || activeControl === 'shop') return;
+
         if (drawingActive) {
             if (activeControl === 'water') {
                 let newFeature = addWaterToNodes(startX, stopX, startY, stopY)

@@ -10,6 +10,7 @@ import RoadDisplayLayer from "./RoadDisplayLayer/RoadDisplayLayer"
 import './GridArea.css'
 import EditLayer from "./EditLayer/EditLayer"
 import DeleteLayer from "./DeleteLayer/DeleteLayer"
+import StartStopDisplayLayer from "./StartStopDisplayLayer/StartStopDisplayLayer"
 
 
 const GridArea = ({
@@ -132,7 +133,14 @@ const GridArea = ({
                 nodeSize={nodeSize}
                 activeControl={activeControl}
                 currentMap={currentMap}
+                currentFeatures={currentFeatures}
 
+            />
+            <StartStopDisplayLayer
+                height={height}
+                width={width}
+                nodeSize={nodeSize}
+                currentFeatures={currentFeatures}
             />
             <PathTraceLayer
                 height={height}
