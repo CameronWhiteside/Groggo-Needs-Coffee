@@ -42,13 +42,13 @@ const MapBuilder = () => {
     const [backToWelcome, setBackToWelcome] = useState(true)
     const [deleteMapMode, setDeleteMapMode] = useState(false)
     const [clearMapMode, setClearMapMode] = useState(false)
-    const [pathfindingMode, setPathfindingMode] = useState(false)
+    const [pathfindingMode, setPathfindingMode] = useState('inactive')
     const [activeControl, setActiveControl] = useState('')
 
     const resetPath = () => {
         let nodeList = document.querySelectorAll('.line')
         nodeList.forEach(node => node.remove(`visited`))
-        setPathfindingMode(false)
+        setPathfindingMode(`inactive`)
     }
 
 

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './ControlPanel.css'
 import ModeDescription from './ModeDescription/ModeDescription'
 import visualizeDijkstra from '../Visualizer/graphAlgorithms/dijkstra'
@@ -14,20 +14,23 @@ const ControlPanel = ({
     children,
 }) => {
 
+
     const FeatureType = ({
         featureName,
         onClick,
         controlName
     }) => {
 
+
         useEffect(() => {
             if (activeControl !== 'editFeatures') {
                 let editLayer = document.getElementById('edit-layer')
                 editLayer.innerHTML=''
             }
-        },[])
+        }, [])
 
-        return (
+
+            return (
             <div onClick={onClick} className="feature-type">
                 <div className={`feature-icon ${controlName}`}>
                     <div className={`active-feature-${controlName === activeControl}`}>
@@ -38,25 +41,27 @@ const ControlPanel = ({
         )
     }
 
+
     const toggleWater = () => {
+        resetPath()
         if (activeControl === 'water') {
             setActiveControl('')
         } else {
-            resetPath()
             setActiveControl('water')
         }
     }
 
     const toggleBrush = () => {
+        resetPath()
         if (activeControl === 'brush') {
             setActiveControl('')
         } else {
-            resetPath()
             setActiveControl('brush')
         }
     }
 
     const toggleStreet = () => {
+        resetPath()
         if (activeControl === 'street') {
             setActiveControl('')
         } else {
@@ -65,16 +70,9 @@ const ControlPanel = ({
         }
     }
 
-    const toggleHighway = () => {
-        if (activeControl === 'highway') {
-            setActiveControl('')
-        } else {
-            resetPath()
-            setActiveControl('highway')
-        }
-    }
 
     const toggleEditFeatures = () => {
+        resetPath()
         if (activeControl === 'editFeatures') {
             let editLayer = document.getElementById('edit-layer')
             editLayer.innerHTML=''
@@ -86,37 +84,39 @@ const ControlPanel = ({
     }
 
     const toggleDeleteFeatures = () => {
+        resetPath()
         if (activeControl === 'deleteFeatures') {
             setActiveControl('')
         } else {
-            resetPath()
             setActiveControl('deleteFeatures')
         }
     }
 
     const toggleHome = () => {
-        if (activeControl === 'homes') {
+        resetPath()
+        if (activeControl === 'home') {
             setActiveControl('')
         } else {
-            resetPath()
             setActiveControl('home')
         }
     }
 
     const toggleShop = () => {
+        resetPath()
         if (activeControl === 'shop') {
             setActiveControl('')
         } else {
-            resetPath()
             setActiveControl('shop')
         }
     }
+
+    const [disableReclick, setDisableReclick] = useState(false)
 
 
     return (
         <div className="control-panel">
             {children}
-            <ModeDescription activeControl={activeControl}/>
+            <ModeDescription activeControl={activeControl} pathfindingMode={pathfindingMode}/>
             <div className="feature-container">
                 <div className="feature-row top-row">
                     <FeatureType
@@ -168,23 +168,47 @@ const ControlPanel = ({
             <div className="control-buttons">
                 <button onClick={activateClear}>Clear All Features</button>
                 <button onClick={activateDelete}>Delete This Map</button>
-                {!pathfindingMode ?
+                {(activeControl === 'editFeatures' || activeControl === 'deleteFeatures') ?
+                    <button
+                        className='visualize-button pathfinding-disabled'
+                        onClick={() => {
+                            if (activeControl === `editFeatures`) toggleEditFeatures()
+                            if (activeControl === `deleteFeatures`) toggleDeleteFeatures()
+                        }}
+                    >
+                        Pathfinding Disabled
+                    </button>
+                    :
+                    <>
+                        {pathfindingMode === 'inactive' && !disableReclick &&
                             <button
-                                className='visualize-button'
+                                className='visualize-button find-path'
                                 onClick={() => {
-                                    visualizeDijkstra(setPathfindingMode)
+                                    setDisableReclick(true)
+                                    visualizeDijkstra(setPathfindingMode, setDisableReclick)
                                 }}
                             >
                                 Find Path
                             </button>
-                            :
+                        }
+                        {disableReclick &&
                             <button
-                                className='visualize-button'
+                                className='visualize-button calculating'
+                                disabled
+                            >
+                                Calculating...
+                            </button>
+                        }
+                        {(pathfindingMode === 'error' || pathfindingMode === 'success') &&
+                            !disableReclick &&
+                            <button
+                                className='visualize-button reset'
                                 onClick={resetPath}
                             >
                                 Reset
                             </button>
                         }
+                    </>}
             </div>
         </div>
     )

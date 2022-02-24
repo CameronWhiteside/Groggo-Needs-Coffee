@@ -74,7 +74,14 @@ const findNodesAndPath = () => {
   let lastStep = finishNode
 
 
-    while (lastStep !== startNode) {
+  while (lastStep !== startNode) {
+    if (!lastStep || !lastStep.id) {
+      return {
+        path: null,
+        visitOrder: null,
+        travelTime: null
+      }
+    }
       path.unshift(backtrace[lastStep.id])
       lastStep = backtrace[lastStep.id]
     }
@@ -94,74 +101,20 @@ const findNodesAndPath = () => {
 
 }
 
-// export const addPathLine = (nodeA, nodeB, parentId ='path-trace-layer', className='line', thickness='4') => {
-//   let displayContainer = document.getElementById(parentId)
-//   let lineSegment = document.createElement('div')
 
-//   const getOffsetTop = element => {
-//     let offsetTop = 0;
-//     while(element) {
-//     offsetTop += element.offsetTop;
-//     element = element.offsetParent;
-//     }
-//     return offsetTop;
-// }
-
-// const getOffsetLeft = element => {
-//     let offsetLeft = 0;
-//     while(element) {
-//     offsetLeft += element.offsetLeft;
-//     element = element.offsetParent;
-//     }
-//     return offsetLeft;
-// }
-
-//   const getOffset = (el) => {
-//     // var elContainer = el.getBoundingClientRect();
-//     return {
-//       left: getOffsetLeft(el) - getOffsetLeft(displayContainer),
-//       top: getOffsetTop(el) - getOffsetTop(displayContainer),
-//       width: 18,
-//       height: 18
-//     };
-//   }
-
-//   const offsetA = getOffset(nodeA);
-//   const offsetB = getOffset(nodeB);
-//   const xCoordA = offsetA.left + (offsetA.width / 2);
-//   const yCoordA = offsetA.top - (offsetA.height / 2);
-//   const xCoordB = offsetB.left + (offsetB.width / 2);
-//   const yCoordB = offsetB.top - (offsetB.height / 2);
-//   const length = Math.sqrt(((xCoordB - xCoordA) * (xCoordB - xCoordA)) + ((yCoordB - yCoordA) * (yCoordB - yCoordA))) + 2;
-//   const centerXCoord = ((xCoordA + xCoordB) / 2) - (length / 2);
-//   const centerYCoord = ((yCoordA + yCoordB) / 2) - (thickness / 2);
-//   const angle = Math.atan2((yCoordA - yCoordB), (xCoordA - xCoordB)) * (180 / Math.PI);
-
-//   lineSegment.classList.add(className)
-//   lineSegment.classList.add('fading-effect')
-//   lineSegment.style.padding = '0px'
-//   lineSegment.style.margin= '0px'
-//   lineSegment.style.height= `${thickness}px`
-//   lineSegment.style.position= `absolute`
-//   lineSegment.style.left= `${centerXCoord}px`
-//   lineSegment.style.top= `${centerYCoord + 18}px`
-//   lineSegment.style.width= `${length}px`
-//   lineSegment.style.transform= `rotate(${angle}deg)`
-
-//   // lineSegment.style.backgroundColor= `var(--error)`
-//   // lineSegment.style.borderRadius = `2px`
-
-//   displayContainer.appendChild(lineSegment)
-// }
-
-
-const visualizeDijkstra = (setPathfindingMode) => {
+const visualizeDijkstra = (setPathfindingMode, setDisableReclick) => {
   let { visitOrder, path, travelTime } = findNodesAndPath()
+  if (!visitOrder && !path && !travelTime) {
+    setPathfindingMode('error');
+    setDisableReclick(false)
+    return;
+  }
+
   let visitCount = visitOrder.length
-  let visitAnimationLength = 2000
+  let visitAnimationLength = 2200
   let visitNodeLength = visitAnimationLength/visitCount
   let pathCount = path.length
-  let pathAnimationLength = 2200
+  let pathAnimationLength = pathCount * 15
   if (!path.length) pathAnimationLength = 0
   let drawPathLength = pathAnimationLength / (pathCount + 1)
 
@@ -180,10 +133,8 @@ const visualizeDijkstra = (setPathfindingMode) => {
 
   }
 
-  setTimeout(() => {
-    setPathfindingMode(true);
-  // }, pathAnimationLength + visitCount * 20)
-  }, pathAnimationLength + visitAnimationLength)
+
+
 
   for (let i = 0; i < path.length-1; i++) {
     let pathNode = document.getElementById(path[i].id)
@@ -192,8 +143,13 @@ const visualizeDijkstra = (setPathfindingMode) => {
       addPathLine(pathNode, prevNode)
     }, drawPathLength * i + visitAnimationLength)
     // }, drawPathLength * i + visitCount * 20)
-
   }
+
+  setTimeout(() => {
+    setPathfindingMode('success');
+    setDisableReclick(false)
+  }, pathAnimationLength + visitAnimationLength)
+
 }
 
   export default visualizeDijkstra

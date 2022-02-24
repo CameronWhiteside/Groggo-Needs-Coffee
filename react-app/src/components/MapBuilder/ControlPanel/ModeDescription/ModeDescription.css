@@ -77,7 +77,7 @@
     background-image: url('../../../../assets/control-icons/delete.svg');
     filter: drop-shadow(0 0 3px var(--error));
 }
-.icon-container.icon-pathError{
+.icon-container.icon-error{
     background-image: url('../../../../assets/control-icons/error-groggo.svg');
     filter: drop-shadow(0 0 3px var(--error));
 }
