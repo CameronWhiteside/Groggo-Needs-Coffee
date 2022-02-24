@@ -80,6 +80,11 @@
 
 .nav-buttons a.linkedin{
     width: 410px;
+    background-color: var(--brush-800);
+}
+
+.nav-buttons a.linkedin:hover{
+    background-color: var(--brush-600);
 }
 
 .name-input,

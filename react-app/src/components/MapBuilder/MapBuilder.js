@@ -68,6 +68,7 @@ const MapBuilder = () => {
         e.preventDefault()
         resetPath()
         dispatch(getMaps(sessionUser.id))
+        setActiveControl('')
         setLoadMapMode(true)
         setBackToWelcome(false)
     }
@@ -111,6 +112,7 @@ const MapBuilder = () => {
         }))
 
         dispatch(getMaps(sessionUser.id))
+        setActiveControl('')
         setCurrentMap(newMap)
         setCurrentName(newName)
     }

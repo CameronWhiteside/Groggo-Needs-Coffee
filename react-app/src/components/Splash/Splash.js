@@ -62,6 +62,16 @@ const Splash = () => {
                                 </>
                             }
                         </div>
+                        <div className="button-area description">
+
+
+                                <h5>
+                                This application was built with HTML, CSS, JavaScript, React, Python, Flask, SQLAlchemy, and PostgreSQL
+                                and created by the employement-seeking Cameron Whiteside, who would love for you to  <a href='https://github.com/CameronWhiteside/' target="_blank" rel="noreferrer noopener">connect on LinkedIn</a> or  <a href='https://github.com/CameronWhiteside/' target="_blank" rel="noreferrer noopener">visit on Github</a>.
+
+                                </h5>
+
+                        </div>
                     </div>
             </div>
               <div className="flex-child flex-50">

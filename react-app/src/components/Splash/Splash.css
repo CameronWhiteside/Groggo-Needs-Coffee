@@ -21,11 +21,21 @@
     display: flex;
     flex-direction: column;
     margin-top: 50px;
+    width: 506px;
+}
+
+.button-area.description a{
+    color: var(--accent-800);
+    font-weight: 700;
+    transition: 0.2s all ease-in-out;
+}
+
+.button-area.description a:hover{
+    color: var(--main-400);
 }
 
 
 .big-button{
-    width: 100%;
     text-align: center;
     background-color: var(--main-800);
     color: var(--light-400);
