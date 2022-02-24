@@ -195,8 +195,12 @@ const MapBuilder = () => {
                                     type='text'
                                     autoFocus={true}
                                     maxLength={18}
+                                    minLength={3}
                                     disabled={!editNameMode}
-                                    onChange={(e) => (setCurrentName(e.target.value))}
+                                            onChange={(e) => {
+                                                if (e.target.value.length > 0) {
+                                                    setCurrentName(e.target.value)
+                                                }}}
                                     value={currentName}
                                     >{currentName}</textarea>
                              </form>}
