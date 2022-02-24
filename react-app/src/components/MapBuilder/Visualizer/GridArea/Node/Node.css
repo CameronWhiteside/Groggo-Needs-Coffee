@@ -37,10 +37,6 @@
     background-size: cover;
 }
 
-/* .visited{
-    background-color: var(--light-200);
-} */
-
 
 .visited {
   animation-name: visitedAnimation;

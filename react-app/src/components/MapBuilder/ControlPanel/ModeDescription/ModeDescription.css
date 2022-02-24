@@ -82,6 +82,11 @@
     filter: drop-shadow(0 0 3px var(--error));
 }
 
+.icon-container.icon-heatMap{
+    background-image: url('../../../../assets/control-icons/heat-map-groggo.svg');
+    filter: drop-shadow(0 0 3px var(--light-400));
+}
+
 .icon-container.icon-default{
     background-image: url('../../../../assets/control-icons/deafult-groggo.svg');
 }

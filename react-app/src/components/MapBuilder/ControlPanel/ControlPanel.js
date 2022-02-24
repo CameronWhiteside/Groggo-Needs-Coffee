@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { updatePathData } from '../../../store/pathfinder'
 import './ControlPanel.css'
 import ModeDescription from './ModeDescription/ModeDescription'
 import visualizeDijkstra from '../Visualizer/graphAlgorithms/dijkstra'
@@ -13,6 +15,8 @@ const ControlPanel = ({
     setPathfindingMode,
     children,
 }) => {
+
+    const dispatch = useDispatch()
 
 
     const FeatureType = ({
@@ -184,7 +188,7 @@ const ControlPanel = ({
                                 className='visualize-button find-path'
                                 onClick={() => {
                                     setDisableReclick(true)
-                                    visualizeDijkstra(setPathfindingMode, setDisableReclick)
+                                    visualizeDijkstra(setPathfindingMode, setDisableReclick, false)
                                 }}
                             >
                                 Find Path
@@ -195,10 +199,12 @@ const ControlPanel = ({
                                 className='visualize-button calculating'
                                 disabled
                             >
-                                Calculating...
+                                Finding Path...
                             </button>
                         }
-                        {(pathfindingMode === 'error' || pathfindingMode === 'success') &&
+                        {(pathfindingMode === 'error' ||
+                            pathfindingMode === 'success' ||
+                            pathfindingMode === 'heatMap') &&
                             !disableReclick &&
                             <button
                                 className='visualize-button reset'
@@ -208,7 +214,42 @@ const ControlPanel = ({
                             </button>
                         }
                     </>}
+
+                        {pathfindingMode === 'success' &&
+                            <button
+                                className='visualize-button find-path'
+                                onClick={() => {
+                                    setDisableReclick(true)
+                                    setPathfindingMode('heatMap')
+                                    visualizeDijkstra(setPathfindingMode, setDisableReclick, true)
+                                }}
+                            >
+                                Show Heat Map
+                    </button>}
+                        {pathfindingMode === 'heatMap' &&
+                            <button
+                                className='visualize-button find-path'
+                                onClick={() => {
+                                    setDisableReclick(false)
+                                    dispatch(updatePathData({}))
+                                    setPathfindingMode('success')
+                                }}
+                            >
+                                Hide Heat Map
+                    </button>}
+
+                {(pathfindingMode !== 'heatMap' &&
+                    pathfindingMode !== 'success' &&
+                 !disableReclick) &&
                     <button onClick={activateClear}>Clear All Features</button>
+                }
+                {
+                 disableReclick &&
+                    <button
+                        className='visualize-button calculating'
+                        disabled
+                    >Building Heat Map...</button>
+                }
                 <button onClick={activateDelete}>Delete This Map</button>
             </div>
         </div>

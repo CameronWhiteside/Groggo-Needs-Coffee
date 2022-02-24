@@ -1,0 +1,5 @@
+#heat-map-layer{
+    /* background-color: hsl(255, 100%, 66%, 0.2); */
+    z-index: 2;
+    position: absolute;
+}

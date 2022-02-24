@@ -2,11 +2,11 @@
 import { useEffect } from "react"
 // import { useDispatch, useSelector } from "react-redux"
 // import { getFeatures } from "../../../../store/feature"
-
 import Node from "./Node/Node"
 import DrawLayer from './DrawLayer/DrawLayer'
 import PathTraceLayer from "./PathTraceLayer/PathTraceLayer"
 import RoadDisplayLayer from "./RoadDisplayLayer/RoadDisplayLayer"
+import HeatMapLayer from "./HeatMapLayer/HeatMapLayer"
 import './GridArea.css'
 import EditLayer from "./EditLayer/EditLayer"
 import DeleteLayer from "./DeleteLayer/DeleteLayer"
@@ -164,6 +164,11 @@ const GridArea = ({
                 nodeSize={nodeSize}
             />
             <RoadDisplayLayer
+                height={height}
+                width={width}
+                nodeSize={nodeSize}
+            />
+            <HeatMapLayer
                 height={height}
                 width={width}
                 nodeSize={nodeSize}

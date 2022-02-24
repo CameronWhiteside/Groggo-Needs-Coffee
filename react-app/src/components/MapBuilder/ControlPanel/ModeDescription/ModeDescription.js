@@ -18,6 +18,7 @@ const ModeDescription = ({ activeControl, pathfindingMode }) => {
         error: [`Groggo can't get to the coffee shop without swimming. Please ensure that neither his home nor the coffee shop are surrounded by water.`],
         default: [`Click the icons below to add features to your map. When you're ready, click on the "Find Path" button to get the shortest route to the coffee shop!`],
         success: [`Groggo got his coffee! Go team! And, oop, now he's addicted. So go ahead and make another map or edit this one. Groggo will never say no to more coffee.`],
+        heatMap: [`Woah, what was in that coffee? This visualization shows a map of travel times to all nodes visited by Dijkstra's algorithm on the way to the shop.`]
     }
 
     const titles = {
@@ -30,7 +31,8 @@ const ModeDescription = ({ activeControl, pathfindingMode }) => {
         deleteFeatures: [`Delete Mode`],
         error: [`Uh-Oh`],
         default: [`Help Groggo`],
-        success:[`Hooray!`]
+        success: [`Hooray!`],
+        heatMap: [`Heat Map`]
     }
 
     return (

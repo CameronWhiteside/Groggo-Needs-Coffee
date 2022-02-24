@@ -1,5 +1,7 @@
 import generateGraph from "../generateAdjanencyList/generateAdjancencyList";
 import { addPathLine } from "../../utils";
+import { updatePathData } from "../../../../store/pathfinder";
+import {store} from '../../../../index'
 
 class PriorityQueue {
   constructor() {
@@ -36,6 +38,7 @@ class PriorityQueue {
 }
 
 const findNodesAndPath = () => {
+
   let graph = generateGraph()
   let startNode = graph.startNode
   let finishNode = graph.finishNode
@@ -91,7 +94,9 @@ const findNodesAndPath = () => {
     visitOrder = visitOrder.slice(0, finishVisit+1)
   }
 
-  console.log({path, visitOrder, travelTime, times})
+  console.log({ path, visitOrder, travelTime, times })
+
+
   return {
     path,
     visitOrder,
@@ -102,10 +107,17 @@ const findNodesAndPath = () => {
 }
 
 
-const visualizeDijkstra = (setPathfindingMode, setDisableReclick) => {
-  let { visitOrder, path, travelTime } = findNodesAndPath()
+const visualizeDijkstra = (setPathfindingMode, setDisableReclick, heatMap = false) => {
+  let { visitOrder, path, travelTime, times } = findNodesAndPath()
   if (!visitOrder && !path && !travelTime) {
     setPathfindingMode('error');
+    setDisableReclick(false)
+    return;
+  }
+
+  if (heatMap) {
+    store.dispatch(updatePathData({ path, visitOrder, travelTime, times }))
+    setPathfindingMode('heatMap')
     setDisableReclick(false)
     return;
   }
@@ -132,8 +144,6 @@ const visualizeDijkstra = (setPathfindingMode, setDisableReclick) => {
     // }, pathAnimationLength + visitCount * 20)
 
   }
-
-
 
 
   for (let i = 0; i < path.length-1; i++) {

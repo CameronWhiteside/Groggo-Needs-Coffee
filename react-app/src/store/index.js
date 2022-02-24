@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import session from './session'
 import feature from './feature'
 import map from './map'
+import path from './pathfinder'
 
 const rootReducer = combineReducers({
   session,
   map,
-  feature
+  feature,
+  path
 });
 
 

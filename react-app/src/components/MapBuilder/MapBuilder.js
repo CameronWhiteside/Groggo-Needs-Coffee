@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch} from 'react-redux';
 import { getMaps, updateMap, removeMap, createMap } from '../../store/map';
+import { updatePathData } from '../../store/pathfinder';
 import {
     getFeatures,
     removeMapFeatures,
@@ -44,8 +45,10 @@ const MapBuilder = () => {
     const [clearMapMode, setClearMapMode] = useState(false)
     const [pathfindingMode, setPathfindingMode] = useState('inactive')
     const [activeControl, setActiveControl] = useState('')
+    const [travelTimeList, setTravelTimeList] = useState({})
 
     const resetPath = () => {
+        dispatch(updatePathData({}))
         let nodeList = document.querySelectorAll('.line')
         nodeList.forEach(node => node.remove(`visited`))
         setPathfindingMode(`inactive`)
