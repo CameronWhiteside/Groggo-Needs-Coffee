@@ -5,6 +5,8 @@
     display: flex;
 }
 
+
+
 .header-area{
     justify-content: space-between;
     align-items: flex-end;
@@ -40,6 +42,7 @@
 }
 
 .nav-buttons button,
+.nav-buttons a,
 .control-buttons button{
     background-color: var(--main-800);
     font-size: var(--h5-size);
@@ -48,11 +51,14 @@
     max-width: 100%;
     text-align: center;
     border-radius: 30px;
-    margin: 5px;
+    margin: 4px 4px;
     transition: 0.2s all ease-in-out;
+    font-weight: 400;
+
 }
 
 .nav-buttons button:hover,
+.nav-buttons a:hover,
 .control-buttons button:hover{
     background-color: var(--main-400);
 }
@@ -63,9 +69,17 @@
 
 
 
-.nav-buttons button
+.nav-buttons button,
+.nav-buttons a
 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 200px;
+}
+
+.nav-buttons a.linkedin{
+    width: 410px;
 }
 
 .name-input,
@@ -137,13 +151,14 @@
     font-weight: 700;
     height: fit-content;
     width:100%;
-    padding: 20px;
+    padding: 5px 0px 0px 5px;
     border-radius: 15px;
-    background-color: var(--accent-400);
+    /* background-color: var(--accent-400); */
     display: flex;
     justify-content: space-between;
 }
 
-/* .info-block{
+.info-block{
     margin: 0px 15px 0px 5px;
-} */
+    line-height: 22px;
+}

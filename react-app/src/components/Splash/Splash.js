@@ -50,7 +50,7 @@ const Splash = () => {
                             {userId ?
                                 <>
                                     <NavLink to='/visualizer'  className='big-button' exact={true} activeClassName='active'>Dijkstra Visualizer</NavLink>
-                                    <NavLink to='/learn' className='big-button' exact={true} activeClassName='active'>View On Github</NavLink>
+                                    <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee' className='big-button' target="_blank" rel="noreferrer noopener">View On Github</a>
                                     <LogoutButton styleLike='big-button' />
                                 </>
                                 :
@@ -58,7 +58,7 @@ const Splash = () => {
                                     <button className='big-button' onClick={demoLogin}>Demo Site</button>
                                     <button className='big-button' onClick={()=>setSignupMode(true)}>Sign Up</button>
                                     <button className='big-button' onClick={() => setLoginMode(true)}>Log In</button>
-                                    <NavLink to='/learn' className='big-button' exact={true} activeClassName='active'>View On Github</NavLink>
+                                    <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee' className='big-button' target="_blank" rel="noreferrer noopener">View On Github</a>
                                 </>
                             }
                         </div>

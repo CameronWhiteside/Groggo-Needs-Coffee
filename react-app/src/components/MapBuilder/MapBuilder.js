@@ -225,8 +225,11 @@ const MapBuilder = () => {
                                     <button onClick={createNewMap}>Create A New Map</button>
                                     </div>
                                  <div className='bottom-buttons'>
-                                    <button>View On Github</button>
+                                    <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee' target="_blank" rel="noreferrer noopener">View On Github</a>
                                     <button onClick={()=>history.push('/')}>Back To Home</button>
+                                </div>
+                                 <div className='bottom-buttons'>
+                                    <a className='linkedin' href='https://www.linkedin.com/in/cameronwhiteside/' target="_blank" rel="noreferrer noopener">Let's Connect on LinkedIn!</a>
                                 </div>
                             </div>
                         </div>
