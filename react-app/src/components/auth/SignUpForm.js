@@ -18,11 +18,13 @@ const SignUpForm = ({setSignupMode}) => {
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password));
       if (data) {
-        setErrors(data)
+        setErrors(data.map(entry => entry.split(": ")[1]))
       } else {
         setSignupMode(false)
         history.push('/visualizer')
       }
+    } else {
+      setErrors(['Passwords do not match'])
     }
   };
 
