@@ -39,29 +39,45 @@ const GridArea = ({
         let grid = []
         for (let row = 0; row < height; row++) {
             let newRow = []
+            let startTest = Object.values(currentFeatures).filter(feature => parseInt(feature.featureTypeId) === 1)
+            let stopTest = Object.values(currentFeatures).filter(feature => parseInt(feature.featureTypeId) === 2)
+            let hasStart = (startTest.length > 0)
+            let hasFinish = (stopTest.length > 0)
+
             for (let col = 0; col < width; col++) {
 
-                let
-                    isStart,
+                let isStart,
                     isFinish = false
                 let featureType = 'flat'
 
 
-                let adjacentNodes = { streets: {}, highways: {}}
+                let adjacentNodes = { streets: {}, highways: {} }
 
-                if (row === 8 && col === 8) {
-                    isStart = true
-                    featureType = 'start'
-                }
+                if (!hasStart && row === 17 && col === 9) {
+                        isStart = true
+                        featureType = 'start'
+                    }
 
-                if (row === 20 && col === 55) {
-                    isFinish = true
-                    featureType = 'finish'
-                }
+
+                if (!hasFinish && row === 17 && col === 60) {
+                        isFinish = true
+                        featureType = 'finish'
+                    }
+
 
                 for (let j = 0; j < currentFeatures.length; j++) {
                     let feature = currentFeatures[j]
-                    if (feature.nodes[`${col}-${row}`]) {
+                    if (feature.featureTypeId === 1
+                        && feature.startLatitude === row
+                        && feature.startLongitude === col
+                    ) {
+                        isStart = true
+                    } else if (feature.featureTypeId === 2
+                        && feature.startLatitude === row
+                        && feature.startLongitude === col
+                    ) {
+                        isFinish = true
+                    } else if (feature.nodes[`${col}-${row}`]) {
                         if (feature.featureTypeId === 5) {
                             featureType = 'street'
                             let lat1 = feature.startLatitude
@@ -77,10 +93,10 @@ const GridArea = ({
                                 adjacentNodes.streets[`${long1}-${lat1}`] = length
                             }
                         }
-                        else if (feature.featureTypeId === 6) {
+                        else if (feature.featureTypeId === 6 && (featureType !== 'street')) {
                             featureType = 'brush'
                         }
-                        else if (feature.featureTypeId === 7) {
+                        else if (feature.featureTypeId === 7 && (featureType !== 'street' && featureType !== 'brush' && !isStart && !isFinish)) {
                             featureType = 'water'
                         }
 
