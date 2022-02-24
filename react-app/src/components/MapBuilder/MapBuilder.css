@@ -147,22 +147,3 @@
 /* .info-block{
     margin: 0px 15px 0px 5px;
 } */
-
-.visualize-button{
-    width: 100%;
-    height: 68px;
-    padding: 15px;
-    background-color: var(--main-800);
-    border-radius: 115px;
-    text-align: center;
-    margin-top: 20px;
-    font-size: var(--h4-size);
-    /* font-weight: 700; */
-    /* font-family: var(--title-font); */
-    /* text-transform: uppercase; */
-    color: var(--accent-400);
-}
-
-.visualize-button:hover{
-    background-color: var(--main-400);
-}

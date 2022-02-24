@@ -154,3 +154,32 @@
 .cursor > span{
     text-align: center;
 }
+
+
+
+.control-buttons > button.visualize-button{
+    width: 100%;
+    border-radius: 115px;
+    text-align: center;
+    font-size: var(--h5-size);
+    color: var(--accent-400);
+    background-color: var(--main-800);
+    transition: 0.2s all ease-in-out;
+}
+
+.visualize-button.find-path:hover,
+.visualize-button.reset:hover
+{
+    background-color: var(--main-400);
+}
+
+
+.control-buttons > button.visualize-button.calculating ,
+.control-buttons > button.visualize-button.pathfinding-disabled{
+    background-color: var(--main-400);
+}
+
+.visualize-button.calculating:hover,
+.visualize-button.pathfinding-disabled:hover{
+    background-color: var(--main-800);
+}

@@ -166,8 +166,7 @@ const ControlPanel = ({
             </div>
 
             <div className="control-buttons">
-                <button onClick={activateClear}>Clear All Features</button>
-                <button onClick={activateDelete}>Delete This Map</button>
+
                 {(activeControl === 'editFeatures' || activeControl === 'deleteFeatures') ?
                     <button
                         className='visualize-button pathfinding-disabled'
@@ -209,6 +208,8 @@ const ControlPanel = ({
                             </button>
                         }
                     </>}
+                    <button onClick={activateClear}>Clear All Features</button>
+                <button onClick={activateDelete}>Delete This Map</button>
             </div>
         </div>
     )
