@@ -55,8 +55,8 @@
 }
 
 .feature-icon{
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
     margin: 2px;
     position: relative;
@@ -130,7 +130,7 @@
 }
 .feature-icon.deleteFeatures > .active-feature-true{
     border: 5px solid var(--error);
-    filter: drop-shadow(0 0 1px var(--light-error));
+    filter: drop-shadow(0 0 1px var(--error));
 }
 
 

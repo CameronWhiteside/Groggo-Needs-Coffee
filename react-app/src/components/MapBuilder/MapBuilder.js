@@ -182,6 +182,8 @@ const MapBuilder = () => {
                             currentMap={currentMap}
                             activeControl={activeControl}
                             setActiveControl={setActiveControl}
+                            pathfindingMode={pathfindingMode}
+                            setPathfindingMode={setPathfindingMode}
                             resetPath={resetPath}
                         >
                                  <div className='title-area'>
@@ -205,23 +207,6 @@ const MapBuilder = () => {
                         </div>
                     </div>
                         </ControlPanel>
-                        {!pathfindingMode ?
-                            <button
-                                className='visualize-button'
-                                onClick={() => {
-                                    visualizeDijkstra(setPathfindingMode)
-                                }}
-                            >
-                                Find Path
-                            </button>
-                            :
-                            <button
-                                className='visualize-button'
-                                onClick={resetPath}
-                            >
-                                Reset
-                            </button>
-                        }
                     </div>
                     <div className='build-right'>
                         <GridArea
@@ -232,7 +217,7 @@ const MapBuilder = () => {
                         />
                         <div className='instructions'>
                             <div className='info-block'>
-                                <Lorem chars='400' />
+                                <Lorem chars='900' />
                             </div>
                             <div className='nav-buttons'>
                                 <div className='top-buttons'>

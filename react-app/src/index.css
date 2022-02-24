@@ -91,7 +91,8 @@ button:hover{
 textarea{
     resize: none;
     text-align: center;
-    width: 100%
+    width: 100%;
+    line-height: 31px;
 }
 
 a{
@@ -155,7 +156,7 @@ a{
     position: fixed;
     width: 110vw;
     height: 110vh;
-    background-color: var(--light-800);
+    background-image: url('./assets/backgrounds/main-background.svg');
     z-index: -5;
 }
 
@@ -164,7 +165,7 @@ a{
     position: fixed;
     width: 110vw;
     height: 110vh;
-    background-color: var(--accent-800);
+    background-image: url('./assets/backgrounds/visualizer-background.svg');
     z-index: -5;
 }
 

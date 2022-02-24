@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import './ControlPanel.css'
+import ModeDescription from './ModeDescription/ModeDescription'
+import visualizeDijkstra from '../Visualizer/graphAlgorithms/dijkstra'
 
 const ControlPanel = ({
     activateClear,
@@ -7,6 +9,8 @@ const ControlPanel = ({
     activeControl,
     setActiveControl,
     resetPath,
+    pathfindingMode,
+    setPathfindingMode,
     children,
 }) => {
 
@@ -112,6 +116,7 @@ const ControlPanel = ({
     return (
         <div className="control-panel">
             {children}
+            <ModeDescription activeControl={activeControl}/>
             <div className="feature-container">
                 <div className="feature-row top-row">
                     <FeatureType
@@ -163,6 +168,23 @@ const ControlPanel = ({
             <div className="control-buttons">
                 <button onClick={activateClear}>Clear All Features</button>
                 <button onClick={activateDelete}>Delete This Map</button>
+                {!pathfindingMode ?
+                            <button
+                                className='visualize-button'
+                                onClick={() => {
+                                    visualizeDijkstra(setPathfindingMode)
+                                }}
+                            >
+                                Find Path
+                            </button>
+                            :
+                            <button
+                                className='visualize-button'
+                                onClick={resetPath}
+                            >
+                                Reset
+                            </button>
+                        }
             </div>
         </div>
     )

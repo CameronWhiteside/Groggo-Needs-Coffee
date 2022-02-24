@@ -1,0 +1,87 @@
+.mode-description{
+    width: 100%;
+    position: relative;
+    min-height: 285px;
+    max-height: 285px;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.mode-info-area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 15px;
+}
+
+.mode-title{
+    width: fit-content;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 36px;
+    font-family: var(--title-font);
+    margin: 5px 0px 0px;
+}
+
+.mode-description{
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--main)
+}
+
+
+.icon-container{
+    height: 120px;
+    width: 120px;
+
+}
+
+.mode-info-area{
+    min-height: 100px;
+    max-height: 100px;
+}
+
+.icon-container.icon-water{
+    background-image: url('../../../../assets/control-icons/water.svg');
+    filter: drop-shadow(0 0 10px var(--light-400));
+}
+.icon-container.icon-brush{
+    background-image: url('../../../../assets/control-icons/brush.svg');
+    filter: drop-shadow(0 0 3px var(--brush));
+}
+.icon-container.icon-success{
+    background-image: url('../../../../assets/control-icons/success-groggo.svg');
+}
+.icon-container.icon-home{
+    background-image: url('../../../../assets/control-icons/house.svg');
+    filter: drop-shadow(0 0 3px var(--accent-800));
+}
+.icon-container.icon-street{
+    background-image: url('../../../../assets/control-icons/street.svg');
+    filter: drop-shadow(0 0 3px var(--main-400));
+}
+
+.icon-container.icon-shop{
+    background-image: url('../../../../assets/control-icons/coffee-shop.svg');
+    filter: drop-shadow(0 0 3px var(--main-800));
+}
+.icon-container.icon-editFeatures{
+    background-image: url('../../../../assets/control-icons/edit.svg');
+    filter: drop-shadow(0 0 6px var(--light-400));
+}
+.icon-container.icon-deleteFeatures{
+    background-image: url('../../../../assets/control-icons/delete.svg');
+    filter: drop-shadow(0 0 3px var(--error));
+}
+.icon-container.icon-pathError{
+    background-image: url('../../../../assets/control-icons/error-groggo.svg');
+    filter: drop-shadow(0 0 3px var(--error));
+}
+
+.icon-container.icon-default{
+    background-image: url('../../../../assets/control-icons/deafult-groggo.svg');
+}

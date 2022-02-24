@@ -37,6 +37,7 @@ const Splash = () => {
                 signupMode={signupMode}
                 setSignupMode={setSignupMode}
             />
+        <div id='light__background'/>
         <div id="flex__container">
                 <div className="flex-child flex-50">
                     <div className="splash-nav-content">

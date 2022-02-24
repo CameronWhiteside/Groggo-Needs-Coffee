@@ -132,13 +132,21 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    color: var(--light-400);
-    font-size: var(--h5-size);
+    font-size: 17px;
+    line-height: 20px;
+    font-weight: 700;
+    height: fit-content;
+    width:100%;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--accent-400);
+    display: flex;
+    justify-content: space-between;
 }
 
-.info-block{
+/* .info-block{
     margin: 0px 15px 0px 5px;
-}
+} */
 
 .visualize-button{
     width: 100%;
