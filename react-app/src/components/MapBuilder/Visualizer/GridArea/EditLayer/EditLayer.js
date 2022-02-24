@@ -544,6 +544,56 @@ const EditLayer = (
                 newFeature['id'] = editedFeatureId
                 if(currentMap) dispatch(updateFeature(newFeature))
             }
+            if (parseInt(featureTypeId) === 1) {
+                console.log(editedFeatureId, startX, startY, stopX, stopY)
+                if (editedFeatureId === 'fakeifystart') {
+                    let newFeature = {
+                        mapId: currentMap.id,
+                        featureTypeId: 1,
+                        startLatitude: startY,
+                        stopLatitude: startY,
+                        startLongitude: startX,
+                        stopLongitude: startX
+                    }
+                    if (currentMap) dispatch(createFeature(newFeature))
+                } else {
+                    let updatedFeature = {
+                        id: editedFeatureId,
+                        mapId: currentMap.id,
+                        featureTypeId: 1,
+                        startLatitude: startY,
+                        stopLatitude: startY,
+                        startLongitude: startX,
+                        stopLongitude: startX
+                    }
+                    if(currentMap) dispatch(updateFeature(updatedFeature))
+                }
+                }
+            if (parseInt(featureTypeId) === 2) {
+                console.log(editedFeatureId, startX, startY, stopX, stopY)
+                if (editedFeatureId === 'fakeifystop') {
+                    let newFeature = {
+                        mapId: currentMap.id,
+                        featureTypeId: 2,
+                        startLatitude: startY,
+                        stopLatitude: startY,
+                        startLongitude: startX,
+                        stopLongitude: startX
+                    }
+                    if (currentMap) dispatch(createFeature(newFeature))
+                } else {
+                    let updatedFeature = {
+                        id: editedFeatureId,
+                        mapId: currentMap.id,
+                        featureTypeId: 2,
+                        startLatitude: startY,
+                        stopLatitude: startY,
+                        startLongitude: startX,
+                        stopLongitude: startX
+                    }
+                    if(currentMap) dispatch(updateFeature(updatedFeature))
+                }
+                }
         }
         drawingActive = false
     }
