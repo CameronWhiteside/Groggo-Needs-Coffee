@@ -76,13 +76,22 @@
 .handle-2{
     z-index: 19;
     position: absolute;
-    background-color: var(--brush);
-    border: 3px solid var(--brush-200);
+    height: 36px !important;
+    width: 36px !important;
+    border-radius: 50%;
 }
 
 .edit-handle{
     /* z-index: 17; */
     position: absolute;
+}
+
+.handle-1{
+    background-image: url('../../../../../assets/control-icons/house.svg');
+}
+
+.handle-2{
+    background-image: url('../../../../../assets/control-icons/coffee-shop.svg');
 }
 
 /* #edit-layer > .edit-street{

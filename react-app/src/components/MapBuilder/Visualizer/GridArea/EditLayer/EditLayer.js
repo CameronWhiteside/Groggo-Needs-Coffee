@@ -177,23 +177,23 @@ const EditLayer = (
             }
 
             if (stopX < startX) {
-                movingCorner.style.left = `${featureLeft}px`
-                if (moveX) moveX.style.left = `${featureLeft}px`
-                if(moveTogether) staticCorner.style.left = `${featureLeft}px`
+                movingCorner.style.left = `${featureLeft - nodeSize/2 * (featureTypeId <=2)}px`
+                if (moveX) moveX.style.left = `${featureLeft - nodeSize/2 * (featureTypeId <=2)}px`
+                if(moveTogether) staticCorner.style.left = `${featureLeft - nodeSize/2 * (featureTypeId <=2)}px`
             } else {
-                movingCorner.style.left = `${featureLeft + featureWidth - nodeSize}px`
-                if (moveX) moveX.style.left = `${featureLeft + featureWidth - nodeSize}px`
-                if(moveTogether) staticCorner.style.left = `${featureLeft + featureWidth - nodeSize}px`
+                movingCorner.style.left = `${featureLeft + featureWidth - nodeSize - nodeSize/2 * (featureTypeId <=2)}px`
+                if (moveX) moveX.style.left = `${featureLeft + featureWidth - nodeSize - nodeSize/2 * (featureTypeId <=2)}px`
+                if(moveTogether) staticCorner.style.left = `${featureLeft + featureWidth - nodeSize - nodeSize/2 * (featureTypeId <=2)}px`
             }
 
             if (stopY < startY) {
-                movingCorner.style.top = `${featureTop}px`
-                if (moveY) moveY.style.top = `${featureTop}px`
-                if(moveTogether) staticCorner.style.top = `${featureTop}px`
+                movingCorner.style.top = `${featureTop - nodeSize/2 * (featureTypeId <=2)}px`
+                if (moveY) moveY.style.top = `${featureTop - nodeSize/2 * (featureTypeId <=2)}px`
+                if(moveTogether) staticCorner.style.top = `${featureTop - nodeSize/2 * (featureTypeId <=2)}px`
             } else {
-                movingCorner.style.top = `${featureTop + featureHeight - nodeSize}px`
-                if (moveY) moveY.style.top = `${featureTop + featureHeight - nodeSize}px`
-                if(moveTogether) staticCorner.style.top  = `${featureTop + featureHeight - nodeSize}px`
+                movingCorner.style.top = `${featureTop + featureHeight - nodeSize - nodeSize/2 * (featureTypeId <=2)}px`
+                if (moveY) moveY.style.top = `${featureTop + featureHeight - nodeSize - nodeSize/2 * (featureTypeId <=2)}px`
+                if(moveTogether) staticCorner.style.top  = `${featureTop + featureHeight - nodeSize - nodeSize/2 * (featureTypeId <=2)}px`
             }
 
             if (featureTypeId > 5) {
@@ -242,8 +242,8 @@ const EditLayer = (
 
             let startNode = document.createElement('div');
             startNode.id = `${id}-start`;
-            startNode.style.left = `${startLongitude * nodeSize}px`;
-            startNode.style.top = `${startLatitude * nodeSize}px`;
+            startNode.style.left = `${startLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+            startNode.style.top = `${startLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
             startNode.style.width = `${nodeSize}px`;
             startNode.style.height = `${nodeSize}px`;
             startNode.classList.add(`handle-${featureTypeId}`);
@@ -253,8 +253,8 @@ const EditLayer = (
 
             let stopNode = document.createElement('div');
             stopNode.id = `${id}-stop`;
-            stopNode.style.left = `${stopLongitude * nodeSize}px`;
-            stopNode.style.top = `${stopLatitude * nodeSize}px`;
+            stopNode.style.left = `${stopLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+            stopNode.style.top = `${stopLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
             stopNode.style.width = `${nodeSize}px`;
             stopNode.style.height = `${nodeSize}px`;
             stopNode.classList.add(`handle-${featureTypeId}`);
@@ -267,8 +267,8 @@ const EditLayer = (
             if (featureTypeId > 5) {
                 let startRightNode = document.createElement('div');
                 startRightNode.id = `${id}-start-right`;
-                startRightNode.style.left = `${stopLongitude * nodeSize}px`;
-                startRightNode.style.top = `${startLatitude * nodeSize}px`;
+                startRightNode.style.left = `${stopLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+                startRightNode.style.top = `${startLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
                 startRightNode.style.width = `${nodeSize}px`;
                 startRightNode.style.height = `${nodeSize}px`;
                 startRightNode.classList.add(`handle-${featureTypeId}`);
@@ -278,8 +278,8 @@ const EditLayer = (
 
                 let stopLeftNode = document.createElement('div');
                 stopLeftNode.id = `${id}-stop-left`;
-                stopLeftNode.style.left = `${startLongitude * nodeSize}px`;
-                stopLeftNode.style.top = `${stopLatitude * nodeSize}px`;
+                stopLeftNode.style.left = `${startLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+                stopLeftNode.style.top = `${stopLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
                 stopLeftNode.style.width = `${nodeSize}px`;
                 stopLeftNode.style.height = `${nodeSize}px`;
                 stopLeftNode.classList.add(`handle-${featureTypeId}`);
@@ -297,8 +297,8 @@ const EditLayer = (
                 newFeature.style.position = 'absolute';
                 newFeature.style.width = `${(Math.abs(startLongitude - stopLongitude) + 1) * nodeSize}px`;
                 newFeature.style.height = `${(Math.abs(startLatitude - stopLatitude) + 1) * nodeSize}px`;
-                newFeature.style.left = `${startLongitude * nodeSize}px`;
-                newFeature.style.top = `${startLatitude * nodeSize}px`;
+                newFeature.style.left = `${startLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+                newFeature.style.top = `${startLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
                 newFeature.setAttribute('featureTypeId', featureTypeId);
                 if (featureTypeId === 7) newFeature.classList.add('edit-water');
                 if (featureTypeId === 6) newFeature.classList.add('edit-brush');
@@ -312,7 +312,6 @@ const EditLayer = (
 
 
         if (!hasStart) {
-            console.log(`lemme make start`)
 
             let featureTypeId = 1
             let startLatitude = 17
@@ -332,8 +331,8 @@ const EditLayer = (
 
             let startNode = document.createElement('div');
             startNode.id = `fakeifystart-start`;
-            startNode.style.left = `${startLongitude * nodeSize}px`;
-            startNode.style.top = `${startLatitude * nodeSize}px`;
+            startNode.style.left = `${startLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+            startNode.style.top = `${startLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
             startNode.style.width = `${nodeSize}px`;
             startNode.style.height = `${nodeSize}px`;
             startNode.classList.add(`handle-${featureTypeId}`);
@@ -342,8 +341,8 @@ const EditLayer = (
             startNode.addEventListener('mousedown', startEditDraw);
             let stopNode = document.createElement('div');
             stopNode.id = `fakeifystart-stop`;
-            stopNode.style.left = `${stopLongitude * nodeSize}px`;
-            stopNode.style.top = `${stopLatitude * nodeSize}px`;
+            stopNode.style.left = `${stopLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+            stopNode.style.top = `${stopLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
             stopNode.style.width = `${nodeSize}px`;
             stopNode.style.height = `${nodeSize}px`;
             stopNode.classList.add(`handle-${featureTypeId}`);
@@ -366,15 +365,15 @@ const EditLayer = (
             newFeature.style.position = 'absolute';
             newFeature.style.width = `${(Math.abs(startLongitude - stopLongitude) + 1) * nodeSize}px`;
             newFeature.style.height = `${(Math.abs(startLatitude - stopLatitude) + 1) * nodeSize}px`;
-            newFeature.style.left = `${startLongitude * nodeSize}px`;
-            newFeature.style.top = `${startLatitude * nodeSize}px`;
+            newFeature.style.left = `${startLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+            newFeature.style.top = `${startLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
             newFeature.setAttribute('featureTypeId', featureTypeId);
             editTracker.appendChild(newFeature);
 
             let startNode = document.createElement('div');
             startNode.id = `fakeifystop-start`;
-            startNode.style.left = `${startLongitude * nodeSize}px`;
-            startNode.style.top = `${startLatitude * nodeSize}px`;
+            startNode.style.left = `${startLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+            startNode.style.top = `${startLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
             startNode.style.width = `${nodeSize}px`;
             startNode.style.height = `${nodeSize}px`;
             startNode.classList.add(`handle-${featureTypeId}`);
@@ -383,8 +382,8 @@ const EditLayer = (
             startNode.addEventListener('mousedown', startEditDraw);
             let stopNode = document.createElement('div');
             stopNode.id = `fakeifystop-stop`;
-            stopNode.style.left = `${stopLongitude * nodeSize}px`;
-            stopNode.style.top = `${stopLatitude * nodeSize}px`;
+            stopNode.style.left = `${stopLongitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
+            stopNode.style.top = `${stopLatitude * nodeSize - nodeSize/2 * (featureTypeId <=2)}px`;
             stopNode.style.width = `${nodeSize}px`;
             stopNode.style.height = `${nodeSize}px`;
             stopNode.classList.add(`handle-${featureTypeId}`);
