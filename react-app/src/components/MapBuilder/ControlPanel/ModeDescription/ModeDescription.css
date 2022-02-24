@@ -71,7 +71,7 @@
 }
 .icon-container.icon-editFeatures{
     background-image: url('../../../../assets/control-icons/edit.svg');
-    filter: drop-shadow(0 0 6px var(--light-400));
+    filter: drop-shadow(0 0 6px var(--main-800));
 }
 .icon-container.icon-deleteFeatures{
     background-image: url('../../../../assets/control-icons/delete.svg');

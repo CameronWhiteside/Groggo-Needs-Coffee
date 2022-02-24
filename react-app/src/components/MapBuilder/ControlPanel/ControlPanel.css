@@ -18,8 +18,6 @@
     top: 0;
     left: 0;
     border-radius: 50%;
-    border: 5px solid var(--error);
-    filter: drop-shadow(0 0 4px var(--light-400));
 }
 
 .feature-container{
@@ -120,8 +118,8 @@
     background-image: url('../../../assets/control-icons/edit.svg');
 }
 .feature-icon.editFeatures > .active-feature-true{
-    border: 5px solid var(--light-200);
-    filter: drop-shadow(0 0 1px var(--light-200));
+    border: 5px solid var(--main-800);
+    filter: drop-shadow(0 0 1px var(--main-800));
 }
 
 
