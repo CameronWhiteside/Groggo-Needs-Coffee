@@ -21,7 +21,7 @@ const SignUpForm = ({setSignupMode}) => {
         setErrors(data.map(entry => entry.split(": ")[1]))
       } else {
         setSignupMode(false)
-        history.push('/visualizer')
+        history.push('/create')
       }
     } else {
       setErrors(['Passwords do not match'])

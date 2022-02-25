@@ -37,13 +37,12 @@ class PriorityQueue {
 
 }
 
-const findNodesAndPath = (includeHeuristic = true) => {
+const findNodesAndPath = () => {
 
   let graph = generateGraph()
   let startNode = graph.startNode
   let finishNode = graph.finishNode
   let nodes = graph.nodes
-  console.log(nodes)
   let backtrace = {}
   let pq = new PriorityQueue();
   let visitOrder = []
@@ -64,8 +63,7 @@ const findNodesAndPath = (includeHeuristic = true) => {
       // eslint-disable-next-line no-loop-func
       adjacencyList[currentNode.id].forEach(neighbor => {
         console.log(neighbor)
-        let time = times[currentNode.id] + neighbor.weight
-        // let time = times[currentNode.id] + neighbor.weight - neighbor.heuristic;
+        let time = times[currentNode.id] + neighbor.weight;
         if (time < times[neighbor.node.id]) {
           times[neighbor.node.id] = time;
           backtrace[neighbor.node.id] = currentNode
@@ -110,7 +108,7 @@ const findNodesAndPath = (includeHeuristic = true) => {
 }
 
 
-const visualizeDijkstra = (setPathfindingMode, setDisableReclick, heatMap = false) => {
+const visualizeAstar = (setPathfindingMode, setDisableReclick, heatMap = false) => {
   let { visitOrder, path, travelTime, times } = findNodesAndPath()
   if (!visitOrder && !path && !travelTime) {
     setPathfindingMode('error');
@@ -165,4 +163,4 @@ const visualizeDijkstra = (setPathfindingMode, setDisableReclick, heatMap = fals
 
 }
 
-  export default visualizeDijkstra
+  export default visualizeAstar
