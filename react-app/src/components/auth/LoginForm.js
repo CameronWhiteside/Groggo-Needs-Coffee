@@ -18,7 +18,7 @@ const LoginForm = ({setLoginMode}) => {
       setErrors(['Invalid Credentials']);
     } else {
       setLoginMode(false)
-      history.push('/create')
+      history.push('/visualizer')
     }
   };
 

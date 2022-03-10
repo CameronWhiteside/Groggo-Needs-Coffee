@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import MobileOverlay from './components/Splash/MobileOverlay';
 // import LoginForm from './components/auth/LoginForm';
 // import SignUpForm from './components/auth/SignUpForm';
 // import NavBar from './components/Navigation/Navigation';
@@ -30,6 +31,7 @@ function App() {
     <BrowserRouter>
       {/* <NavBar /> */}
       <div id='main__content'>
+      <MobileOverlay/>
       <Switch>
         <Route path='/' exact={true} >
           <Splash/>

@@ -19,7 +19,7 @@ const Splash = () => {
       e.preventDefault();
       const data = await dispatch(login(`demo@demo.com`, `password`));
       if (!data) {
-        history.push('/create')
+        history.push('/visualizer')
       }
     };
 

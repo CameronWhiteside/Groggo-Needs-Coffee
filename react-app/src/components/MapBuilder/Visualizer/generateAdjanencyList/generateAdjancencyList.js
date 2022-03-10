@@ -107,8 +107,8 @@ const generateAdjacencyList = () => {
                          let heurDifference = (otherHeurDistance - heurDistance) * 0.99
 
 
-                        if (nodeToTest.featureType === 'brush') dist *= 1.8
-                        if (newNode.featureType === 'brush') dist *= 1.8
+                        if (nodeToTest.featureType === 'brush') dist *= 1.5
+                        if (newNode.featureType === 'brush') dist *= 1.5
                         list.addEdge(newNode, nodeToTest, dist, heurDifference)
                     }
                 }
