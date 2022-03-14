@@ -1,2 +1,1 @@
-react-app/* linguist-documentation=false
-react-app/* linguist-vendored
+*.js linguist-detectable=true
