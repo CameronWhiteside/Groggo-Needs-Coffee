@@ -1,2 +1,2 @@
-* linguist-documentation=true
-* linguist-vendored
+react-app/* linguist-documentation=false
+react-app/* linguist-vendored
