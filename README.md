@@ -1,6 +1,4 @@
 <h1 align='center' style='font-weight: bold'> Groggo Needs Coffee </h1>
-<a href='groggo-needs-coffee.herokuapp.com'><h3 align='center'>Live Site</h3></a>
-<div>
 <p align='center'> Groggo, like many software engineers, needs coffee before performing tasks. Unfortunately, he's out of coffee at home and needs your help. This application provides an interface for you to create maps that include Groggo's home, the coffee shop, and any obstacles you'd like to place in between. When you click 'Find Path', the application will translate your unique map to a weighted graph with 2,000+ nodes and 15,000+ edges and use Dijkstra's algorithm to display Groggo's shortest path to coffee along with a heat map so you can visualize relative travel times to any part of your map.</p>
 </br>
 </br>
@@ -11,7 +9,7 @@
 <h1 align='center' style='font-weight: bold'> Index </h1>
 <br>
 <div align='center' style='font-weight: bold'>
- <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee/wiki/Feature-List'>Feature List</a> - <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee/wiki/Database-Schema'>DB Schema</a> - <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee/wiki/API-Documentation'>API Documentation</a> - <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee/wiki/Frontend-Routes'> Frontend Routes </a>
+  <a href='https://groggo-needs-coffee.herokuapp.com'>Live Site</a> - <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee/wiki/Feature-List'>Feature List</a> - <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee/wiki/Database-Schema'>DB Schema</a> - <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee/wiki/API-Documentation'>API Documentation</a> - <a href='https://github.com/CameronWhiteside/Groggo-Needs-Coffee/wiki/Frontend-Routes'> Frontend Routes </a>
 <br>
 </br>
 </div>
